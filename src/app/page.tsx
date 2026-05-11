@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 function ServiceCard({ service, index }: { service: any; index: number }) {
   const [isHovered, setIsHovered] = useState(false);
@@ -144,19 +145,15 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-4">
               <div className="hidden md:flex items-center gap-8">
-                <a href="#services" className="text-sm text-slate-300 hover:text-white transition-colors">Services</a>
-                <a href="#partners" className="text-sm text-slate-300 hover:text-white transition-colors">Partners</a>
-                <a href="#contact" className="text-sm text-slate-300 hover:text-white transition-colors">Contact</a>
-                <a href="https://islandhub-9itk6wkoc-rpskilli211-3018s-projects.vercel.app/" target="_blank" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
+                <Link href="/services" className="text-sm text-slate-300 hover:text-white transition-colors">Services</Link>
+                <Link href="/coops" className="text-sm text-slate-300 hover:text-white transition-colors">IBT Co-ops</Link>
+                <Link href="#partners" className="text-sm text-slate-300 hover:text-white transition-colors">Partners</Link>
+                <Link href="#contact" className="text-sm text-slate-300 hover:text-white transition-colors">Contact</Link>
+                <a href="https://islandhub.app" target="_blank" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
                   IslandHub →
                 </a>
               </div>
-              {/* Mobile menu button */}
-              <button className="md:hidden p-2 text-slate-300 hover:text-white">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              </button>
+              
             </div>
           </div>
         </div>
@@ -190,12 +187,12 @@ export default function Home() {
               From the Caribbean to the world.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="#services" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-cyan-500/25">
+              <Link href="/services" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-cyan-500/25">
                 Explore Services
-              </a>
-              <a href="#contact" className="px-8 py-4 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-all">
-                Get in Touch
-              </a>
+              </Link>
+              <Link href="/coops" className="px-8 py-4 border border-emerald-500 hover:border-emerald-400 text-emerald-400 font-medium rounded-xl transition-all">
+                IBT Co-ops →
+              </Link>
             </div>
           </div>
 
