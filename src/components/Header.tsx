@@ -34,6 +34,7 @@ export default function Header() {
 
           <nav className="hidden md:flex items-center gap-8">
             <Link href="/#services" className="text-sm text-slate-300 hover:text-white transition-colors">Services</Link>
+            <Link href="/coops" className="text-sm text-slate-300 hover:text-white transition-colors">IBT Co-ops</Link>
             <Link href="/#partners" className="text-sm text-slate-300 hover:text-white transition-colors">Partners</Link>
             <Link href="/#contact" className="text-sm text-slate-300 hover:text-white transition-colors">Contact</Link>
             <a href="https://islandhub.app" target="_blank" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
@@ -64,6 +65,7 @@ export default function Header() {
         {isOpen && (
           <nav ref={menuRef} className="md:hidden py-4 border-t border-slate-800 space-y-1 animate-in slide-in-from-top-2">
             <Link href="/#services" onClick={() => setIsOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">Services</Link>
+            <Link href="/coops" onClick={() => setIsOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">IBT Co-ops</Link>
             <Link href="/#partners" onClick={() => setIsOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">Partners</Link>
             <Link href="/#contact" onClick={() => setIsOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">Contact</Link>
             <a href="https://islandhub.app" target="_blank" className="block py-3 px-4 text-emerald-400 font-medium hover:bg-slate-800 rounded-lg">IslandHub →</a>
