@@ -104,7 +104,6 @@ export default function CoopsPage() {
             </div>
           </div>
 
-          {/* Cooperative Model Overview */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             <div className="text-center p-8 rounded-2xl bg-slate-900/50 border border-slate-800">
               <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-cyan-500/20 flex items-center justify-center text-3xl">🗳️</div>
@@ -124,45 +123,84 @@ export default function CoopsPage() {
           </div>
         </div>
 
-      {/* Phase 1 Co-ops */}
-      <section className="py-20 border-t border-slate-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Phase 1 Co-operatives</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">
-              Founding cooperatives currently forming. Be a founding member and help shape the future.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {phaseOneCoops.map((coop) => (
-              <CoopCard key={coop.title} {...coop} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Founding Members Benefits */}
-      <section className="py-20 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="inline-block px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm mb-6">
-                Founding Members
-              </span>
-              <h2 className="text-4xl font-bold text-white mb-6">Benefits of Joining Early</h2>
-              <p className="text-slate-400 mb-8">
-                Founding members get the best terms and the most influence. As we grow, 
-                these benefits remain with the founding cohort.
+        <section className="py-20 border-t border-slate-800/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Phase 1 Co-operatives</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">
+                Founding cooperatives currently forming. Be a founding member and help shape the future.
               </p>
-              <div className="space-y-4">
-                {foundingBenefits.map((benefit, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-slate-300">{benefit}</span>
-</div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {phaseOneCoops.map((coop) => (
+                <CoopCard key={coop.title} {...coop} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-slate-900/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <span className="inline-block px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm mb-6">
+                  Founding Members
+                </span>
+                <h2 className="text-4xl font-bold text-white mb-6">Benefits of Joining Early</h2>
+                <p className="text-slate-400 mb-8">
+                  Founding members get the best terms and the most influence. As we grow, 
+                  these benefits remain with the founding cohort.
+                </p>
+                <div className="space-y-4">
+                  {foundingBenefits.map((benefit, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <svg className="w-5 h-5 text-emerald-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="text-slate-300">{benefit}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-4xl font-bold text-white mb-6">Volunteer Roles</h2>
+                <p className="text-slate-400 mb-8">
+                  Help build the federation from the ground up. These volunteer positions 
+                  are the backbone of our cooperative structure.
+                </p>
+                <div className="space-y-4">
+                  {keyRoles.map((r) => (
+                    <div key={r.role} className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                      <div className="flex items-start justify-between mb-1">
+                        <h3 className="font-semibold text-white">{r.role}</h3>
+                        <span className="text-xs px-2 py-1 bg-cyan-500/20 text-cyan-400 rounded-full">{r.count}</span>
+                      </div>
+                      <p className="text-sm text-slate-400">{r.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
+            <p className="text-slate-400 mb-8">Join the movement toward democratic, community-owned business.</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/coops/get-involved" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-semibold rounded-xl transition-all">
+                Get Involved
+              </Link>
+              <Link href="/coops/how-it-works" className="px-8 py-4 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-all">
+                Learn How It Works
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
