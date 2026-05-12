@@ -3,68 +3,87 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+const services = [
+  {
+    title: 'Website Auditing',
+    description: "Comprehensive analysis of your website's SEO, performance, user experience, and conversion potential.",
+    href: '/services/audit',
+    color: 'cyan',
+  },
+  {
+    title: 'Web & App Design',
+    description: 'Custom websites and mobile applications built with modern technologies. From landing pages to full platforms.',
+    href: '/services/web-dev',
+    color: 'emerald',
+  },
+  {
+    title: 'Graphic Design',
+    description: 'Professional branding, logos, marketing materials, and print-on-demand merchandise.',
+    href: '/coops/graphic-trends',
+    color: 'violet',
+  },
+  {
+    title: 'Business Automation',
+    description: 'Streamline operations with automated workflows, API integrations, and intelligent business processes.',
+    href: '/services/business',
+    color: 'amber',
+  },
+  {
+    title: 'Gap & Pain Analysis',
+    description: 'Deep-dive consultation to identify business challenges and uncover growth opportunities.',
+    href: '/contact',
+    color: 'rose',
+  },
+  {
+    title: 'Lead Generation',
+    description: 'Data-driven strategies to identify and capture high-quality leads for your business.',
+    href: '/contact',
+    color: 'teal',
+  },
+  {
+    title: 'AI Solutions',
+    description: 'From chatbots to predictive analytics — leverage AI to transform your operations.',
+    href: '/services/ai',
+    color: 'indigo',
+  },
+  {
+    title: 'Consultation',
+    description: 'Expert guidance on digital strategy, technology decisions, and business growth.',
+    href: '/contact',
+    color: 'cyan',
+  },
+];
+
+const coops = [
+  {
+    title: 'Trades & Services',
+    desc: 'Skilled workers united',
+    href: '/coops/trades',
+    image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop',
+  },
+  {
+    title: 'Micro-Farms',
+    desc: 'Local agriculture',
+    href: '/coops/micro-farms',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop',
+  },
+  {
+    title: 'Graphic Trends',
+    desc: 'Micro-manufacturing',
+    href: '/coops/graphic-trends',
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop',
+  },
+  {
+    title: 'Storage & Logistics',
+    desc: 'Coming soon',
+    href: '#',
+    image: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&h=300&fit=crop',
+  },
+];
+
 export default function HomePage() {
   const [email, setEmail] = useState('');
   const [formStatus, setFormStatus] = useState('');
-
-  const services = [
-    {
-      title: 'Website Auditing',
-      description: 'Comprehensive analysis of your website\'s SEO, performance, user experience, and conversion potential.',
-      icon: '🔍',
-      href: '/services/audit',
-      color: 'cyan',
-    },
-    {
-      title: 'Web & App Design',
-      description: 'Custom websites and mobile applications built with modern technologies. From landing pages to full platforms.',
-      icon: '🎨',
-      href: '/services/web-dev',
-      color: 'emerald',
-    },
-    {
-      title: 'Graphic Design',
-      description: 'Professional branding, logos, marketing materials, and print-on-demand merchandise.',
-      icon: '✏️',
-      href: '/coops/graphic-trends',
-      color: 'violet',
-    },
-    {
-      title: 'Business Automation',
-      description: 'Streamline operations with automated workflows, API integrations, and intelligent business processes.',
-      icon: '⚙️',
-      href: '/services/business',
-      color: 'amber',
-    },
-    {
-      title: 'Gap & Pain Analysis',
-      description: 'Deep-dive consultation to identify business challenges and uncover growth opportunities.',
-      icon: '💡',
-      href: '/contact',
-      color: 'rose',
-    },
-    {
-      title: 'Lead Generation',
-      description: 'Data-driven strategies to identify and capture high-quality leads for your business.',
-      icon: '📈',
-      href: '/contact',
-      color: 'teal',
-    },
-    {
-      title: 'AI Solutions',
-      description: 'From chatbots to predictive analytics — leverage AI to transform your operations.',
-      icon: '🤖',
-      href: '/services/ai',
-      color: 'indigo',
-    },
-    {
-      title: 'Consultation',
-      description: 'Expert guidance on digital strategy, technology decisions, and business growth.',
-      icon: '💬',
-      href: '/contact',
-      color: 'cyan',
-    },
-  ];
 
   const stats = [
     { value: '50K+', label: 'API Requests' },
@@ -90,13 +109,13 @@ export default function HomePage() {
       </div>
 
       <div className="relative">
-        {/* Hero Section */}
         <section className="relative min-h-[90vh] flex items-center justify-center">
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1519608487953-e999c86e7555?w=1920&h=1080&fit=crop" 
-              alt="Caribbean Business"
-              className="w-full h-full object-cover opacity-20"
+              src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop&q=80" 
+              alt="Caribbean business district"
+              className="w-full h-full object-cover opacity-30"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
             />
             <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-slate-950/70 to-slate-950" />
           </div>
@@ -148,7 +167,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Services Section */}
         <section className="py-24 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -166,8 +184,10 @@ export default function HomePage() {
                   className="group p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-all hover:-translate-y-1"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <div className={`w-14 h-14 rounded-xl bg-${service.color}-500/20 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform`}>
-                    {service.icon}
+                  <div className="w-14 h-14 rounded-xl bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center mb-4 transition-colors">
+                    <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                   </div>
                   <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
                     {service.title}
@@ -191,7 +211,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* IBT Co-ops Feature */}
         <section className="py-24 bg-slate-900/50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -228,28 +247,34 @@ export default function HomePage() {
                   </svg>
                 </Link>
               </div>
-              <div className="relative">
-                <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 rounded-3xl blur-xl" />
-                <div className="relative grid grid-cols-2 gap-4">
-                  {[
-                    { icon: '🔧', title: 'Trades & Services', desc: 'Skilled workers united' },
-                    { icon: '🌱', title: 'Micro-Farms', desc: 'Local agriculture' },
-                    { icon: '🎨', title: 'Graphic Trends', desc: 'Micro-manufacturing' },
-                    { icon: '📦', title: 'Storage & Logistics', desc: 'Coming soon' },
-                  ].map((item) => (
-                    <div key={item.title} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center">
-                      <div className="text-4xl mb-3">{item.icon}</div>
-                      <h3 className="font-semibold text-white mb-1">{item.title}</h3>
-                      <p className="text-xs text-slate-400">{item.desc}</p>
+              <div className="grid grid-cols-2 gap-4">
+                {coops.map((coop) => (
+                  <Link
+                    key={coop.title}
+                    href={coop.href}
+                    className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-slate-900 border border-slate-800"
+                  >
+                    <img
+                      src={coop.image}
+                      alt={coop.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement!.style.background = 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4">
+                      <h3 className="font-semibold text-white text-sm">{coop.title}</h3>
+                      <p className="text-xs text-slate-400">{coop.desc}</p>
                     </div>
-                  ))}
-                </div>
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        {/* IslandHub Feature */}
         <section className="py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -258,7 +283,10 @@ export default function HomePage() {
                 <img 
                   src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=800&h=500&fit=crop"
                   alt="IslandHub Marketplace"
-                  className="relative rounded-2xl shadow-2xl border border-slate-800"
+                  className="relative rounded-2xl shadow-2xl border border-slate-800 w-full"
+                  onError={(e) => {
+                    e.currentTarget.style.display = 'none';
+                  }}
                 />
                 <div className="absolute -bottom-4 -right-4 px-4 py-2 bg-cyan-500 rounded-xl shadow-lg">
                   <span className="text-slate-900 font-bold text-sm">Live Marketplace</span>
@@ -302,7 +330,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* CTA Section */}
         <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
