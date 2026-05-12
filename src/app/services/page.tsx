@@ -86,19 +86,6 @@ const services: Service[] = [
     whiteLabel: true,
   },
   {
-    id: 'ai-influencer',
-    title: 'AI Digital Influencer',
-    shortTitle: 'Influencer',
-    description: 'Create AI-powered influencers with authentic Caribbean accents for marketing and social media.',
-    icon: '🎭',
-    color: 'violet',
-    gradient: 'from-violet-500 to-purple-500',
-    href: '/services/ai/influencer',
-    category: 'ai',
-    features: ['Voice Cloning', 'Multi-Platform', '24/7 Operation', 'Authentic Caribbean Accent'],
-    whiteLabel: true,
-  },
-  {
     id: 'mirofish-ai',
     title: 'MiroFish AI',
     shortTitle: 'MiroFish',
@@ -132,7 +119,7 @@ const services: Service[] = [
     icon: '🔧',
     color: 'slate',
     gradient: 'from-slate-500 to-zinc-500',
-    href: '/services/api',
+    href: '/api-services',
     category: 'business',
     features: ['API Keys', 'Usage Analytics', 'Sandbox Testing', 'Full Documentation'],
     whiteLabel: false,
@@ -233,15 +220,11 @@ export default function ServicesPage() {
 
   return (
     <div className="bg-slate-950 min-h-screen">
-      {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[128px]" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[128px]" />
       </div>
 
-      
-
-      {/* Hero Section */}
       <section className="relative pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -261,7 +244,6 @@ export default function ServicesPage() {
             </p>
           </div>
 
-          {/* Category Filter */}
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             {categories.map((cat) => (
               <button
@@ -281,7 +263,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services Grid */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -298,7 +279,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* White Label CTA */}
       <section className="py-20 border-t border-slate-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-12 text-center border border-slate-700">
@@ -309,23 +289,22 @@ export default function ServicesPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
-                href="/services/pricing" 
+                href="/contact" 
                 className="px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-medium rounded-xl transition-colors"
               >
-                View Partner Pricing
+                Contact Us
               </Link>
               <Link 
                 href="#contact" 
                 className="px-6 py-3 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-colors"
               >
-                Contact Us
+                Request Info
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
       <section id="contact" className="py-20 border-t border-slate-800">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -354,11 +333,6 @@ export default function ServicesPage() {
           </form>
         </div>
       </section>
-
-        </div>
-      </section>
-
-      
     </div>
   );
 }

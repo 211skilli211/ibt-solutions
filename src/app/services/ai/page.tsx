@@ -14,14 +14,6 @@ const aiServices = [
     href: '/services/ai/marketing',
   },
   {
-    id: 'influencer',
-    title: 'AI Digital Influencer',
-    description: 'Create AI-powered influencers with authentic Caribbean accents.',
-    icon: '🎭',
-    color: 'violet',
-    href: '/services/ai/influencer',
-  },
-  {
     id: 'mirofish',
     title: 'MiroFish AI',
     description: 'Crowd simulation and demographic analysis for events and locations.',
@@ -36,22 +28,6 @@ const aiServices = [
     icon: '🗺️',
     color: 'blue',
     href: '/services/ai/ask-maps',
-  },
-  {
-    id: 'chatbot',
-    title: 'AI Chatbot',
-    description: 'Custom AI chatbots for customer support.',
-    icon: '💬',
-    color: 'indigo',
-    href: '/services/ai/chatbot',
-  },
-  {
-    id: 'content',
-    title: 'AI Content',
-    description: 'Generate marketing content, descriptions, and copy.',
-    icon: '✍️',
-    color: 'amber',
-    href: '/services/ai/content',
   },
 ];
 
@@ -74,8 +50,8 @@ export default function AIPage() {
     setEmail('');
   };
 
-  
-
+  return (
+    <div className="bg-slate-950 min-h-screen">
       <section className="pt-32 pb-20">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <span className="inline-block px-4 py-2 rounded-full bg-violet-500/10 border border-violet-500/30 text-violet-400 text-sm mb-6">
@@ -116,7 +92,6 @@ export default function AIPage() {
         </div>
       </section>
 
-      {/* White Label */}
       <section className="py-20 border-t border-slate-800">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="bg-gradient-to-br from-violet-900/20 to-purple-900/20 rounded-3xl p-12 border border-violet-500/30">
@@ -125,7 +100,7 @@ export default function AIPage() {
               All our AI services are white-label ready. Partner with us to deliver 
               premium AI solutions under your brand. Reseller packages available.
             </p>
-            <Link href="/services/pricing" className="px-8 py-4 bg-violet-500 hover:bg-violet-400 text-white font-semibold rounded-xl">
+            <Link href="/services" className="px-8 py-4 bg-violet-500 hover:bg-violet-400 text-white font-semibold rounded-xl">
               Become a Partner
             </Link>
           </div>
@@ -142,5 +117,6 @@ export default function AIPage() {
           {formStatus && <p className="mt-4 text-emerald-400">{formStatus}</p>}
         </div>
       </section>
-
-      
+    </div>
+  );
+}
