@@ -3,122 +3,77 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-function ServiceCard({ service, index }: { service: any; index: number }) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <Link 
-      href={service.href || '#'}
-      className="group relative rounded-2xl overflow-hidden block"
-      style={{
-        animationDelay: `${index * 0.1}s`,
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <div className="absolute inset-0">
-        <img 
-          src={service.image} 
-          alt={service.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/60" />
-      </div>
-      <div className="relative p-8 h-full flex flex-col min-h-[320px]">
-        <h3 className="text-2xl font-bold text-white mb-3">{service.title}</h3>
-        <p className="text-slate-300 mb-4 flex-1">{service.description}</p>
-        <div className="flex flex-wrap gap-2">
-          {service.tags?.map((tag: string) => (
-            <span key={tag} className="px-3 py-1 text-xs rounded-full bg-white/10 text-slate-300">
-              {tag}
-            </span>
-          ))}
-        </div>
-        {service.comingSoon && (
-          <span className="absolute top-4 right-4 px-3 py-1 text-xs font-medium rounded-full bg-amber-500/20 text-amber-400">
-            Coming Soon
-          </span>
-        )}
-      </div>
-    </Link>
-  );
-}
-
-function PartnerCard({ partner }: { partner: any }) {
-  return (
-    <a
-      href={partner.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative rounded-xl overflow-hidden"
-    >
-      <img 
-        src={partner.image} 
-        alt={partner.name}
-        className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-500"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
-      <div className="absolute bottom-0 left-0 right-0 p-4">
-        <span className="text-xs text-slate-400">{partner.type}</span>
-        <h4 className="font-semibold text-white">{partner.name}</h4>
-      </div>
-    </a>
-  );
-}
-
-export default function Home() {
+export default function HomePage() {
   const [email, setEmail] = useState('');
   const [formStatus, setFormStatus] = useState('');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const services = [
     {
-      title: 'AI Digital Influencer',
-      description: 'Create AI-powered influencers with authentic Caribbean accents. Full setup including voice cloning for marketing and social media.',
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop',
-      tags: ['Voice Cloning', 'Multi-Platform', '24/7'],
+      title: 'Website Auditing',
+      description: 'Comprehensive analysis of your website\'s SEO, performance, user experience, and conversion potential.',
+      icon: '🔍',
+      href: '/services/audit',
+      color: 'cyan',
+    },
+    {
+      title: 'Web & App Design',
+      description: 'Custom websites and mobile applications built with modern technologies. From landing pages to full platforms.',
+      icon: '🎨',
+      href: '/services/web-dev',
+      color: 'emerald',
+    },
+    {
+      title: 'Graphic Design',
+      description: 'Professional branding, logos, marketing materials, and print-on-demand merchandise.',
+      icon: '✏️',
+      href: '/coops/graphic-trends',
+      color: 'violet',
+    },
+    {
+      title: 'Business Automation',
+      description: 'Streamline operations with automated workflows, API integrations, and intelligent business processes.',
+      icon: '⚙️',
+      href: '/services/business',
+      color: 'amber',
+    },
+    {
+      title: 'Gap & Pain Analysis',
+      description: 'Deep-dive consultation to identify business challenges and uncover growth opportunities.',
+      icon: '💡',
+      href: '/contact',
+      color: 'rose',
+    },
+    {
+      title: 'Lead Generation',
+      description: 'Data-driven strategies to identify and capture high-quality leads for your business.',
+      icon: '📈',
+      href: '/contact',
+      color: 'teal',
+    },
+    {
+      title: 'AI Solutions',
+      description: 'From chatbots to predictive analytics — leverage AI to transform your operations.',
+      icon: '🤖',
       href: '/services/ai',
-      comingSoon: true,
+      color: 'indigo',
     },
     {
-      title: 'Business APIs',
-      description: 'Powerful APIs for data conversion, accounting, inventory management and business automation.',
-      image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-      tags: ['Data→Spreadsheet', 'Accounting', 'Inventory'],
-      href: '/api-services',
-      comingSoon: false,
-    },
-    {
-      title: 'Regional Intel',
-      description: 'Location intelligence and geospatial analytics for Caribbean businesses and tourism.',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop',
-      tags: ['Mapping', 'Analytics', 'Tourism'],
-      href: '/geospatial',
-      comingSoon: false,
-    },
-    {
-      title: 'B2B Connectivity',
-      description: 'API integration for regional businesses and telecom partnerships.',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop',
-      tags: ['Telecom', 'Enterprise', 'Integration'],
-      href: '#',
-      comingSoon: true,
+      title: 'Consultation',
+      description: 'Expert guidance on digital strategy, technology decisions, and business growth.',
+      icon: '💬',
+      href: '/contact',
+      color: 'cyan',
     },
   ];
 
-  const partners = [
-    { name: 'IslandHub', type: 'Marketplace', image: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?w=400&h=200&fit=crop', href: 'https://islandhub-7dor6ly4p-rpskilli211-3018s-projects.vercel.app' },
-    { name: 'IBT Co-ops', type: 'Federation', image: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=200&fit=crop', href: '/coops' },
-    { name: 'Trades Co-op', type: 'Services', image: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400&h=200&fit=crop', href: '/coops/trades' },
-    { name: 'Micro-Farms', type: 'Agriculture', image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=200&fit=crop', href: '/coops/micro-farms' },
-    { name: 'Graphic Trends', type: 'Manufacturing', image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=200&fit=crop', href: '/coops/graphic-trends' },
+  const stats = [
+    { value: '50K+', label: 'API Requests' },
+    { value: '99.9%', label: 'Uptime' },
+    { value: '100+', label: 'Projects' },
   ];
 
-  const whyChooseUs = [
-    { icon: '🎯', title: 'Caribbean-First', description: 'Purpose-built for regional needs and challenges' },
-    { icon: '⚡', title: 'API-First', description: 'Modern architecture for seamless integration' },
-    { icon: '🌍', title: 'Global Reach', description: 'Serving clients across Caribbean and beyond' },
-    { icon: '💬', title: '24/7 Support', description: 'Round-the-clock technical assistance' },
+  const trustSignals = [
+    'Caribbean-Based', 'St. Kitts & Nevis', '24/7 Support', 'Fast Delivery',
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -129,293 +84,256 @@ export default function Home() {
 
   return (
     <div className="bg-slate-950">
-      {/* Animated Background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-[128px] animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[128px] animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                IBT
-              </span>
-              <span className="text-sm text-slate-500 font-medium">Solutions</span>
-            </Link>
-            
-            {/* Desktop Nav */}
-            <div className="hidden md:flex items-center gap-8">
-              <Link href="/services" className="text-sm text-slate-300 hover:text-white transition-colors">Services</Link>
-              <Link href="/coops" className="text-sm text-slate-300 hover:text-white transition-colors">IBT Co-ops</Link>
-              <Link href="#partners" className="text-sm text-slate-300 hover:text-white transition-colors">Partners</Link>
-              <Link href="#contact" className="text-sm text-slate-300 hover:text-white transition-colors">Contact</Link>
-              <a href="https://islandhub-7dor6ly4p-rpskilli211-3018s-projects.vercel.app" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-emerald-400 hover:text-emerald-300">
-                IslandHub →
-              </a>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button
-              type="button"
-              aria-label="Toggle menu"
-              aria-expanded={mobileMenuOpen}
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden min-w-[44px] min-h-[44px] p-2 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors flex items-center justify-center"
-            >
-              {mobileMenuOpen ? (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
+      <div className="relative">
+        {/* Hero Section */}
+        <section className="relative min-h-[90vh] flex items-center justify-center">
+          <div className="absolute inset-0">
+            <img 
+              src="https://images.unsplash.com/photo-1519608487953-e999c86e7555?w=1920&h=1080&fit=crop" 
+              alt="Caribbean Business"
+              className="w-full h-full object-cover opacity-20"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-950/50 via-slate-950/70 to-slate-950" />
           </div>
 
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden py-4 border-t border-slate-800 space-y-1">
-              <Link href="/services" onClick={() => setMobileMenuOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">Services</Link>
-              <Link href="/coops" onClick={() => setMobileMenuOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">IBT Co-ops</Link>
-              <Link href="#partners" onClick={() => setMobileMenuOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">Partners</Link>
-              <Link href="#contact" onClick={() => setMobileMenuOpen(false)} className="block py-3 px-4 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors">Contact</Link>
-              <a href="https://islandhub-7dor6ly4p-rpskilli211-3018s-projects.vercel.app" target="_blank" rel="noopener noreferrer" className="block py-3 px-4 text-emerald-400 font-medium hover:bg-slate-800 rounded-lg">IslandHub →</a>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm mb-8">
+              <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+              Caribbean Business Solutions
             </div>
-          )}
-        </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center pt-16">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1519608487953-e999c86e7555?w=1920&h=1080&fit=crop" 
-            alt="Caribbean Business"
-            className="w-full h-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-slate-950/30" />
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="animate-fadeIn">
-            <span className="inline-block px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-sm mb-8">
-              Intelligent Business Solutions
-            </span>
-            <h1 className="text-5xl sm:text-7xl font-bold text-white mb-6 leading-tight">
-              Powering Caribbean
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
+              Transform Your
               <br />
               <span className="bg-gradient-to-r from-cyan-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                Digital Excellence
+                Caribbean Business
               </span>
             </h1>
+
             <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
-              AI-powered tools, business APIs, and connectivity solutions for modern enterprises. 
-              From the Caribbean to the world.
+              AI-powered tools, professional services, and a growing co-operative federation — 
+              everything you need to compete in the modern economy.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Link href="/services" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-cyan-500/25">
                 Explore Services
               </Link>
-              <Link href="/coops" className="px-8 py-4 border border-emerald-500 hover:border-emerald-400 text-emerald-400 font-medium rounded-xl transition-all">
-                IBT Co-ops →
+              <Link href="/coops" className="px-8 py-4 border border-emerald-500/50 hover:border-emerald-400 text-emerald-400 font-medium rounded-xl transition-all">
+                Join IBT Co-ops
+              </Link>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-4 mb-12">
+              {trustSignals.map((signal) => (
+                <span key={signal} className="px-4 py-2 rounded-full bg-slate-800/50 border border-slate-700 text-slate-300 text-sm">
+                  {signal}
+                </span>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+              {stats.map((stat) => (
+                <div key={stat.label} className="text-center">
+                  <div className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</div>
+                  <div className="text-sm text-slate-500 mt-1">{stat.label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Services Section */}
+        <section className="py-24 relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Our Services</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto">
+                From website audits to AI integration — comprehensive solutions for modern Caribbean businesses.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {services.map((service, index) => (
+                <Link
+                  key={service.title}
+                  href={service.href}
+                  className="group p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-all hover:-translate-y-1"
+                  style={{ animationDelay: `${index * 0.05}s` }}
+                >
+                  <div className={`w-14 h-14 rounded-xl bg-${service.color}-500/20 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform`}>
+                    {service.icon}
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-sm text-slate-400">{service.description}</p>
+                </Link>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                href="/services"
+                className="inline-flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
+              >
+                View All Services
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
               </Link>
             </div>
           </div>
+        </section>
 
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-8 mt-20">
-            {[
-              { value: '50K+', label: 'API Requests' },
-              { value: '99.9%', label: 'Uptime' },
-              { value: '24/7', label: 'Support' },
-            ].map((stat, i) => (
-              <div key={i} className="text-center animate-slideUp" style={{ animationDelay: `${0.3 + i * 0.1}s` }}>
-                <div className="text-3xl sm:text-4xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-slate-500 mt-1">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-24 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Our Services</h2>
-            <p className="text-slate-400 max-w-xl mx-auto">
-              Comprehensive solutions for modern Caribbean enterprises
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {services.map((service, i) => (
-              <div key={service.title} className="animate-fadeIn" style={{ animationDelay: `${i * 0.1}s` }}>
-                <ServiceCard service={service} index={i} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Choose Us */}
-      <section className="py-24 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {whyChooseUs.map((item, i) => (
-              <div key={item.title} className="text-center p-6 animate-fadeIn" style={{ animationDelay: `${i * 0.1}s` }}>
-                <div className="text-4xl mb-4">{item.icon}</div>
-                <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-slate-400">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* IslandHub Marketplace Feature */}
-      <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left - Image */}
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 rounded-3xl blur-2xl" />
-              <img 
-                src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=800&h=600&fit=crop"
-                alt="IslandHub Marketplace"
-                className="relative rounded-2xl shadow-2xl border border-slate-800"
-              />
-              {/* Floating badge */}
-              <div className="absolute -bottom-6 -right-6 px-6 py-3 bg-cyan-500 rounded-xl shadow-lg">
-                <span className="text-slate-900 font-bold">Marketplace Live</span>
-              </div>
-            </div>
-            
-            {/* Right - Content */}
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm mb-6">
-                <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-                Featured Platform
-              </div>
-              <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-                Meet <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">IslandHub</span>
-              </h2>
-              <p className="text-lg text-slate-300 mb-8">
-                Your complete Caribbean marketplace. Buy, sell, and connect with vendors across the region. 
-                From local artisans to island-wide delivery — everything you need in one platform.
-              </p>
-              
-              {/* Features */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                {[
-                  'Vendor Stores & Listings',
-                  'Food & Grocery Delivery',
-                  'Ride & Transport Services',
-                  'Local Services & Bookings',
-                  'Auction System',
-                  'Secure Payments'
-                ].map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <svg className="w-5 h-5 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    <span className="text-slate-300 text-sm">{feature}</span>
-                  </div>
-                ))}
-              </div>
-              
-              {/* CTA */}
-              <div className="flex flex-wrap gap-4">
-                <a 
-                  href="https://islandhub-7dor6ly4p-rpskilli211-3018s-projects.vercel.app" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all hover:shadow-lg hover:shadow-cyan-500/25"
-                >
-                  Explore IslandHub →
-                </a>
-                <Link 
+        {/* IBT Co-ops Feature */}
+        <section className="py-24 bg-slate-900/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <span className="inline-block px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm mb-6">
+                  IBT Co-operative Federation
+                </span>
+                <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+                  Own Your Future.
+                  <br />
+                  <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
+                    Build Together.
+                  </span>
+                </h2>
+                <p className="text-lg text-slate-400 mb-8">
+                  Join a community of small businesses, skilled workers, and entrepreneurs united 
+                  in democratically-governed cooperatives. IBT Solutions provides the tools and 
+                  infrastructure — you own the future.
+                </p>
+                <div className="flex flex-wrap gap-4 mb-8">
+                  {['Trades & Services', 'Micro-Farms', 'Graphic Trends'].map((coop) => (
+                    <span key={coop} className="px-4 py-2 rounded-full bg-slate-800 text-slate-300 text-sm">
+                      {coop}
+                    </span>
+                  ))}
+                </div>
+                <Link
                   href="/coops"
-                  className="px-8 py-4 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-semibold rounded-xl transition-all"
                 >
-                  Join IBT Co-ops
+                  Explore IBT Co-ops
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
                 </Link>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partners Section */}
-      <section id="partners" className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Our Ecosystem</h2>
-            <p className="text-slate-400 max-w-xl mx-auto">
-              Connected platforms powering Caribbean commerce
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {partners.map((partner, i) => (
-              <div key={partner.name} className="animate-scaleIn" style={{ animationDelay: `${i * 0.05}s` }}>
-                <PartnerCard partner={partner} />
+              <div className="relative">
+                <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 rounded-3xl blur-xl" />
+                <div className="relative grid grid-cols-2 gap-4">
+                  {[
+                    { icon: '🔧', title: 'Trades & Services', desc: 'Skilled workers united' },
+                    { icon: '🌱', title: 'Micro-Farms', desc: 'Local agriculture' },
+                    { icon: '🎨', title: 'Graphic Trends', desc: 'Micro-manufacturing' },
+                    { icon: '📦', title: 'Storage & Logistics', desc: 'Coming soon' },
+                  ].map((item) => (
+                    <div key={item.title} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center">
+                      <div className="text-4xl mb-3">{item.icon}</div>
+                      <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                      <p className="text-xs text-slate-400">{item.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-24 bg-slate-900/50">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Ready to Transform?</h2>
-          <p className="text-slate-400 mb-8">
-            Let&apos;s build something extraordinary together.
-          </p>
-          <form className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onSubmit={handleSubmit}>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="flex-1 px-6 py-4 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"
-              required
-            />
-            <button type="submit" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all">
-              Submit
-            </button>
-          </form>
-          {formStatus && <p className="text-cyan-400 mt-4">{formStatus}</p>}
-        </div>
-      </section>
+        {/* IslandHub Feature */}
+        <section className="py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div className="relative order-2 lg:order-1">
+                <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 rounded-3xl blur-xl" />
+                <img 
+                  src="https://images.unsplash.com/photo-1556740758-90de374c12ad?w=800&h=500&fit=crop"
+                  alt="IslandHub Marketplace"
+                  className="relative rounded-2xl shadow-2xl border border-slate-800"
+                />
+                <div className="absolute -bottom-4 -right-4 px-4 py-2 bg-cyan-500 rounded-xl shadow-lg">
+                  <span className="text-slate-900 font-bold text-sm">Live Marketplace</span>
+                </div>
+              </div>
+              <div className="order-1 lg:order-2">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm mb-6">
+                  <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+                  Featured Platform
+                </div>
+                <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+                  Meet <span className="bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">IslandHub</span>
+                </h2>
+                <p className="text-lg text-slate-400 mb-6">
+                  The Caribbean&apos;s complete marketplace — vendor stores, food delivery, 
+                  ride services, auctions, and more, all in one platform.
+                </p>
+                <div className="grid grid-cols-2 gap-3 mb-8">
+                  {['Vendor Stores', 'Food Delivery', 'Ride Services', 'Secure Payments'].map((feature) => (
+                    <div key={feature} className="flex items-center gap-2 text-slate-300">
+                      <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      {feature}
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href="https://islandhub-7dor6ly4p-rpskilli211-3018s-projects.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all"
+                >
+                  Explore IslandHub
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">
-                IBT
-              </span>
-              <span className="text-sm text-slate-500">Solutions</span>
-            </div>
-            <div className="flex items-center gap-6 text-sm text-slate-400">
-              <Link href="/services" className="hover:text-white transition-colors">Services</Link>
-              <Link href="/coops" className="hover:text-white transition-colors">IBT Co-ops</Link>
-              <a href="https://islandhub-7dor6ly4p-rpskilli211-3018s-projects.vercel.app" target="_blank" rel="noopener noreferrer" className="hover:text-emerald-400 transition-colors">IslandHub</a>
-            </div>
-            <p className="text-slate-500 text-sm">
-              © 2026 IBT Solutions. All rights reserved.
+        {/* CTA Section */}
+        <section className="py-24 bg-gradient-to-b from-slate-950 to-slate-900">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>
+            <p className="text-slate-400 mb-8">
+              Let&apos;s discuss how IBT Solutions can help transform your business.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <Link href="/contact" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all">
+                Book Consultation
+              </Link>
+              <Link href="/portfolio" className="px-8 py-4 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-all">
+                View Portfolio
+              </Link>
+            </div>
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="flex-1 px-6 py-4 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500"
+                required
+              />
+              <button type="submit" className="px-8 py-4 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-xl transition-all">
+                Submit
+              </button>
+            </form>
+            {formStatus && <p className="text-cyan-400 mt-4">{formStatus}</p>}
           </div>
-        </div>
-      </footer>
+        </section>
+      </div>
     </div>
   );
 }

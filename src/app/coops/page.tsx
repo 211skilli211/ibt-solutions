@@ -67,32 +67,13 @@ const keyRoles = [
 
 export default function CoopsPage() {
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="min-h-screen bg-slate-950">
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[128px]" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[128px]" />
       </div>
 
-      {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">IBT</span>
-              <span className="text-sm text-slate-500 font-medium">Solutions</span>
-            </Link>
-            <div className="flex items-center gap-6">
-              <Link href="/services" className="text-sm text-slate-300 hover:text-white transition-colors">Services</Link>
-              <Link href="/coops" className="text-sm text-emerald-400 font-medium">IBT Co-ops</Link>
-              <a href="https://islandhub.app" target="_blank" className="text-sm text-slate-300 hover:text-white transition-colors">IslandHub</a>
-              <Link href="#contact" className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-900 text-sm font-medium rounded-lg transition-colors">Join</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20">
+      <div className="relative pt-8 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <span className="inline-block px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm mb-6">
@@ -286,22 +267,7 @@ export default function CoopsPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-12 border-t border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="text-xl font-bold bg-gradient-to-r from-cyan-400 to-emerald-400 bg-clip-text text-transparent">IBT</span>
-              <span className="text-sm text-slate-500">Solutions</span>
-            </div>
-            <div className="flex items-center gap-6">
-              <Link href="/coops" className="text-sm text-slate-400 hover:text-white transition-colors">IBT Co-ops</Link>
-              <a href="https://islandhub.app" target="_blank" className="text-sm text-slate-400 hover:text-white transition-colors">IslandHub</a>
-            </div>
-            <p className="text-sm text-slate-500">© 2026 IBT Solutions. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      </div>
     </div>
   );
 }
