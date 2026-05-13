@@ -2,11 +2,6 @@
 
 import Link from 'next/link';
 
-export const metadata = {
-  title: 'Portfolio | IBT Solutions',
-  description: 'Explore projects and work by IBT Solutions - from IslandHub marketplace to IBT Co-operative Federation.',
-};
-
 const aims = [
   {
     title: 'Empower Caribbean Businesses',
