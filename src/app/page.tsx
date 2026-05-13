@@ -8,49 +8,49 @@ const services = [
     title: 'Website Auditing',
     description: "Comprehensive analysis of your website's SEO, performance, user experience, and conversion potential.",
     href: '/services/audit',
-    color: 'cyan',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
   },
   {
     title: 'Web & App Design',
     description: 'Custom websites and mobile applications built with modern technologies. From landing pages to full platforms.',
     href: '/services/web-dev',
-    color: 'emerald',
+    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&h=300&fit=crop',
   },
   {
     title: 'Graphic Design',
     description: 'Professional branding, logos, marketing materials, and print-on-demand merchandise.',
     href: '/coops/graphic-trends',
-    color: 'violet',
+    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop',
   },
   {
     title: 'Business Automation',
     description: 'Streamline operations with automated workflows, API integrations, and intelligent business processes.',
     href: '/services/business',
-    color: 'amber',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
   },
   {
     title: 'Gap & Pain Analysis',
     description: 'Deep-dive consultation to identify business challenges and uncover growth opportunities.',
     href: '/contact',
-    color: 'rose',
+    image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=300&fit=crop',
   },
   {
     title: 'Lead Generation',
     description: 'Data-driven strategies to identify and capture high-quality leads for your business.',
     href: '/contact',
-    color: 'teal',
+    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=300&fit=crop',
   },
   {
     title: 'AI Solutions',
     description: 'From chatbots to predictive analytics — leverage AI to transform your operations.',
     href: '/services/ai',
-    color: 'indigo',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=300&fit=crop',
   },
   {
     title: 'Consultation',
     description: 'Expert guidance on digital strategy, technology decisions, and business growth.',
     href: '/contact',
-    color: 'cyan',
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=300&fit=crop',
   },
 ];
 
@@ -181,18 +181,26 @@ export default function HomePage() {
                 <Link
                   key={service.title}
                   href={service.href}
-                  className="group p-6 rounded-2xl bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-all hover:-translate-y-1"
+                  className="group block rounded-2xl overflow-hidden bg-slate-900/50 border border-slate-800 hover:border-slate-700 transition-all hover:-translate-y-1"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
-                  <div className="w-14 h-14 rounded-xl bg-slate-800 group-hover:bg-slate-700 flex items-center justify-center mb-4 transition-colors">
-                    <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img
+                      src={service.image}
+                      alt={service.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        e.currentTarget.parentElement!.style.background = 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)';
+                      }}
+                    />
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-sm text-slate-400">{service.description}</p>
+                  <div className="p-5">
+                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-sm text-slate-400 line-clamp-2">{service.description}</p>
+                  </div>
                 </Link>
               ))}
             </div>
@@ -315,7 +323,7 @@ export default function HomePage() {
                   ))}
                 </div>
                 <a
-                  href="https://islandhub-7dor6ly4p-rpskilli211-3018s-projects.vercel.app"
+                  href="https://islandhub-a8hkyd2ry-rpskilli211-3018s-projects.vercel.app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all"

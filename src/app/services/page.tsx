@@ -10,6 +10,7 @@ interface Service {
   shortTitle: string;
   description: string;
   icon: string;
+  image: string;
   color: string;
   gradient: string;
   href: string;
@@ -26,6 +27,7 @@ const services: Service[] = [
     shortTitle: 'Tourism',
     description: 'Caribbean-focused APIs for tourism businesses - currency exchange, events, geospatial mapping, and more.',
     icon: '🏝️',
+    image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&h=400&fit=crop',
     color: 'cyan',
     gradient: 'from-cyan-500 to-emerald-500',
     href: '/services/tourism',
@@ -39,6 +41,7 @@ const services: Service[] = [
     shortTitle: 'Business',
     description: 'Powerful APIs for data conversion, accounting, inventory management and business automation.',
     icon: '💼',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
     color: 'blue',
     gradient: 'from-blue-500 to-indigo-500',
     href: '/services/business',
@@ -52,6 +55,7 @@ const services: Service[] = [
     shortTitle: 'Audit',
     description: 'Comprehensive business scoring - SEO analysis, Google Maps profile verification, website quality audits.',
     icon: '🔍',
+    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
     color: 'amber',
     gradient: 'from-amber-500 to-orange-500',
     href: '/services/audit',
@@ -65,6 +69,7 @@ const services: Service[] = [
     shortTitle: 'Web Dev',
     description: 'Build new websites for businesses without one, or optimize and refine existing websites.',
     icon: '🌐',
+    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop',
     color: 'emerald',
     gradient: 'from-emerald-500 to-teal-500',
     href: '/services/web-dev',
@@ -78,6 +83,7 @@ const services: Service[] = [
     shortTitle: 'AI Marketing',
     description: 'AI-powered marketing campaigns, content generation, and automated outreach.',
     icon: '📢',
+    image: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop',
     color: 'rose',
     gradient: 'from-rose-500 to-pink-500',
     href: '/services/ai/marketing',
@@ -91,6 +97,7 @@ const services: Service[] = [
     shortTitle: 'MiroFish',
     description: 'AI-powered crowd simulation and demographic analysis for events and locations.',
     icon: '🐟',
+    image: 'https://images.unsplash.com/photo-1505163515351-3c8f7b4b4e4e?w=600&h=400&fit=crop',
     color: 'teal',
     gradient: 'from-teal-500 to-cyan-500',
     href: '/services/ai/mirofish',
@@ -104,6 +111,7 @@ const services: Service[] = [
     shortTitle: 'Ask Maps',
     description: 'AI-powered business Q&A using Google Maps data - find businesses, reviews, and local insights.',
     icon: '🗺️',
+    image: 'https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&h=400&fit=crop',
     color: 'indigo',
     gradient: 'from-indigo-500 to-blue-500',
     href: '/services/ai/ask-maps',
@@ -117,6 +125,7 @@ const services: Service[] = [
     shortTitle: 'API Access',
     description: 'API keys, usage statistics, sandbox testing, and full developer documentation.',
     icon: '🔧',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop',
     color: 'slate',
     gradient: 'from-slate-500 to-zinc-500',
     href: '/api-services',
@@ -146,49 +155,56 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-      <div className="absolute inset-0 bg-slate-900 rounded-3xl border border-slate-800 group-hover:border-slate-700 transition-all">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-900 rounded-3xl border border-slate-800 group-hover:border-slate-700 transition-all" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 to-slate-900 rounded-3xl border border-slate-800 group-hover:border-slate-700 transition-all">
         <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
       </div>
       
-      <div className="relative p-6 h-full flex flex-col min-h-[280px]">
-        <div className="flex items-start justify-between mb-4">
-          <div className={`w-14 h-14 rounded-2xl bg-${service.color}-500/20 flex items-center justify-center text-2xl backdrop-blur-sm`}>
-            {service.icon}
+      <div className="relative flex flex-col h-full">
+        <div className="aspect-[16/9] overflow-hidden rounded-t-3xl">
+          <img 
+            src={service.image} 
+            alt={service.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={(e) => { e.currentTarget.style.display = 'none'; }}
+          />
+        </div>
+        <div className="p-5 flex flex-col flex-1">
+          <div className="flex items-start justify-between mb-3">
+            {service.whiteLabel && (
+              <span className="px-2 py-1 text-[10px] font-medium rounded-full bg-white/10 text-slate-400 backdrop-blur-sm">
+                White Label
+              </span>
+            )}
+            {service.comingSoon && (
+              <span className="px-2 py-1 text-[10px] font-medium rounded-full bg-amber-500/20 text-amber-400 backdrop-blur-sm">
+                Coming Soon
+              </span>
+            )}
           </div>
-          {service.whiteLabel && (
-            <span className="px-2 py-1 text-[10px] font-medium rounded-full bg-white/10 text-slate-400 backdrop-blur-sm">
-              White Label
-            </span>
-          )}
-          {service.comingSoon && (
-            <span className="px-2 py-1 text-[10px] font-medium rounded-full bg-amber-500/20 text-amber-400 backdrop-blur-sm">
-              Coming Soon
-            </span>
-          )}
-        </div>
-        
-        <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
-        <p className="text-slate-400 text-sm mb-4 flex-1">{service.description}</p>
-        
-        <div className="flex flex-wrap gap-2 mb-4">
-          {service.features.slice(0, 3).map((feature) => (
-            <span key={feature} className="px-2 py-1 text-[10px] rounded-full bg-slate-800 text-slate-400">
-              {feature}
-            </span>
-          ))}
-          {service.features.length > 3 && (
-            <span className="px-2 py-1 text-[10px] rounded-full bg-slate-800 text-slate-500">
-              +{service.features.length - 3} more
-            </span>
-          )}
-        </div>
-        
-        <div className="flex items-center text-sm font-medium text-white mt-auto">
-          <span>Explore Service</span>
-          <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-          </svg>
+          
+          <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
+          <p className="text-slate-400 text-sm mb-3 flex-1">{service.description}</p>
+          
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {service.features.slice(0, 3).map((feature) => (
+              <span key={feature} className="px-2 py-0.5 text-[10px] rounded-full bg-slate-800 text-slate-400">
+                {feature}
+              </span>
+            ))}
+            {service.features.length > 3 && (
+              <span className="px-2 py-0.5 text-[10px] rounded-full bg-slate-800 text-slate-500">
+                +{service.features.length - 3}
+              </span>
+            )}
+          </div>
+          
+          <div className="flex items-center text-sm font-medium text-cyan-400 group-hover:text-cyan-300 mt-auto">
+            <span>Explore</span>
+            <svg className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
         </div>
       </div>
     </Link>
