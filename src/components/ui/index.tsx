@@ -215,9 +215,10 @@ interface BadgeProps {
   children: ReactNode;
   variant?: 'teal' | 'emerald' | 'sunset' | 'slate' | 'red';
   size?: 'sm' | 'md';
+  className?: string;
 }
 
-export function Badge({ children, variant = 'teal', size = 'sm' }: BadgeProps) {
+export function Badge({ children, variant = 'teal', size = 'sm', className = '' }: BadgeProps) {
   const variants = {
     teal: 'bg-teal-500/10 border-teal-500/20 text-teal-400',
     emerald: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
@@ -228,7 +229,7 @@ export function Badge({ children, variant = 'teal', size = 'sm' }: BadgeProps) {
   const sizes = { sm: 'px-3 py-1 text-xs', md: 'px-4 py-1.5 text-sm' };
 
   return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full border font-medium ${variants[variant]} ${sizes[size]}`}>
+    <span className={`inline-flex items-center gap-1.5 rounded-full border font-medium ${variants[variant]} ${sizes[size]} ${className}`}>
       {children}
     </span>
   );
