@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button, Section, Card, Badge, GradientText } from '@/components/ui';
+import FounderPhoto from './FounderPhoto';
 
 export const metadata = {
   title: 'N. J. Robin — Founder & Creative Technologist | IBT Solutions',
@@ -59,17 +60,7 @@ export default function FounderPage() {
           <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
             {/* Photo */}
             <div className="shrink-0">
-              <div className="w-40 h-40 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border-2 border-surface-3 flex items-center justify-center overflow-hidden">
-                <img
-                  src="/images/nj-robin.jpg"
-                  alt="N. J. Robin"
-                  className="w-full h-full object-cover"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).style.display = 'none';
-                    (e.target as HTMLImageElement).parentElement!.innerHTML = '<span class="text-6xl">👨‍💻</span>';
-                  }}
-                />
-              </div>
+              <FounderPhoto />
             </div>
 
             {/* Info */}
