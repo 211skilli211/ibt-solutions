@@ -36,7 +36,7 @@ const experience = [
     desc: 'Created 3D visualizations, architectural renderings, and spatial designs. Combined technical drafting with artistic vision for residential and commercial projects.',
   },
   {
-    title: 'Professional Painter & Construction',
+    title: 'Technical Experience',
     period: '10 Years',
     org: 'Dominica',
     desc: 'Hands-on experience in professional painting, construction, and project management. Built practical skills in materials, finishes, and structural design across residential and commercial builds.',
