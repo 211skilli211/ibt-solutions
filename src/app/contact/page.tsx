@@ -1,95 +1,102 @@
 import Link from 'next/link';
+import { Button, Section, Card, Badge } from '@/components/ui';
 import ContactForm from '@/components/ContactForm';
 import BookingForm from '@/components/BookingForm';
 
 export const metadata = {
   title: 'Contact | IBT Solutions',
-  description: 'Get in touch with IBT Solutions - business inquiries, service requests, and consultation bookings.',
+  description: 'Get in touch with IBT Solutions — business inquiries, service requests, and consultation bookings.',
 };
 
 const contactMethods = [
   {
     icon: '📧',
     label: 'Email',
-    value: 'contact@ibtsolutions.app',
-    href: 'mailto:contact@ibtsolutions.app',
+    value: 'businesstrends869@gmail.com',
+    href: 'mailto:businesstrends869@gmail.com',
+  },
+  {
+    icon: '📱',
+    label: 'Phone',
+    value: '+1 (869) 763-9919',
+    href: 'tel:+18697639919',
   },
   {
     icon: '💬',
     label: 'WhatsApp',
-    value: 'Join Community',
-    href: 'https://chat.whatsapp.com/example',
+    value: 'Chat with us',
+    href: 'https://wa.me/18697639919',
   },
   {
-    icon: '📱',
-    label: 'Telegram',
-    value: 'Join Channel',
-    href: 'https://t.me/example',
+    icon: '🏝️',
+    label: 'IBT Co-ops',
+    value: 'Join WhatsApp Community',
+    href: 'https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW',
   },
 ];
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-slate-950">
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[128px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-[128px]" />
-      </div>
-
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Get in Touch</h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            Ready to transform your business? Let&apos;s discuss how IBT Solutions can help.
+    <div className="min-h-screen bg-surface-0">
+      <Section>
+        <div className="text-center max-w-3xl mx-auto">
+          <Badge variant="teal">Get in Touch</Badge>
+          <h1 className="text-4xl sm:text-5xl font-bold text-white mt-4 mb-4">Contact Us</h1>
+          <p className="text-xl text-slate-400">
+            Ready to transform your business? Let's discuss how IBT Solutions can help.
           </p>
         </div>
+      </Section>
 
+      <Section>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Left: Contact Info + Booking */}
           <div>
-            <div className="bg-slate-900/50 rounded-2xl p-8 border border-slate-800 mb-8">
+            <Card className="p-8 mb-8">
               <h2 className="text-2xl font-bold text-white mb-6">Contact Information</h2>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {contactMethods.map((method) => (
                   <a
                     key={method.label}
                     href={method.href}
                     target={method.href.startsWith('http') ? '_blank' : '_self'}
                     rel="noopener noreferrer"
-                    className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 border border-slate-700 hover:border-slate-600 transition-colors group"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-surface-2 border border-surface-3 hover:border-teal-500/30 transition-colors group"
                   >
                     <span className="text-3xl">{method.icon}</span>
                     <div>
                       <div className="text-sm text-slate-400">{method.label}</div>
-                      <div className="text-white group-hover:text-cyan-400 transition-colors">{method.value}</div>
+                      <div className="text-white group-hover:text-teal-400 transition-colors">{method.value}</div>
                     </div>
                   </a>
                 ))}
               </div>
-            </div>
+            </Card>
 
-            <div className="bg-slate-900/50 rounded-2xl p-8 border border-slate-800">
+            <Card className="p-8">
               <h2 className="text-2xl font-bold text-white mb-4">Schedule a Consultation</h2>
               <p className="text-slate-400 mb-6">
-                Book a free 30-minute consultation to discuss your business needs and explore how we can help.
+                Book a free 30-minute consultation to discuss your business needs.
               </p>
               <BookingForm />
-            </div>
+            </Card>
           </div>
 
+          {/* Right: Contact Form */}
           <div>
-            <div className="bg-slate-900/50 rounded-2xl p-8 border border-slate-800 sticky top-24">
+            <Card className="p-8 sticky top-24">
               <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
               <ContactForm />
-            </div>
+            </Card>
           </div>
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/founder" className="text-sm text-slate-500 hover:text-slate-300 transition-colors">
-            About the founder →
+          <Link href="/founder" className="text-sm text-slate-500 hover:text-teal-400 transition-colors">
+            Meet the Founder →
           </Link>
         </div>
-      </div>
+      </Section>
     </div>
   );
 }
