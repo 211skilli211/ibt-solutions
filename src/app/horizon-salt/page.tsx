@@ -1,0 +1,159 @@
+import Link from 'next/link';
+
+export default function HorizonSaltPage() {
+  const products = [
+    {
+      id: 1,
+      name: 'Fine Sea Salt 500g',
+      price: '15.00',
+      image: 'https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=400',
+      description: 'Premium fine-grained sea salt, perfect for everyday cooking.'
+    },
+    {
+      id: 2,
+      name: 'Coarse Sea Salt 1kg',
+      price: '25.00',
+      image: 'https://images.unsplash.com/photo-1626202378726-32d78c744441?w=400',
+      description: 'Coarse-grained salt ideal for grilling and roasting.'
+    },
+    {
+      id: 3,
+      name: 'St. Kitts Salt Gift Set',
+      price: '45.00',
+      image: 'https://images.unsplash.com/photo-1549465220-1a8b9238f7e7?w=400',
+      description: 'Curated gift set with fine & coarse salt.'
+    },
+    {
+      id: 4,
+      name: 'Mineral Salt Scrub 300ml',
+      price: '35.00',
+      image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400',
+      description: 'Luxurious body scrub with Caribbean sea salt.'
+    }
+  ];
+
+  return (
+    <main className="min-h-screen bg-stone-50">
+      {/* Hero */}
+      <section className="relative bg-gradient-to-br from-teal-800 via-teal-700 to-amber-600 text-white">
+        <div className="absolute inset-0 opacity-10" style={{backgroundImage:'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")'}} />
+        <div className="relative max-w-5xl mx-auto px-6 py-24 md:py-32 text-center">
+          <p className="text-amber-300 font-semibold tracking-widest uppercase text-sm mb-4">From the Salt Ponds of St. Kitts</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">Horizon Salt Co.</h1>
+          <p className="text-xl md:text-2xl text-teal-100 max-w-2xl mx-auto mb-10">
+            Hand-harvested Caribbean sea salt — rich in minerals, sustainably sourced, and crafted with island heritage.
+          </p>
+          <a href="#products" className="inline-block bg-amber-500 hover:bg-amber-400 text-stone-900 font-bold px-8 py-4 rounded-full text-lg transition-colors">
+            Shop Now
+          </a>
+        </div>
+      </section>
+
+      {/* Story */}
+      <section className="max-w-5xl mx-auto px-6 py-20">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <p className="text-amber-600 font-semibold tracking-widest uppercase text-sm mb-3">Our Story</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-stone-800 mb-6">Born from the Sea</h2>
+            <div className="space-y-4 text-stone-600 leading-relaxed">
+              <p>
+                For generations, the salt ponds of St. Kitts have produced some of the finest sea salt in the Caribbean. What began as a small family operation has grown into Horizon Salt Co. — a brand dedicated to preserving this tradition while sharing it with the world.
+              </p>
+              <p>
+                Our salt is hand-harvested using traditional methods, allowing the Caribbean sun and wind to naturally crystallize each grain. The result is a pure, mineral-rich salt with a distinctive flavor that captures the essence of the islands.
+              </p>
+              <p>
+                Every purchase supports local St. Kitts communities and helps sustain the centuries-old salt harvesting tradition.
+              </p>
+            </div>
+          </div>
+          <div className="bg-gradient-to-br from-teal-100 to-amber-50 rounded-2xl p-8 md:p-12">
+            <div className="grid grid-cols-2 gap-6 text-center">
+              <div>
+                <p className="text-3xl font-bold text-teal-700">100%</p>
+                <p className="text-stone-500 text-sm mt-1">Natural</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-teal-700">84+</p>
+                <p className="text-stone-500 text-sm mt-1">Minerals</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-teal-700">Hand</p>
+                <p className="text-stone-500 text-sm mt-1">Harvested</p>
+              </div>
+              <div>
+                <p className="text-3xl font-bold text-teal-700">Zero</p>
+                <p className="text-stone-500 text-sm mt-1">Additives</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="bg-white py-20">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-stone-800 text-center mb-12">Why Horizon Salt?</h2>
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { icon: '🌊', title: 'Pure Origin', desc: 'Harvested from the pristine salt ponds of St. Kitts & Nevis.' },
+              { icon: '✨', title: 'Mineral Rich', desc: 'Contains 84+ naturally occurring minerals and trace elements.' },
+              { icon: '🤲', title: 'Hand Harvested', desc: 'Traditional methods passed down through generations.' },
+              { icon: '🌿', title: 'Sustainable', desc: 'Eco-friendly harvesting that respects the natural environment.' }
+            ].map((b, i) => (
+              <div key={i} className="text-center p-6 rounded-xl bg-stone-50 hover:bg-teal-50 transition-colors">
+                <span className="text-4xl">{b.icon}</span>
+                <h3 className="font-bold text-stone-800 mt-4 mb-2">{b.title}</h3>
+                <p className="text-stone-500 text-sm">{b.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Products */}
+      <section id="products" className="max-w-5xl mx-auto px-6 py-20">
+        <h2 className="text-3xl font-bold text-stone-800 text-center mb-3">Our Products</h2>
+        <p className="text-stone-500 text-center mb-12">Authentic St. Kitts sea salt, delivered to your door</p>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((p) => (
+            <div key={p.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-stone-100">
+              <div className="aspect-square bg-stone-100 overflow-hidden">
+                <img src={p.image} alt={p.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+              </div>
+              <div className="p-5">
+                <h3 className="font-bold text-stone-800 mb-1">{p.name}</h3>
+                <p className="text-stone-500 text-sm mb-3">{p.description}</p>
+                <div className="flex items-center justify-between">
+                  <span className="text-xl font-bold text-teal-700">${p.price} <span className="text-sm font-normal text-stone-400">XCD</span></span>
+                  <a href={`https://islandhub.vercel.app/store/horizon-salt`} className="bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors">
+                    View
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="text-center mt-10">
+          <a href="https://islandhub.vercel.app/store/horizon-salt" className="inline-block bg-teal-700 hover:bg-teal-600 text-white font-bold px-8 py-4 rounded-full text-lg transition-colors">
+            Visit Full Store on IslandHub →
+          </a>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-stone-900 text-stone-400 py-12">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <p className="text-2xl font-bold text-white mb-2">Horizon Salt Co.</p>
+          <p className="text-sm mb-6">From the salt ponds of St. Kitts to your table</p>
+          <div className="flex justify-center gap-6 text-sm">
+            <Link href="/" className="hover:text-white transition-colors">IBT Solutions</Link>
+            <a href="https://islandhub.vercel.app/store/horizon-salt" className="hover:text-white transition-colors">IslandHub Store</a>
+            <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
+          </div>
+          <p className="text-xs mt-8 text-stone-600">© 2026 Horizon Salt Co. — A division of IBT Solutions. St. Kitts & Nevis.</p>
+        </div>
+      </footer>
+    </main>
+  );
+}
