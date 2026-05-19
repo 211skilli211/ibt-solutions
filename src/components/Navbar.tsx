@@ -16,6 +16,7 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -31,6 +32,18 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
 
+  useEffect(() => {
+    fetch('/api/site-settings')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data && Array.isArray(data)) {
+          const logo = data.find((s: any) => s.setting_key === 'ibt_logo_url');
+          if (logo?.setting_value) setLogoUrl(logo.setting_value);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <>
       <header
@@ -44,9 +57,13 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2 group">
-              <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent transition-transform group-hover:scale-105">
-                IBT
-              </span>
+              {logoUrl ? (
+                <img src={logoUrl} alt="IBT Solutions" className="h-8 md:h-10 w-auto object-contain" />
+              ) : (
+                <span className="text-2xl font-bold bg-gradient-to-r from-teal-400 to-emerald-400 bg-clip-text text-transparent transition-transform group-hover:scale-105">
+                  IBT
+                </span>
+              )}
               <span className="text-sm text-slate-500 font-medium hidden sm:block">Solutions</span>
             </Link>
 
