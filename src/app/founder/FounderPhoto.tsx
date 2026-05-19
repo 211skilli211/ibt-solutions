@@ -1,11 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+const API_URL = process.env.NEXT_PUBLIC_ISLANDHUB_API_URL || 'https://islandhub.onrender.com';
 
 export default function FounderPhoto() {
   const [hasError, setHasError] = useState(false);
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (hasError) {
+  useEffect(() => {
+    const fetchPhoto = async () => {
+      try {
+        const res = await fetch(`${API_URL}/api/site-settings`);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            const founderSetting = data.find((s: any) => s.setting_key === 'founder_photo_url');
+            if (founderSetting?.setting_value) {
+              setPhotoUrl(founderSetting.setting_value);
+              setLoading(false);
+              return;
+            }
+          }
+        }
+      } catch {
+        // silent fail — use fallback
+      }
+      setLoading(false);
+    };
+    fetchPhoto();
+  }, []);
+
+  if (hasError || (!photoUrl && !loading)) {
     return (
       <div className="w-40 h-40 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border-2 border-surface-3 flex items-center justify-center overflow-hidden">
         <span className="text-6xl">👨‍💻</span>
@@ -15,12 +42,16 @@ export default function FounderPhoto() {
 
   return (
     <div className="w-40 h-40 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border-2 border-surface-3 flex items-center justify-center overflow-hidden">
-      <img
-        src="/images/nj-robin.jpg"
-        alt="N. J. Robin"
-        className="w-full h-full object-cover"
-        onError={() => setHasError(true)}
-      />
+      {loading ? (
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
+      ) : (
+        <img
+          src={photoUrl || '/images/nj-robin.jpg'}
+          alt="N. J. Robin"
+          className="w-full h-full object-cover"
+          onError={() => setHasError(true)}
+        />
+      )}
     </div>
   );
 }
