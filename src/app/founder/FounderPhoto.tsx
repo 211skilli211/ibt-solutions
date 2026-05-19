@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 
-const API_URL = process.env.NEXT_PUBLIC_ISLANDHUB_API_URL || 'https://islandhub.onrender.com';
-
 export default function FounderPhoto() {
   const [hasError, setHasError] = useState(false);
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
@@ -12,7 +10,7 @@ export default function FounderPhoto() {
   useEffect(() => {
     const fetchPhoto = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/site-settings`);
+        const res = await fetch('/api/site-settings');
         if (res.ok) {
           const data = await res.json();
           if (Array.isArray(data)) {

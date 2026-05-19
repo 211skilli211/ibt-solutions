@@ -1,8 +1,32 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge } from '@/components/ui';
+
+interface HeroData {
+  asset_url: string;
+  asset_type: string;
+  overlay_color: string;
+  overlay_opacity: number;
+  title: string;
+  subtitle: string;
+  cta_text: string;
+  cta_link: string;
+  cta2_text: string;
+  cta2_link: string;
+  icon_url: string;
+  layout_template: string;
+  style_config: any;
+}
+
+async function fetchHero(pageKey: string): Promise<HeroData | null> {
+  try {
+    const res = await fetch(`/api/hero-assets/${pageKey}`, { next: { revalidate: 60 } });
+    if (res.ok) return await res.json();
+  } catch {}
+  return null;
+}
 
 const services = [
   {
@@ -71,8 +95,13 @@ const stats = [
 const trustSignals = ['Caribbean-Based', 'St. Kitts & Nevis', '24/7 Support', 'Fast Delivery'];
 
 export default function HomePage() {
+  const [hero, setHero] = useState<HeroData | null>(null);
   const [email, setEmail] = useState('');
   const [formStatus, setFormStatus] = useState('');
+
+  useEffect(() => {
+    fetchHero('ibt-home').then(setHero);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,25 +109,45 @@ export default function HomePage() {
     setEmail('');
   };
 
+  // Use hero data from API, with fallbacks
+  const heroBg = hero?.asset_url || 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop&q=80';
+  const heroTitle = hero?.title || 'Transform Your';
+  const heroGradient = hero?.subtitle?.split(' ')[0] || 'Caribbean';
+  const heroSubtitle = hero?.subtitle || 'AI-powered tools, professional services, and a growing co-operative federation — everything you need to compete in the modern economy.';
+  const heroCta1 = hero?.cta_text || 'Explore Services';
+  const heroCta1Link = hero?.cta_link || '/services';
+  const heroCta2 = hero?.cta2_text || 'Join IBT Co-ops';
+  const heroCta2Link = hero?.cta2_link || '/coops';
+
   return (
     <div className="bg-surface-0">
-      {/* ─── Background Glow ─── */}
+      {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/8 rounded-full blur-[128px] animate-pulse-glow" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/8 rounded-full blur-[128px] animate-pulse-glow" style={{ animationDelay: '1.5s' }} />
       </div>
 
       <div className="relative">
-        {/* ─── Hero ─── */}
+        {/* Hero */}
         <section className="relative min-h-[90vh] flex items-center justify-center">
-          {/* Background image */}
           <div className="absolute inset-0">
-            <img
-              src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop&q=80"
-              alt="Caribbean business"
-              className="w-full h-full object-cover opacity-20"
-              onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-            />
+            {hero?.asset_type === 'video' ? (
+              <video
+                src={heroBg}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-cover opacity-20"
+              />
+            ) : (
+              <img
+                src={heroBg}
+                alt="Caribbean business"
+                className="w-full h-full object-cover opacity-20"
+                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
           </div>
 
@@ -109,19 +158,18 @@ export default function HomePage() {
             </Badge>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight animate-fade-in">
-              Transform Your
+              {heroTitle}
               <br />
-              <GradientText>Caribbean Business</GradientText>
+              <GradientText>{heroGradient}</GradientText>
             </h1>
 
             <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 animate-slide-up">
-              AI-powered tools, professional services, and a growing co-operative federation —
-              everything you need to compete in the modern economy.
+              {heroSubtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-slide-up">
-              <Button href="/services" size="lg">Explore Services</Button>
-              <Button href="/coops" variant="outline" size="lg">Join IBT Co-ops</Button>
+              <Button href={heroCta1Link} size="lg">{heroCta1}</Button>
+              <Button href={heroCta2Link} variant="outline" size="lg">{heroCta2}</Button>
             </div>
 
             <div className="flex flex-wrap justify-center gap-3 mb-12">
@@ -140,20 +188,18 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ─── Services ─── */}
+        {/* Services */}
         <Section>
           <SectionHeader
             badge="What We Offer"
             title="Our Services"
             subtitle="From website audits to AI integration — comprehensive solutions for modern Caribbean businesses."
           />
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger">
             {services.map((service) => (
               <ServiceCard key={service.title} {...service} />
             ))}
           </div>
-
           <div className="text-center mt-12">
             <Button href="/services" variant="ghost" size="lg">
               View All Services →
@@ -161,7 +207,7 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* ─── IBT Co-ops ─── */}
+        {/* IBT Co-ops */}
         <Section className="bg-surface-1/50">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -185,7 +231,6 @@ export default function HomePage() {
               </div>
               <Button href="/coops" size="lg">Explore IBT Co-ops →</Button>
             </div>
-
             <div className="grid grid-cols-2 gap-4">
               {coops.map((coop) => (
                 <Link
@@ -210,7 +255,7 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* ─── IslandHub ─── */}
+        {/* IslandHub */}
         <Section>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="relative order-2 lg:order-1">
@@ -225,7 +270,6 @@ export default function HomePage() {
                 <span className="text-ocean-900 font-bold text-sm">Live Marketplace</span>
               </div>
             </div>
-
             <div className="order-1 lg:order-2">
               <Badge variant="teal" className="mb-6">
                 <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-pulse" />
@@ -249,7 +293,7 @@ export default function HomePage() {
                 ))}
               </div>
               <a
-                href="https://islandhub-a8hkyd2ry-rpskilli211-3018s-projects.vercel.app"
+                href="https://islandhub.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-teal-500 hover:bg-teal-400 text-ocean-900 font-semibold rounded-xl transition-all shadow-lg shadow-teal-500/20"
@@ -263,7 +307,7 @@ export default function HomePage() {
           </div>
         </Section>
 
-        {/* ─── CTA ─── */}
+        {/* CTA */}
         <Section className="bg-gradient-to-b from-surface-0 to-surface-1/50">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to Get Started?</h2>

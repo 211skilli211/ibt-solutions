@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Button, Section, SectionHeader, Card, Badge, GradientText, Input } from '@/components/ui';
 import { submitServiceInquiry } from '@/lib/api';
 
+import PageHero from '@/components/PageHero';
+
 // ─── Data ───
 const services = [
   { id: 'tourism-apis', title: 'Tourism APIs', description: 'One subscription for all Caribbean Tourism APIs — currency exchange free, events, places, weather, transport, marine, geospatial.', icon: '🏝️', image: 'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=600&h=400&fit=crop', href: '/services/tourism', category: 'tourism', features: ['Currency Exchange FREE', 'Events & Places', 'Weather & Marine', 'Transport & Geospatial'], whiteLabel: true },
@@ -44,17 +46,19 @@ export default function ServicesPage() {
 
   return (
     <div className="bg-surface-0">
-      {/* Hero */}
-      <Section>
-        <div className="text-center max-w-3xl mx-auto">
-          <Badge variant="teal">Our Services</Badge>
-          <h1 className="text-4xl sm:text-6xl font-bold text-white mt-4 mb-6">
-            Solutions for <GradientText>Modern Business</GradientText>
-          </h1>
-          <p className="text-xl text-slate-400 mb-8">
-            From Tourism APIs to AI-powered solutions — comprehensive tools designed specifically for Caribbean businesses. White-label ready for partners and resellers.
-          </p>
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+      <PageHero
+        pageKey="ibt-services"
+        fallback={{
+          badge: 'Our Services',
+          title: 'Solutions for',
+          titleGradient: 'Modern Business',
+          subtitle: 'From Tourism APIs to AI-powered solutions — comprehensive tools designed specifically for Caribbean businesses. White-label ready for partners and resellers.',
+          bgImage: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop&q=80',
+        }}
+      />
+
+      {/* Category Filter */}
+      <Section className="pt-0">
             {categories.map((cat) => (
               <button
                 key={cat.id}
