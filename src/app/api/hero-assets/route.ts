@@ -1,13 +1,13 @@
 import { NextResponse } from 'next/server';
 import { sql } from '@/lib/db';
 
-const ASSET_BASE = (process.env.ASSET_BASE_URL || '').replace(/\/$/, '');
+const ASSET_BASE = 'https://islandhub.onrender.com';
 
 function resolveUrl(url: string | null | undefined): string | null {
   if (!url) return null;
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
-  if (ASSET_BASE && url.startsWith('/')) return `${ASSET_BASE}${url}`;
-  return url;
+  if (url.startsWith('/')) return `${ASSET_BASE}${url}`;
+  return `${ASSET_BASE}/${url}`;
 }
 
 export async function GET() {
