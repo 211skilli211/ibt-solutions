@@ -59,6 +59,7 @@ export default function ServicesPage() {
 
       {/* Category Filter */}
       <Section className="pt-0">
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
             {categories.map((cat) => (
               <button
                 key={cat.id}
@@ -72,7 +73,6 @@ export default function ServicesPage() {
                 {cat.label}
               </button>
             ))}
-          </div>
         </div>
       </Section>
 
