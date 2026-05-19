@@ -9,12 +9,12 @@ export async function POST() {
       return NextResponse.json({ message: 'Salt Pond store already exists', store_id: existing[0].store_id });
     }
 
-    // Create vendor record (vendors table uses business_name, not store_name)
-    const vendor = await sql`
-      INSERT INTO vendors (user_id, business_name, contact_email, is_verified, status, created_at)
-      VALUES (2, 'St. Kitts Salt Pond', 'info@saltpond.kn', true, 'active', NOW())
-      RETURNING id
-    `;
+    // Use Billy's existing vendor record (user_id=2, vendor_id from IBT Solutions)
+    // One vendor can have multiple stores
+    const vendor = await sql`SELECT id FROM vendors WHERE user_id = 2 LIMIT 1`;
+    if (vendor.length === 0) {
+      return NextResponse.json({ error: 'No vendor found for user_id 2' }, { status: 400 });
+    }
     const vendorId = vendor[0].id;
 
     // Create store
