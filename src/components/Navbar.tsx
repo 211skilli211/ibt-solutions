@@ -8,6 +8,7 @@ import { Button } from '@/components/ui';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
+  { href: '/horizon-salt', label: 'Horizon Salt' },
   { href: '/coops', label: 'IBT Co-ops' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/contact', label: 'Contact' },
@@ -83,7 +84,7 @@ export default function Navbar() {
                 </Link>
               ))}
               <a
-                href="https://islandhub.app"
+                href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm font-medium text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1"
@@ -141,7 +142,7 @@ export default function Navbar() {
                   </Link>
                 ))}
                 <a
-                  href="https://islandhub.app"
+                  href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-between py-3 px-4 text-base font-medium text-emerald-400 hover:bg-emerald-500/10 rounded-xl transition-colors border border-emerald-500/30 bg-emerald-500/5"

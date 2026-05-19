@@ -126,7 +126,7 @@ export default function HorizonSaltPage() {
                 <p className="text-stone-500 text-sm mb-3">{p.description}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xl font-bold text-teal-700">${p.price} <span className="text-sm font-normal text-stone-400">XCD</span></span>
-                  <a href={`https://islandhub.vercel.app/store/horizon-salt`} className="bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors">
+                  <a href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app/store/horizon-salt" className="bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors">
                     View
                   </a>
                 </div>
@@ -135,7 +135,7 @@ export default function HorizonSaltPage() {
           ))}
         </div>
         <div className="text-center mt-10">
-          <a href="https://islandhub.vercel.app/store/horizon-salt" className="inline-block bg-teal-700 hover:bg-teal-600 text-white font-bold px-8 py-4 rounded-full text-lg transition-colors">
+          <a href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app/store/horizon-salt" className="inline-block bg-teal-700 hover:bg-teal-600 text-white font-bold px-8 py-4 rounded-full text-lg transition-colors">
             Visit Full Store on IslandHub →
           </a>
         </div>
@@ -148,7 +148,7 @@ export default function HorizonSaltPage() {
           <p className="text-sm mb-6">From the salt ponds of St. Kitts to your table</p>
           <div className="flex justify-center gap-6 text-sm">
             <Link href="/" className="hover:text-white transition-colors">IBT Solutions</Link>
-            <a href="https://islandhub.vercel.app/store/horizon-salt" className="hover:text-white transition-colors">IslandHub Store</a>
+            <a href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app/store/horizon-salt" className="hover:text-white transition-colors">IslandHub Store</a>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
           <p className="text-xs mt-8 text-stone-600">© 2026 Horizon Salt Co. — A division of IBT Solutions. St. Kitts & Nevis.</p>
