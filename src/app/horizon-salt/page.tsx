@@ -1,36 +1,22 @@
 import Link from 'next/link';
 
-export default function HorizonSaltPage() {
-  const products = [
-    {
-      id: 1,
-      name: 'Fine Sea Salt 500g',
-      price: '15.00',
-      image: 'https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=400',
-      description: 'Premium fine-grained sea salt, perfect for everyday cooking.'
-    },
-    {
-      id: 2,
-      name: 'Coarse Sea Salt 1kg',
-      price: '25.00',
-      image: 'https://images.unsplash.com/photo-1626202378726-32d78c744441?w=400',
-      description: 'Coarse-grained salt ideal for grilling and roasting.'
-    },
-    {
-      id: 3,
-      name: 'St. Kitts Salt Gift Set',
-      price: '45.00',
-      image: 'https://images.unsplash.com/photo-1549465220-1a8b9238f7e7?w=400',
-      description: 'Curated gift set with fine & coarse salt.'
-    },
-    {
-      id: 4,
-      name: 'Mineral Salt Scrub 300ml',
-      price: '35.00',
-      image: 'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=400',
-      description: 'Luxurious body scrub with Caribbean sea salt.'
-    }
-  ];
+const API_BASE = 'https://islandhub.onrender.com';
+
+async function getProducts() {
+  try {
+    const res = await fetch(`${API_BASE}/api/listings?store_id=46&limit=20`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.listings || data || [];
+  } catch {
+    return [];
+  }
+}
+
+export default async function HorizonSaltPage() {
+  const products = await getProducts();
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -115,27 +101,39 @@ export default function HorizonSaltPage() {
       <section id="products" className="max-w-5xl mx-auto px-6 py-20">
         <h2 className="text-3xl font-bold text-stone-800 text-center mb-3">Our Products</h2>
         <p className="text-stone-500 text-center mb-12">Authentic St. Kitts sea salt, delivered to your door</p>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
-            <div key={p.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-stone-100">
-              <div className="aspect-square bg-stone-100 overflow-hidden">
-                <img src={p.image} alt={p.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
-              </div>
-              <div className="p-5">
-                <h3 className="font-bold text-stone-800 mb-1">{p.name}</h3>
-                <p className="text-stone-500 text-sm mb-3">{p.description}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold text-teal-700">${p.price} <span className="text-sm font-normal text-stone-400">XCD</span></span>
-                  <a href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app/store/horizon-salt" className="bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors">
-                    View
-                  </a>
+
+        {products.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-stone-400 text-lg">Products coming soon...</p>
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {products.map((p: any) => {
+              const img = p.images?.[0] || p.photos?.[0] || 'https://images.unsplash.com/photo-1518110925495-5fe2fda0442c?w=400';
+              const price = typeof p.price === 'string' ? parseFloat(p.price) : (p.price || 0);
+              return (
+                <div key={p.id} className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden border border-stone-100">
+                  <div className="aspect-square bg-stone-100 overflow-hidden">
+                    <img src={img} alt={p.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold text-stone-800 mb-1">{p.title}</h3>
+                    <p className="text-stone-500 text-sm mb-3">{p.description || ''}</p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-xl font-bold text-teal-700">${price.toFixed(2)} <span className="text-sm font-normal text-stone-400">XCD</span></span>
+                      <a href={`${API_BASE}/store/horizon-salt`} className="bg-teal-600 hover:bg-teal-500 text-white text-sm font-semibold px-4 py-2 rounded-full transition-colors">
+                        View
+                      </a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
-        </div>
+              );
+            })}
+          </div>
+        )}
+
         <div className="text-center mt-10">
-          <a href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app/store/horizon-salt" className="inline-block bg-teal-700 hover:bg-teal-600 text-white font-bold px-8 py-4 rounded-full text-lg transition-colors">
+          <a href={`${API_BASE}/store/horizon-salt`} className="inline-block bg-teal-700 hover:bg-teal-600 text-white font-bold px-8 py-4 rounded-full text-lg transition-colors">
             Visit Full Store on IslandHub →
           </a>
         </div>
@@ -148,7 +146,7 @@ export default function HorizonSaltPage() {
           <p className="text-sm mb-6">From the salt ponds of St. Kitts to your table</p>
           <div className="flex justify-center gap-6 text-sm">
             <Link href="/" className="hover:text-white transition-colors">IBT Solutions</Link>
-            <a href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app/store/horizon-salt" className="hover:text-white transition-colors">IslandHub Store</a>
+            <a href={`${API_BASE}/store/horizon-salt`} className="hover:text-white transition-colors">IslandHub Store</a>
             <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
           <p className="text-xs mt-8 text-stone-600">© 2026 Horizon Salt Co. — A division of IBT Solutions. St. Kitts & Nevis.</p>
