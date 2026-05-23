@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge } from '@/components/ui';
+import { motion } from 'framer-motion';
+import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/animations';
+import ParticleField from '@/components/shaders/ParticleField';
 
 interface HeroData {
   asset_url: string;
@@ -129,77 +132,73 @@ export default function HomePage() {
 
       <div className="relative">
         {/* Hero */}
-        <section className="relative min-h-[90vh] flex items-center justify-center">
-          <div className="absolute inset-0">
-            {hero?.asset_type === 'video' ? (
-              <video
-                src={heroBg}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full h-full object-cover opacity-20"
-              />
-            ) : (
-              <img
-                src={heroBg}
-                alt="Caribbean business"
-                className="w-full h-full object-cover opacity-20"
-                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
+        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+          {/* Animated particle background */}
+          <div className="absolute inset-0 z-0">
+            <ParticleField count={100} color="#06b6d4" speed={0.3} size={1.5} />
           </div>
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-0/60 via-surface-0/40 to-surface-0 z-[1]" />
 
-          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-            <Badge variant="teal" className="mb-6">
-              <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-pulse" />
-              Caribbean Business Solutions
-            </Badge>
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <Badge variant="teal" className="mb-6">
+                <span className="w-1.5 h-1.5 bg-teal-400 rounded-full animate-pulse" />
+                Caribbean Business Solutions
+              </Badge>
+            </motion.div>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight animate-fade-in">
+            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
+              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
               {heroTitle}
               <br />
               <GradientText>{heroGradient}</GradientText>
-            </h1>
+            </motion.h1>
 
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 animate-slide-up">
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
+              className="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
               {heroSubtitle}
-            </p>
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-slide-up">
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.45 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button href={heroCta1Link} size="lg">{heroCta1}</Button>
               <Button href={heroCta2Link} variant="outline" size="lg">{heroCta2}</Button>
-            </div>
+            </motion.div>
 
-            <div className="flex flex-wrap justify-center gap-3 mb-12">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.6 }}
+              className="flex flex-wrap justify-center gap-3 mb-12">
               {trustSignals.map((signal) => (
                 <span key={signal} className="px-4 py-2 rounded-full bg-surface-1/80 border border-surface-3 text-slate-300 text-sm">
                   {signal}
                 </span>
               ))}
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.75 }}
+              className="grid grid-cols-3 gap-8 max-w-lg mx-auto">
               {stats.map((stat) => (
                 <Stat key={stat.label} value={stat.value} label={stat.label} />
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* Services */}
         <Section>
-          <SectionHeader
-            badge="What We Offer"
-            title="Our Services"
-            subtitle="From website audits to AI integration — comprehensive solutions for modern Caribbean businesses."
-          />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger">
+          <ScrollReveal>
+            <SectionHeader
+              badge="What We Offer"
+              title="Our Services"
+              subtitle="From website audits to AI integration — comprehensive solutions for modern Caribbean businesses."
+            />
+          </ScrollReveal>
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger">
             {services.map((service) => (
-              <ServiceCard key={service.title} {...service} />
+              <StaggerItem key={service.title}>
+                <ServiceCard {...service} />
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
           <div className="text-center mt-12">
             <Button href="/services" variant="ghost" size="lg">
               View All Services →
