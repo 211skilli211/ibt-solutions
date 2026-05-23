@@ -13,7 +13,7 @@ const footerLinks = {
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/founder', label: 'Founder' },
     { href: '/contact', label: 'Contact' },
-    { href: '/horizon-salt', label: 'Horizon Salt' },
+    { href: '/partners', label: 'Partners' },
   ],
   coops: [
     { href: '/coops', label: 'IBT Co-ops' },

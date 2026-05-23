@@ -8,7 +8,7 @@ import { Button } from '@/components/ui';
 const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
-  { href: '/horizon-salt', label: 'Horizon Salt' },
+  { href: '/partners', label: 'Partners' },
   { href: '/coops', label: 'IBT Co-ops' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/contact', label: 'Contact' },
