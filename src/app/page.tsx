@@ -111,9 +111,9 @@ export default function HomePage() {
 
   // Use hero data from API, with fallbacks
   const heroBg = hero?.asset_url || 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop&q=80';
-  const heroTitle = hero?.title || 'Transform Your';
-  const heroGradient = hero?.subtitle?.split(' ')[0] || 'Caribbean';
-  const heroSubtitle = hero?.subtitle || 'AI-powered tools, professional services, and a growing co-operative federation — everything you need to compete in the modern economy.';
+  const heroTitle = hero?.title || 'Upgrade Your Business';
+  const heroGradient = hero?.subtitle?.split(' ')[0] || 'Agentic Services';
+  const heroSubtitle = hero?.subtitle || 'Agentic tools, professional services, and a growing co-operative federation — everything you need to compete in the modern economy.';
   const heroCta1 = hero?.cta_text || 'Explore Services';
   const heroCta1Link = hero?.cta_link || '/services';
   const heroCta2 = hero?.cta2_text || 'Join IBT Co-ops';

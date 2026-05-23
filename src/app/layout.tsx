@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "IBT Solutions | Caribbean Business Platform",
-  description: "AI-powered business solutions, APIs, and IBT Co-operative Federation for Caribbean enterprises",
+  description: "Agentic business solutions, APIs, and IBT Co-operative Federation for Caribbean enterprises",
   icons: {
     icon: '/favicon.ico',
   },
