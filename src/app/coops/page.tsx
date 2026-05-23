@@ -233,6 +233,207 @@ export default function CoopsPage() {
             </div>
           </div>
         </section>
+
+        {/* ═══ IBT COOPERATIVE ECOSYSTEM ═══ */}
+        <section className="py-24 relative overflow-hidden">
+          {/* Background accents */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent" />
+          <div className="absolute top-20 right-0 w-72 h-72 bg-emerald-500/5 rounded-full blur-[100px]" />
+          <div className="absolute bottom-20 left-0 w-72 h-72 bg-cyan-500/5 rounded-full blur-[100px]" />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="text-center mb-20">
+              <span className="inline-block px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm mb-6">
+                The Cooperative Ecosystem
+              </span>
+              <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
+                The IBT Cooperative
+                <br />
+                <span className="bg-gradient-to-r from-amber-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">
+                  Ecosystem
+                </span>
+              </h2>
+              <p className="text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                A comprehensive framework for democratic ownership, shared prosperity, and Caribbean self-reliance — 
+                rooted in St. Kitts & Nevis law and built for the communities we serve.
+              </p>
+            </div>
+
+            {/* Legal Framework */}
+            <div className="mb-20">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-2xl">⚖️</div>
+                <h3 className="text-2xl font-bold text-white">Legal Framework</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/30 transition-colors">
+                  <h4 className="text-lg font-bold text-emerald-400 mb-3">St. Kitts & Nevis Co-operative Societies Act 2011</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                    All IBT co-operatives are registered under the Co-operative Societies Act 2011 (No. 10 of 2011), 
+                    which governs the formation, regulation, and operation of co-operatives in St. Kitts & Nevis. 
+                    This legislation provides the legal foundation for democratic member-owned enterprises.
+                  </p>
+                  <ul className="space-y-2 text-sm text-slate-400">
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-1">▸</span>
+                      Registration with the Registrar of Co-operative Societies
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-1">▸</span>
+                      By-laws drafted and approved by founding members
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-1">▸</span>
+                      Annual general meetings with full member participation
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-400 mt-1">▸</span>
+                      Compliance with reserve fund requirements
+                    </li>
+                  </ul>
+                </div>
+                <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-500/30 transition-colors">
+                  <h4 className="text-lg font-bold text-cyan-400 mb-3">St. Kitts & Nevis Chamber of Commerce</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                    The SKCCU (St. Kitts & Nevis Chamber of Commerce, Industry, and Consumer Unity) has demonstrated 
+                    the viability of the cooperative model locally. In 2023, SKCCU distributed a notable 6% dividend 
+                    to its members — proof that member-owned enterprises can deliver real returns.
+                  </p>
+                  <div className="p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/20">
+                    <p className="text-cyan-300 text-sm font-medium">
+                      "The cooperative model isn't theoretical in St. Kitts & Nevis — it's delivering measurable returns 
+                      to real people. IBT Solutions exists to scale that success."
+                    </p>
+                    <p className="text-slate-500 text-xs mt-2">— IBT Solutions Cooperative Development Team</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Compensation System */}
+            <div className="mb-20">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-2xl">💰</div>
+                <h3 className="text-2xl font-bold text-white">Compensation System</h3>
+              </div>
+              <p className="text-slate-400 max-w-3xl mb-8">
+                Members earn through a three-tier compensation model designed to reward both labor and participation. 
+                This system ensures fair compensation while building long-term member wealth.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="p-6 rounded-2xl bg-gradient-to-b from-amber-900/20 to-slate-900 border border-amber-500/20 hover:border-amber-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-xl mb-4">1</div>
+                  <h4 className="text-lg font-bold text-amber-400 mb-2">Wages & Service Fees</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                    Members who provide labor or services to the cooperative are paid competitive rates. 
+                    The current minimum wage benchmark in St. Kitts & Nevis is EC$500/week — IBT co-operatives 
+                    compensate above this baseline.
+                  </p>
+                  <div className="px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                    <span className="text-amber-300 text-xs font-bold">Benchmark: EC$500/week minimum</span>
+                  </div>
+                </div>
+                <div className="p-6 rounded-2xl bg-gradient-to-b from-emerald-900/20 to-slate-900 border border-emerald-500/20 hover:border-emerald-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-xl mb-4">2</div>
+                  <h4 className="text-lg font-bold text-emerald-400 mb-2">Patronage Dividends</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                    Annual profits are returned to members proportional to their participation and patronage. 
+                    Unlike shareholder dividends based on capital invested, patronage dividends reward members 
+                    who actively use and contribute to the cooperative.
+                  </p>
+                  <div className="px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
+                    <span className="text-emerald-300 text-xs font-bold">SKCCU paid 6% dividend to members (2023)</span>
+                  </div>
+                </div>
+                <div className="p-6 rounded-2xl bg-gradient-to-b from-cyan-900/20 to-slate-900 border border-cyan-500/20 hover:border-cyan-500/40 transition-colors">
+                  <div className="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center text-xl mb-4">3</div>
+                  <h4 className="text-lg font-bold text-cyan-400 mb-2">IBT Points System</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed mb-4">
+                    A parallel loyalty and contribution tracking system. Members earn IBT Points for participation, 
+                    referrals, and milestone achievements. Points unlock tiered benefits, priority access, 
+                    and governance weight within the federation.
+                  </p>
+                  <div className="px-3 py-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20">
+                    <span className="text-cyan-300 text-xs font-bold">Participation → Points → Privileges</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Island Context */}
+            <div className="mb-20">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center text-2xl">🏝️</div>
+                <h3 className="text-2xl font-bold text-white">Built for St. Kitts & Nevis</h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+                  <span className="text-3xl mb-3 block">🧂</span>
+                  <h4 className="font-bold text-white text-sm mb-1">Sea Moss & Salt</h4>
+                  <p className="text-slate-500 text-xs">Frigate Bay salt ponds and sea moss cultivation as coop products</p>
+                </div>
+                <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+                  <span className="text-3xl mb-3 block">🎭</span>
+                  <h4 className="font-bold text-white text-sm mb-1">Carnival Economy</h4>
+                  <p className="text-slate-500 text-xs">Event services, costumes, and hospitality through co-op structures</p>
+                </div>
+                <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+                  <span className="text-3xl mb-3 block">⛰️</span>
+                  <h4 className="font-bold text-white text-sm mb-1">Mt. Liamuiga</h4>
+                  <p className="text-slate-500 text-xs">Tours, farming, and eco-tourism cooperatives serving the mountain region</p>
+                </div>
+                <div className="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 text-center">
+                  <span className="text-3xl mb-3 block">⚓</span>
+                  <h4 className="font-bold text-white text-sm mb-1">Frigate Bay</h4>
+                  <p className="text-slate-500 text-xs">Marine charters, watersports, and coastal commerce cooperatives</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Governance Timeline */}
+            <div className="mb-20">
+              <div className="flex items-center gap-4 mb-8">
+                <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-2xl">🗳️</div>
+                <h3 className="text-2xl font-bold text-white">Path to Independence</h3>
+              </div>
+              <div className="space-y-4">
+                {[
+                  { phase: 'Phase 1 — Foundation', desc: 'IBT Solutions provides infrastructure, training, and seed funding. Founding members draft by-laws and register under the Act.', active: true },
+                  { phase: 'Phase 2 — Growth', desc: 'Co-operatives begin operations, build revenue, and recruit members. IBT gradually reduces direct involvement.', active: false },
+                  { phase: 'Phase 3 — Self-Governance', desc: 'Elected boards take full operational control. IBT transitions to advisory role only.', active: false },
+                  { phase: 'Phase 4 — Federation', desc: 'Independent co-operatives join the IBT Federation for shared services, purchasing power, and mutual support.', active: false },
+                ].map((item, i) => (
+                  <div key={i} className={`flex items-start gap-4 p-5 rounded-2xl border transition-colors ${item.active ? 'bg-emerald-500/5 border-emerald-500/30' : 'bg-slate-900/50 border-slate-800'}`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${item.active ? 'bg-emerald-500 text-white' : 'bg-slate-800 text-slate-500'}`}>
+                      {item.active ? '✓' : i + 1}
+                    </div>
+                    <div>
+                      <h4 className={`font-bold ${item.active ? 'text-emerald-400' : 'text-white'}`}>{item.phase}</h4>
+                      <p className="text-slate-400 text-sm mt-1">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Key Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-20">
+              {[
+                { value: '2011', label: 'Co-operative Societies Act', sub: 'Legal foundation' },
+                { value: '6%', label: 'SKCCU Dividend (2023)', sub: 'Proven model' },
+                { value: '$500', label: 'Weekly Minimum (EC$)', sub: 'Compensation baseline' },
+                { value: '100%', label: 'Member Ownership', sub: 'Democratic governance' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center p-6 rounded-2xl bg-slate-900/80 border border-slate-800">
+                  <div className="text-2xl font-black text-emerald-400 mb-1">{stat.value}</div>
+                  <div className="text-xs font-bold text-white mb-1">{stat.label}</div>
+                  <div className="text-[10px] text-slate-500 uppercase tracking-wider">{stat.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );
