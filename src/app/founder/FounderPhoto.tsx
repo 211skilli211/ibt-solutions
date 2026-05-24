@@ -30,6 +30,12 @@ export default function FounderPhoto() {
     fetchPhoto();
   }, []);
 
+  // Resolve URL: route /uploads/ filenames through IslandHub media API
+  // because Render disk is ephemeral and files disappear on redeploy
+  const resolvedUrl = photoUrl?.startsWith('/uploads/')
+    ? `https://islandhub.onrender.com/api/media/file/${photoUrl.replace('/uploads/', '')}`
+    : photoUrl || '/images/nj-robin.jpg';
+
   if (hasError || (!photoUrl && !loading)) {
     return (
       <div className="w-40 h-40 md:w-48 md:h-48 rounded-2xl bg-gradient-to-br from-teal-500/20 to-emerald-500/20 border-2 border-surface-3 flex items-center justify-center overflow-hidden">
@@ -44,7 +50,7 @@ export default function FounderPhoto() {
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-teal-500" />
       ) : (
         <img
-          src={photoUrl || '/images/nj-robin.jpg'}
+          src={resolvedUrl}
           alt="N. J. Robin"
           className="w-full h-full object-cover"
           onError={() => setHasError(true)}

@@ -6,6 +6,11 @@ const ASSET_BASE = 'https://islandhub.onrender.com';
 function resolveUrl(url: string | null | undefined): string | null {
   if (!url) return null;
   if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) return url;
+  // Route /uploads/ filenames through the media file API for DB-stored files
+  if (url.startsWith('/uploads/')) {
+    const filename = url.replace('/uploads/', '');
+    return `${ASSET_BASE}/api/media/file/${filename}`;
+  }
   if (url.startsWith('/')) return `${ASSET_BASE}${url}`;
   return `${ASSET_BASE}/${url}`;
 }
