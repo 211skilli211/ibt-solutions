@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { submitServiceInquiry } from '@/lib/api';
+import AdminServiceHero from '@/components/AdminServiceHero';
 
 const businessAPIs = [
   {
@@ -70,26 +71,38 @@ export default function BusinessPage() {
 
   return (
     <div className="bg-slate-950 min-h-screen">
-      <section className="pt-32 pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="inline-block px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm mb-6">
-              Business APIs
-            </span>
-            <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6">
-              Automate Your
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">
-                Business Operations
-              </span>
-            </h1>
-            <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-              Powerful APIs for data conversion, accounting, inventory management and business automation. 
-              Built for small Caribbean businesses.
-            </p>
-          </div>
-        </div>
-      </section>
+      <AdminServiceHero
+        pageKey="ibt-services-business"
+        fallback={{
+          badge: 'Business APIs',
+          badgeVariant: 'emerald',
+          title: 'Automate Your',
+          titleGradient: 'Business Operations',
+          subtitle: 'Powerful APIs for data conversion, accounting, inventory management and business automation. Built for small Caribbean businesses.',
+        }}
+      >
+        {({ title, titleGradient, subtitle, badge }) => (
+          <section className="pt-32 pb-20">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16">
+                <span className="inline-block px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm mb-6">
+                  {badge}
+                </span>
+                <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6">
+                  {title}
+                  <br />
+                  <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+                    {titleGradient}
+                  </span>
+                </h1>
+                <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+                  {subtitle}
+                </p>
+              </div>
+            </div>
+          </section>
+        )}
+      </AdminServiceHero>
 
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

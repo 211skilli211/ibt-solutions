@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { submitServiceInquiry } from '@/lib/api';
+import AdminServiceHero from '@/components/AdminServiceHero';
 
 const webServices = [
   {
@@ -80,24 +81,36 @@ export default function WebDevPage() {
 
   return (
     <div className="bg-slate-950 min-h-screen">
-      <section className="pt-32 pb-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <span className="inline-block px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm mb-6">
-            Website Development
-          </span>
-          <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6">
-            Build or Refine Your
-            <br />
-            <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
-              Online Presence
-            </span>
-          </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            Professional websites for Caribbean businesses. From new builds to SEO optimization - 
-            we help you stand out online.
-          </p>
-        </div>
-      </section>
+      <AdminServiceHero
+        pageKey="ibt-services-web"
+        fallback={{
+          badge: 'Website Development',
+          badgeVariant: 'teal',
+          title: 'Build or Refine Your',
+          titleGradient: 'Online Presence',
+          subtitle: 'Professional websites for Caribbean businesses. From new builds to SEO optimization — we help you stand out online.',
+        }}
+      >
+        {({ title, titleGradient, subtitle, badge }) => (
+          <section className="pt-32 pb-20">
+            <div className="max-w-7xl mx-auto px-4 text-center">
+              <span className="inline-block px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-sm mb-6">
+                {badge}
+              </span>
+              <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6">
+                {title}
+                <br />
+                <span className="bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 bg-clip-text text-transparent">
+                  {titleGradient}
+                </span>
+              </h1>
+              <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+                {subtitle}
+              </p>
+            </div>
+          </section>
+        )}
+      </AdminServiceHero>
 
       <section className="py-20">
         <div className="max-w-6xl mx-auto px-4">

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Button, Section, SectionHeader, Card, Badge, GradientText, Input } from '@/components/ui';
 import { submitServiceInquiry } from '@/lib/api';
+import AdminServiceHero from '@/components/AdminServiceHero';
 
 const auditDimensions = [
   { id: 'seo', name: 'SEO Score', icon: '🔍', description: 'On-page SEO, technical SEO, content quality, backlinks', weight: 30 },
@@ -72,20 +73,32 @@ export default function AuditPage() {
 
   return (
     <div className="bg-surface-0">
-      {/* Hero */}
-      <Section>
-        <div className="text-center max-w-3xl mx-auto">
-          <Badge variant="sunset">Business Auditing</Badge>
-          <h1 className="text-4xl sm:text-6xl font-bold text-white mt-4 mb-6">
-            Know Your Business
-            <br />
-            <GradientText>Score</GradientText>
-          </h1>
-          <p className="text-xl text-slate-400">
-            Comprehensive business scoring — SEO analysis, Google Maps profile verification, website quality audits, and social presence analysis.
-          </p>
-        </div>
-      </Section>
+      <AdminServiceHero
+        pageKey="ibt-services-audit"
+        fallback={{
+          badge: 'Business Auditing',
+          badgeVariant: 'sunset',
+          title: 'Know Your Business',
+          titleGradient: 'Score',
+          subtitle: 'Comprehensive business scoring — SEO analysis, Google Maps profile verification, website quality audits, and social presence analysis.',
+        }}
+      >
+        {({ title, titleGradient, subtitle, badge }) => (
+          <Section>
+            <div className="text-center max-w-3xl mx-auto">
+              <Badge variant="sunset">{badge}</Badge>
+              <h1 className="text-4xl sm:text-6xl font-bold text-white mt-4 mb-6">
+                {title}
+                <br />
+                <GradientText>{titleGradient}</GradientText>
+              </h1>
+              <p className="text-xl text-slate-400">
+                {subtitle}
+              </p>
+            </div>
+          </Section>
+        )}
+      </AdminServiceHero>
 
       {/* Audit Dimensions */}
       <Section>

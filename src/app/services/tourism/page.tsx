@@ -1,6 +1,7 @@
 'use client';
 
 import { ServiceHero, FeaturesGrid, PricingSection, CTASection, ContactFormSection } from '@/components/sections';
+import AdminServiceHero from '@/components/AdminServiceHero';
 
 const freeAPIs = [
   { id: 'currency', name: 'Currency Exchange', description: 'Real-time Caribbean and international exchange rates.', features: ['150+ currencies', 'Real-time rates', 'Historical data', 'Trend charts', 'Rate alerts'], badge: 'Free Forever', badgeVariant: 'emerald' as const },
@@ -24,20 +25,36 @@ const pricingTiers = [
 export default function TourismPage() {
   return (
     <div className="bg-surface-0">
-      <ServiceHero
-        badge="Tourism APIs"
-        title="Caribbean Tourism"
-        titleGradient="Data Platform"
-        subtitle="Comprehensive APIs for Caribbean tourism — currency exchange, events, places, weather, transport, marine conditions, and geospatial mapping."
-        ctaPrimary={{ label: 'Get Started', href: '#pricing' }}
-        ctaSecondary={{ label: 'View Docs', href: '#features', variant: 'outline' }}
-        stats={[
-          { value: '7', label: 'APIs' },
-          { value: '10K+', label: 'Events' },
-          { value: '5K+', label: 'Places' },
-          { value: '150+', label: 'Currencies' },
-        ]}
-      />
+      <AdminServiceHero
+        pageKey="ibt-services-tourism"
+        fallback={{
+          badge: 'Tourism APIs',
+          badgeVariant: 'sunset',
+          title: 'Caribbean Tourism',
+          titleGradient: 'Data Platform',
+          subtitle: 'Comprehensive APIs for Caribbean tourism — currency exchange, events, places, weather, transport, marine conditions, and geospatial mapping.',
+          ctaPrimary: { label: 'Get Started', href: '#pricing' },
+          ctaSecondary: { label: 'View Docs', href: '#features', variant: 'outline' },
+        }}
+      >
+        {({ title, titleGradient, subtitle, cta1Label, cta1Link, cta2Label, cta2Link, badge, badgeVariant }) => (
+          <ServiceHero
+            badge={badge}
+            badgeVariant={badgeVariant as 'teal' | 'emerald' | 'sunset' | 'slate'}
+            title={title}
+            titleGradient={titleGradient}
+            subtitle={subtitle}
+            ctaPrimary={cta1Label ? { label: cta1Label, href: cta1Link } : undefined}
+            ctaSecondary={cta2Label ? { label: cta2Label, href: cta2Link, variant: 'outline' } : undefined}
+            stats={[
+              { value: '7', label: 'APIs' },
+              { value: '10K+', label: 'Events' },
+              { value: '5K+', label: 'Places' },
+              { value: '150+', label: 'Currencies' },
+            ]}
+          />
+        )}
+      </AdminServiceHero>
 
       <FeaturesGrid
         badge="Free APIs"
