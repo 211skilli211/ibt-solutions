@@ -82,3 +82,5 @@ export function AdminServiceHero({ pageKey, fallback, children }: AdminServiceHe
     badgeVariant: fallback.badgeVariant || 'teal',
   });
 }
+
+export default AdminServiceHero;
