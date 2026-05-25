@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Badge, Button, GradientText } from '@/components/ui';
-import ShaderBackground from '../shaders/ShaderBackground';
+import ShaderBackground from './shaders/ShaderBackground';
 
 interface HeroData {
   asset_url: string;
