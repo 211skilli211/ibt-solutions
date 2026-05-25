@@ -51,11 +51,6 @@ export default function TradesPage() {
           </div>
         }
       />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* Benefits */}
       <section className="py-20 bg-slate-900/50">

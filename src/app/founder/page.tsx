@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 import { Section, Card, Badge } from '@/components/ui';
 import PageHero from '@/components/PageHero';
