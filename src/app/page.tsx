@@ -6,6 +6,7 @@ import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge 
 import { motion } from 'framer-motion';
 import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/animations';
 import ParticleField from '@/components/shaders/ParticleField';
+import ShaderBackground from '@/components/shaders/ShaderBackground';
 
 interface HeroData {
   asset_url: string;
@@ -131,12 +132,47 @@ export default function HomePage() {
       </div>
 
       <div className="relative">
-        {/* Hero */}
-        <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-          {/* Animated particle background */}
-          <div className="absolute inset-0 z-0">
-            <ParticleField count={100} color="#06b6d4" speed={0.3} size={1.5} />
-          </div>
+    // Determine hero background from admin config
+  const assetType = hero?.asset_type || 'image';
+  const styleConfig = hero?.style_config || {};
+  const renderHeroBackground = () => {
+    // Shader type
+    if (assetType === 'shader' && styleConfig.shader) {
+      return (
+        <div className="absolute inset-0 z-0">
+          <ShaderBackground
+            shader={styleConfig.shader}
+            colors={styleConfig.shaderColors}
+            opacity={1}
+            className="absolute inset-0"
+          />
+        </div>
+      );
+    }
+    // Video type
+    if (assetType === 'video' && heroBg) {
+      return (
+        <div className="absolute inset-0 z-0">
+          <video src={heroBg} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30" />
+        </div>
+      );
+    }
+    // Particle type (default for home)
+    if (assetType === 'particle') {
+      return (
+        <div className="absolute inset-0 z-0">
+          <ParticleField count={100} color={styleConfig.particleColor || '#06b6d4'} speed={styleConfig.particleSpeed || 0.3} size={styleConfig.particleSize || 1.5} />
+        </div>
+      );
+    }
+    // Image type (default)
+    return (
+      <div className="absolute inset-0 z-0">
+        {heroBg && <img src={heroBg} alt="" className="w-full h-full object-cover opacity-20" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />}
+      </div>
+    );
+  };
+          {renderHeroBackground()}
           <div className="absolute inset-0 bg-gradient-to-b from-surface-0/60 via-surface-0/40 to-surface-0 z-[1]" />
 
           <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10">
