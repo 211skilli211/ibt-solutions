@@ -239,9 +239,8 @@ export default function HomePage() {
           <Section className="py-20">
             <SectionHeader
               badge="What We Do"
-              title="Services Built for"
-              gradientTitle="Caribbean Business"
-              description="From Tourism APIs to AI-powered solutions — comprehensive tools designed specifically for Caribbean businesses."
+              title="Services Built for Caribbean Business"
+              subtitle="From Tourism APIs to AI-powered solutions — comprehensive tools designed specifically for Caribbean businesses."
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
               <StaggerContainer className="contents">
@@ -260,9 +259,8 @@ export default function HomePage() {
           <Section className="py-20 bg-surface-50">
             <SectionHeader
               badge="IBT Co-operative Federation"
-              title="Community-Driven"
-              gradientTitle="Cooperatives"
-              description="Join our growing network of Caribbean cooperatives — built by locals, for locals."
+              title="Community-Driven Cooperatives"
+              subtitle="Join our growing network of Caribbean cooperatives — built by locals, for locals."
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
               {coops.map((c, i) => (
