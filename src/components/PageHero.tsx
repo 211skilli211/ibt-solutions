@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Badge, Button, GradientText } from '@/components/ui';
+import ShaderBackground from '../shaders/ShaderBackground';
 
 interface HeroData {
   asset_url: string;
@@ -52,18 +53,73 @@ export default function PageHero({ pageKey, fallback }: PageHeroProps) {
   const cta2Label = hero?.cta2_text || fallback.ctaSecondary?.label || '';
   const cta2Link = hero?.cta2_link || fallback.ctaSecondary?.href || '#';
   const cta2Variant = fallback.ctaSecondary?.variant || 'outline';
+  const assetType = hero?.asset_type || 'image';
+  const styleConfig = hero?.style_config || {};
+
+  // Render background based on asset type
+  const renderBackground = () => {
+    const overlayStyle = {
+      backgroundColor: hero?.overlay_color || '#000000',
+      opacity: hero?.overlay_opacity !== undefined ? hero.overlay_opacity : 0.4,
+    };
+
+    // Shader type — use ShaderBackground component
+    if (assetType === 'shader' && styleConfig.shader) {
+      return (
+        <div className="absolute inset-0">
+          <ShaderBackground
+            shader={styleConfig.shader}
+            colors={styleConfig.shaderColors}
+            opacity={1}
+            className="absolute inset-0"
+          />
+          <div className="absolute inset-0" style={overlayStyle} />
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
+        </div>
+      );
+    }
+
+    // Video type
+    if (assetType === 'video' && bgUrl) {
+      return (
+        <div className="absolute inset-0">
+          <video src={bgUrl} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
+        </div>
+      );
+    }
+
+    // Particle type — CSS particle animation
+    if (assetType === 'particle') {
+      return (
+        <div className="absolute inset-0">
+          <ShaderBackground
+            shader="cosmic"
+            colors={styleConfig.particleColors || ['#0f0f23', '#1a1a3e', '#2d1b69', '#4c1d95']}
+            opacity={1}
+            className="absolute inset-0"
+          />
+          <div className="absolute inset-0" style={overlayStyle} />
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
+        </div>
+      );
+    }
+
+    // Default: image background
+    return (
+      <div className="absolute inset-0">
+        <img src={bgUrl} alt="" className="w-full h-full object-cover opacity-20"
+          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+        <div className="absolute inset-0" style={overlayStyle} />
+        <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
+      </div>
+    );
+  };
 
   return (
     <section className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0">
-        {hero?.asset_type === 'video' ? (
-          <video src={bgUrl} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-20" />
-        ) : (
-          <img src={bgUrl} alt="" className="w-full h-full object-cover opacity-20" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-        )}
-        <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
-      </div>
+      {renderBackground()}
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
         <Badge variant={fallback.badgeVariant || 'teal'} className="mb-6">

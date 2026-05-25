@@ -10,6 +10,8 @@ export interface ShaderConfig {
   description: string;
   defaultColors: string[];
   css: string;
+  webgl?: boolean;
+  webglType?: 'fluid' | 'particles';
 }
 
 export const SHADERS: Record<string, ShaderConfig> = {
@@ -231,8 +233,41 @@ export const SHADERS: Record<string, ShaderConfig> = {
       }
     `,
   },
+  // ─── WebGL Shaders ───────────────────────────────────────────────────────
+  webgl_fluid: {
+    name: 'WebGL Fluid',
+    description: 'Interactive fluid dynamics (GPU-accelerated)',
+    defaultColors: ['#0c4a6e', '#0369a1', '#0284c7', '#38bdf8'],
+    css: '',
+    webgl: true,
+    webglType: 'fluid',
+  },
+  webgl_particles: {
+    name: 'WebGL Particles',
+    description: 'GPU particle system (GPU-accelerated)',
+    defaultColors: ['#06b6d4', '#0891b2', '#0e7490', '#155e75'],
+    css: '',
+    webgl: true,
+    webglType: 'particles',
+  },
+  webgl_sunset: {
+    name: 'WebGL Sunset',
+    description: 'Warm sunset fluid (GPU-accelerated)',
+    defaultColors: ['#7c2d12', '#c2410c', '#f59e0b', '#fbbf24'],
+    css: '',
+    webgl: true,
+    webglType: 'fluid',
+  },
+  webgl_aurora_gpu: {
+    name: 'WebGL Aurora',
+    description: 'GPU aurora borealis (GPU-accelerated)',
+    defaultColors: ['#0f766e', '#06b6d4', '#8b5cf6', '#ec4899'],
+    css: '',
+    webgl: true,
+    webglType: 'fluid',
+  },
 };
 
-export function getShaderNames(): { key: string; name: string; description: string }[] {
-  return Object.entries(SHADERS).map(([key, s]) => ({ key, name: s.name, description: s.description }));
+export function getShaderNames(): { key: string; name: string; description: string; webgl?: boolean }[] {
+  return Object.entries(SHADERS).map(([key, s]) => ({ key, name: s.name, description: s.description, webgl: s.webgl }));
 }
