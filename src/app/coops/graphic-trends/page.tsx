@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import PageHero from '@/components/PageHero';
 
 export const metadata = {
   title: 'Graphic Trends Micro-Manufacturing | IBT Co-operative Federation',

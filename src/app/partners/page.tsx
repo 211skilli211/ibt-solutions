@@ -1,3 +1,4 @@
+import PageHero from '@/components/PageHero';
 import { Metadata } from 'next';
 import Link from 'next/link';
 
@@ -20,21 +21,16 @@ const partners = [
 export default function PartnersPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-white">
-      {/* Hero */}
-      <section className="relative py-24 md:py-32 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-teal-900/20 to-transparent" />
-        <div className="max-w-4xl mx-auto text-center relative z-10">
-          <div className="inline-block px-4 py-2 bg-teal-500/10 border border-teal-500/20 rounded-full text-teal-400 text-xs font-bold uppercase tracking-[0.3em] mb-6">
-            🤝 Our Partners
-          </div>
-          <h1 className="text-4xl md:text-6xl font-black mb-6 tracking-tight">
-            Partner <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-emerald-400">Brands</span>
-          </h1>
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            We collaborate with exceptional Caribbean businesses to bring you authentic products and services. Each partner is carefully selected for quality and shared values.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        pageKey="ibt-portfolio"
+        fallback={{
+          badge: '🤝 Our Partners',
+          badgeVariant: 'teal',
+          title: 'Partner',
+          titleGradient: 'Brands',
+          subtitle: 'We collaborate with exceptional Caribbean businesses to bring you authentic products and services. Each partner is carefully selected for quality and shared values.',
+        }}
+      />
 
       {/* Partners Grid */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">

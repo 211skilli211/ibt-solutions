@@ -1,5 +1,6 @@
+import PageHero from '@/components/PageHero';
 import Link from 'next/link';
-import { Button, Section, Card, Badge } from '@/components/ui';
+import { Section, Card, Badge } from '@/components/ui';
 import ContactForm from '@/components/ContactForm';
 import BookingForm from '@/components/BookingForm';
 
@@ -19,7 +20,7 @@ const contactMethods = [
     icon: '📱',
     label: 'Phone',
     value: '+1 (869) 763-9919',
-    href: 'tel:+18697639919',
+    href: 'tel:+186****9919',
   },
   {
     icon: '💬',
@@ -38,15 +39,16 @@ const contactMethods = [
 export default function ContactPage() {
   return (
     <div className="min-h-screen bg-surface-0">
-      <Section>
-        <div className="text-center max-w-3xl mx-auto">
-          <Badge variant="teal">Get in Touch</Badge>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mt-4 mb-4">Contact Us</h1>
-          <p className="text-xl text-slate-400">
-            Ready to transform your business? Let's discuss how IBT Solutions can help.
-          </p>
-        </div>
-      </Section>
+      <PageHero
+        pageKey="ibt-contact"
+        fallback={{
+          badge: 'Get in Touch',
+          badgeVariant: 'teal',
+          title: 'Contact Us',
+          subtitle: "Ready to transform your business? Let's discuss how IBT Solutions can help.",
+          ctaPrimary: { label: 'Get in Touch', href: '#contact-form' },
+        }}
+      />
 
       <Section>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -83,7 +85,7 @@ export default function ContactPage() {
           </div>
 
           {/* Right: Contact Form */}
-          <div>
+          <div id="contact-form">
             <Card className="p-8 sticky top-24">
               <h2 className="text-2xl font-bold text-white mb-6">Send a Message</h2>
               <ContactForm />

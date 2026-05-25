@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
-import { Button, Section, Card, Badge, GradientText } from '@/components/ui';
+import { Section, Card, Badge } from '@/components/ui';
+import PageHero from '@/components/PageHero';
 import FounderPhoto from './FounderPhoto';
 
 export const metadata = {
@@ -46,6 +49,18 @@ const experience = [
 export default function FounderPage() {
   return (
     <div className="min-h-screen bg-surface-0">
+      <PageHero
+        pageKey="ibt-founder"
+        fallback={{
+          badge: 'Founder & Creative Technologist',
+          badgeVariant: 'teal',
+          title: 'N. J. Robin',
+          subtitle: '13+ years in graphic design · 5+ years in app development · 3D designer · builder · founder of IBT Solutions.',
+          ctaPrimary: { label: 'Download Resume', href: '/resume.pdf' },
+          ctaSecondary: { label: 'Get in Touch', href: 'mailto:businesstrends869@gmail.com' },
+        }}
+      />
+
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         {/* Back link */}
         <div className="mb-8">
@@ -55,7 +70,7 @@ export default function FounderPage() {
           </Link>
         </div>
 
-        {/* Hero Card */}
+        {/* Founder Profile Card */}
         <Card className="p-6 md:p-10 mb-8">
           <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
             {/* Photo */}
@@ -65,19 +80,11 @@ export default function FounderPage() {
 
             {/* Info */}
             <div className="flex-1 text-center md:text-left">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2 tracking-tight">
-                N. J. Robin
-              </h1>
-              <p className="text-xl sm:text-2xl font-semibold text-teal-400 mb-1">
-                Founder & Creative Technologist
-              </p>
-              <p className="text-base text-slate-400 mb-4">
-                Graphic Designer · App Developer · 3D Designer
-              </p>
+              <h2 className="text-xl text-slate-400 mb-1">Graphic Designer · App Developer · 3D Designer</h2>
 
               {/* Contact pills */}
-              <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-5">
-                <a href="tel:+18697639919" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-slate-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-5 mt-4">
+                <a href="tel:+186****9919" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-slate-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                   +1 (869) 763-9919
                 </a>
@@ -94,17 +101,6 @@ export default function FounderPage() {
                   St. Kitts
                 </span>
               </div>
-
-              {/* Download Resume */}
-              <a
-                href="/resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-teal-500 hover:bg-teal-400 text-ocean-900 font-bold rounded-xl transition-all text-sm shadow-lg shadow-teal-500/20 hover:shadow-teal-400/30"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
-                Download Full Resume (PDF)
-              </a>
             </div>
           </div>
         </Card>

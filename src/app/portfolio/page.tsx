@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { Button, Section, SectionHeader, Card, Badge, GradientText } from '@/components/ui';
+import PageHero from '@/components/PageHero';
+import { Section, SectionHeader, Card, Badge, GradientText } from '@/components/ui';
 
 const aims = [
   { title: 'Empower Caribbean Businesses', description: 'Provide affordable, professional-grade technology solutions that help Caribbean businesses compete globally.', icon: '💼' },
@@ -22,14 +23,16 @@ const projects = [
 export default function PortfolioPage() {
   return (
     <div className="min-h-screen bg-surface-0">
-      <Section>
-        <div className="text-center">
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">Portfolio</h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
-            Building the future of Caribbean commerce through technology, community, and innovation.
-          </p>
-        </div>
-      </Section>
+      <PageHero
+        pageKey="ibt-portfolio"
+        fallback={{
+          badge: 'Our Work',
+          badgeVariant: 'teal',
+          title: 'Portfolio',
+          subtitle: 'Building the future of Caribbean commerce through technology, community, and innovation.',
+          bgImage: 'https://images.unsplash.com/photo-1556740758-90de374c12ad?w=1920&h=1080&fit=crop',
+        }}
+      />
 
       {/* Aims & Objectives */}
       <Section>
@@ -82,8 +85,8 @@ export default function PortfolioPage() {
         <div className="text-center p-6 rounded-2xl bg-surface-1 border border-surface-3">
           <p className="text-slate-400 mb-4 text-sm">Interested in working together or contributing to these projects?</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button href="/contact">Get in Touch</Button>
-            <Button href="/coops" variant="outline">Join IBT Co-ops</Button>
+            <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-teal-500 hover:bg-teal-400 text-ocean-900 font-bold rounded-xl transition-all text-sm">Get in Touch</Link>
+            <Link href="/coops" className="inline-flex items-center justify-center px-6 py-3 border border-surface-3 hover:border-teal-500/50 text-white font-medium rounded-xl transition-all text-sm">Join IBT Co-ops</Link>
           </div>
         </div>
         <div className="mt-8 text-center">
