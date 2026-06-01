@@ -499,5 +499,182 @@ See companion preview files for visual reference:
 
 ---
 
-*This design system is custom-created for IBT Solutions and IslandHub. 
+## 3D Animated Shades — v2 Visual Layer
+
+*Added 2026-06-01. This layer extends the Caribbean design system with depth-first 3D interactions, glass-morphism, and animated shading. It is the visual specialization of IBT Solutions.*
+
+### Philosophy
+
+"Animated Shades" means every UI element exists in 3D space and responds to light. Surfaces have volume, depth, and material properties. Colors shift like sunlight through water. The Caribbean ocean isn't just a color reference — it's a lighting model.
+
+### 3D Depth System
+
+Five depth layers, each with distinct material properties:
+
+| Layer | Name | Z-Position | Material | Light Behavior |
+|-------|------|------------|----------|----------------|
+| 0 | Abyss | -200px | Void — no surface | Emits animated gradient (ocean waves) |
+| 1 | Floor | 0px | Matte — solid color | Receives ambient light + cast shadows from Layer 2 |
+| 2 | Surface | 50px | Glass — translucent with blur | Casts shadow on Layer 1, receives directional light |
+| 3 | Floating | 100px | Crystal — high blur + refraction | Casts colored shadow (tinted by surface color) |
+| 4 | Sky | 200px | Holographic — animated rainbow | Emits light onto layers below |
+
+### Lighting Model
+
+- **Primary light source:** Top-left, 45° angle. Warm white (#FFF7ED).
+- **Secondary fill:** Bottom-right. Cool blue (#E0F2FE) at 30% intensity.
+- **Ambient:** Ocean blue (#0F4C75) at 10% intensity — gives everything an underwater feel.
+- **Rim light:** Gold (#FBBF24) edge highlight on hovered/active elements.
+
+On interaction (hover/touch), the primary light source intensifies and shifts toward the interacted element.
+
+### Glass-Morphism Specification
+
+Glass panels are used on Layer 2+ surfaces:
+
+```
+Background: rgba(255, 255, 255, 0.04-0.08)
+Backdrop Blur: 20px
+Border: 1px solid rgba(255, 255, 255, 0.10)
+Shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6)
+```
+
+**Glass variants by context:**
+- **Clear Glass (marketplace cards):** blur(20px), opacity 0.04
+- **Smoke Glass (nav, modals):** blur(24px), opacity 0.70
+- **Ocean Glass (featured/premium):** blur(20px) + ocean blue tint, opacity 0.15
+- **Gold Glass (achievements/vip):** blur(20px) + gold tint, opacity 0.08
+
+**Mobile simplification:** No backdrop blur (performance). Use solid rgba(15, 23, 42, 0.95) instead.
+
+### Animated Shading (Color Dynamics)
+
+Colors aren't static — they shift based on context:
+
+1. **Scroll-driven gradients:** Hero background gradient rotates 5-10° on scroll via ScrollTrigger
+2. **Time-of-day tinting:** Optional. Warm (golden) shift during sunset hours, cool (blue) at night
+3. **Interaction glow:** Hovered elements gain a colored glow matching their semantic role (ocean blue for interactive, gold for premium, coral for urgent)
+4. **State transitions:** Color changes animate over 300ms with spring easing — never snap
+
+### Particle Systems (Ambient)
+
+CSS-only particles (no Three.js on mobile):
+
+- **Ocean mode:** Small glowing dots (2-4px) rising slowly from bottom. Seafoam color. 20-30 particles.
+- **Marketplace mode:** Tiny golden sparkles that appear near prices/CTA buttons. 10-15 particles.
+- **Success mode:** Green confetti burst on trade completion/achievement unlock. 40 particles, 1s duration.
+
+Implemented with pure CSS `@keyframes` for mobile performance. R3F particle systems on desktop only.
+
+### Component: Holographic Card
+
+Premium/featured items get holographic treatment:
+
+```
+Background: linear-gradient(135deg, ocean 0%, gold 25%, coral 50%, seafoam 75%, ocean 100%)
+Background-size: 400% 400%
+Animation: holoshift 4s ease infinite
+```
+
+The gradient continuously shifts, creating an iridescent/holographic foil effect.
+
+### Component: 3D Press Button
+
+Interactive buttons have physical depth:
+
+```
+Default:    translateY(0)     box-shadow: 0 4px 15px rgba(ocean, 0.3)
+Pressed:    translateY(2px)   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6)
+Hover:      translateY(-1px)  box-shadow: 0 6px 20px rgba(ocean, 0.5) + glow
+Active:     scale(0.98)
+```
+
+The button feels like a physical object being pressed into a surface.
+
+### Component: Parallax Card Stack
+
+Content cards have depth-based parallax on scroll:
+
+```
+Card at Layer 1: translateY(scroll * 0.0)   — static
+Card at Layer 2: translateY(scroll * -0.02) — slight lift
+Card at Layer 3: translateY(scroll * -0.05) — floats upward
+```
+
+Creates a sense that cards are floating at different heights and respond to scroll at different rates.
+
+### Component: Shader Background (Hero)
+
+The hero section background uses CSS animated gradients (no WebGL on mobile):
+
+```
+Base: radial-gradient(ellipse at 50% 0%, rgba(ocean, 0.4) 0%, transparent 70%)
+Mid:  radial-gradient(ellipse at 30% 50%, rgba(glow-blue, 0.2) 0%, transparent 60%)
+Top:  radial-gradient(ellipse at 70% 30%, rgba(gold, 0.1) 0%, transparent 50%)
+```
+
+Each layer animates independently at different speeds (12s, 15s, 20s) creating organic, liquid motion.
+
+On desktop (optional): Replace with R3F custom shader for true WebGL water/ocean simulation.
+
+### Motion Specifications (3D-specific)
+
+| Animation | Duration | Easing | Properties |
+|-----------|----------|--------|------------|
+| Card hover lift | 300ms | spring(0.34, 1.56, 0.64, 1) | translateY, box-shadow |
+| Card hover rotate | 250ms | ease-smooth | rotateX(2deg) |
+| Button press | 100ms | ease-out | translateY, box-shadow |
+| Glass reveal | 400ms | ease-smooth | opacity, blur, translateY |
+| Parallax scroll | Continuous | linear | translateY (scroll-driven) |
+| Particle float | Continuous | ease-in-out | translateY, opacity |
+| Holo shift | 4s | ease infinite | background-position |
+| Glow pulse | 2s | ease infinite | box-shadow opacity |
+| Price flash | 400ms | ease-out | background-color |
+| Page enter | 350ms | ease-smooth | opacity, scale, translateY |
+| Modal open | 400ms | ease-smooth | opacity, scale, backdrop-filter |
+| Stagger children | 50ms delay | ease-smooth | per-item delay |
+
+### Tech Stack for 3D
+
+**Already installed:**
+- `cesium` v1.114.0 — 3D globe/maps for location-based features
+- `framer-motion` v12.27.5 — layout animations, page transitions, gesture handling
+
+**To install for full 3D:**
+- `@react-three/fiber` v9.x — React renderer for Three.js (3D scenes in React)
+- `@react-three/drei` v10.x — helpers (OrbitControls, Environment, Float, etc.)
+- `@react-three/postprocessing` v3.x — bloom, chromatic aberration, film grain
+- `three` v0.172.x — core 3D library
+- `gsap` v3.x — timeline animations, ScrollTrigger for parallax
+- `@gsap/react` v2.x — React integration for GSAP
+
+**3D Implementation Priority:**
+1. ✅ CSS-based 3D (glass-morphism, animated gradients, particles) — works now, no deps needed
+2. 🔄 R3F hero scene (3D ocean/island scene as landing hero) — needs npm install
+3. 🔄 Cesium integration (3D globe for service locations) — already installed, needs implementation
+4. 🔄 Post-processing effects (bloom, film grain on 3D scenes) — needs npm install
+5. 🔄 GLSL custom shaders (water, holographic, glass refraction) — needs npm install
+
+### Do's and Don'ts (3D Layer)
+
+**DO:**
+- Use 3D depth to reinforce hierarchy (deeper = more important)
+- Animate with spring easing for physical feel
+- Keep particle counts low on mobile (< 30)
+- Use glass-morphism only on floating layers (never on main content areas)
+- Respect prefers-reduced-motion (disable particles, reduce parallax)
+- Start with CSS 3D, progressively enhance with R3F on desktop
+
+**DON'T:**
+- Use 3D transforms on text (becomes unreadable)
+- Add backdrop blur on mobile (use solid colors instead)
+- Create R3F scenes that block content interaction
+- Animate layout properties (always use transform + opacity)
+- Use WebGL for simple effects that CSS can handle
+- Add parallax that causes motion sickness (keep movement < 5% of viewport)
+
+---
+
+*This design system is custom-created for IBT Solutions and IslandHub.
+3D Animated Shades layer added 2026-06-01 by OWL.
 Not affiliated with any mentioned brands. Design inspiration only.*
