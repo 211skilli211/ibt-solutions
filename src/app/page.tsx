@@ -70,8 +70,8 @@ const services = [
     image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=250&fit=crop',
   },
   {
-    title: 'Gap & Pain Analysis',
-    description: 'Deep-dive consultation to identify business challenges and uncover growth opportunities.',
+    title: 'Business Gap Analysis',
+    description: 'Comprehensive assessment to identify operational challenges and uncover growth opportunities.',
     href: '/contact',
     image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=250&fit=crop',
   },
@@ -96,7 +96,7 @@ const stats = [
   { value: '100+', label: 'Projects' },
 ];
 
-const trustSignals = ['Caribbean-Based', 'St. Kitts & Nevis', '24/7 Support', 'Fast Delivery'];
+const trustSignals = ['Caribbean-Based', 'St. Kitts & Nevis', 'Enterprise-Grade', '24/7 Support'];
 
 export default function HomePage() {
   const [hero, setHero] = useState<HeroData | null>(null);
@@ -115,9 +115,9 @@ export default function HomePage() {
 
   // Use hero data from API, with fallbacks
   const heroBg = hero?.asset_url || 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop&q=80';
-  const heroTitle = hero?.title || 'Upgrade Your Business';
-  const heroGradient = hero?.subtitle?.split(' ')[0] || 'Agentic Services';
-  const heroSubtitle = hero?.subtitle || 'Agentic tools, professional services, and a growing co-operative federation — everything you need to compete in the modern economy.';
+  const heroTitle = hero?.title || 'Business Solutions for the Caribbean';
+  const heroGradient = hero?.subtitle?.split(' ')[0] || 'Technology & Consulting';
+  const heroSubtitle = hero?.subtitle || 'Professional services, cooperative infrastructure, and modern technology — purpose-built for Caribbean businesses ready to compete globally.';
   const heroCta1 = hero?.cta_text || 'Explore Services';
   const heroCta1Link = hero?.cta_link || '/services';
   const heroCta2 = hero?.cta2_text || 'Join IBT Co-ops';
@@ -240,7 +240,7 @@ export default function HomePage() {
             <SectionHeader
               badge="What We Do"
               title="Services Built for Caribbean Business"
-              subtitle="From Tourism APIs to AI-powered solutions — comprehensive tools designed specifically for Caribbean businesses."
+              subtitle="Professional services and technology solutions designed for Caribbean enterprises."
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
               <StaggerContainer className="contents">
@@ -262,7 +262,7 @@ export default function HomePage() {
             <SectionHeader
               badge="IBT Co-operative Federation"
               title="Community-Driven Cooperatives"
-              subtitle="Join our growing network of Caribbean cooperatives — built by locals, for locals."
+              subtitle="A growing network of Caribbean cooperatives — democratic, community-owned, and built to last."
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
               {coops.map((c, i) => (
@@ -283,8 +283,8 @@ export default function HomePage() {
         <ScrollReveal>
           <Section className="py-20">
             <div className="max-w-2xl mx-auto text-center">
-              <h2 className="text-4xl font-extrabold text-white mb-4">Ready to Get Started?</h2>
-              <p className="text-slate-400 mb-8">Tell us about your project and we'll get back to you within 24 hours.</p>
+              <h2 className="text-4xl font-extrabold text-white mb-4">Start a Conversation</h2>
+              <p className="text-slate-400 mb-8">Share your project details and we'll respond within one business day.</p>
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <input
                   type="email"
