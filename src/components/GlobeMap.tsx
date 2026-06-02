@@ -53,6 +53,9 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
         return;
       }
 
+      // Set Cesium Ion access token for satellite + terrain
+      Cesium.Ion.defaultAccessToken = process.env.NEXT_PUBLIC_CESIUM_ION_TOKEN || '';
+
       try {
         const viewer = new Cesium.Viewer(containerRef.current!, {
           animation: false,
@@ -65,15 +68,11 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
           fullscreenButton: false,
           infoBox: false,
           selectionIndicator: false,
-          // OpenStreetMap imagery — no token needed
-          baseLayer: new Cesium.ImageryLayer(
-            new Cesium.OpenStreetMapImageryProvider({
-              url: "https://tile.openstreetmap.org/",
-            })
+          // Cesium Ion satellite imagery with 3D terrain
+          baseLayer: Cesium.ImageryLayer.fromProviderAsync(
+            Cesium.IonImageryProvider.fromAssetId(3845)  // Natural Earth II
           ),
-          // Simple dark sky — no texture dependencies
-          // Dark background instead of skybox
-          backgroundColor: Cesium.Color.fromCssColorString("#0a0f1a"),
+          terrain: Cesium.Terrain.fromWorldTerrain(),
           // Request render mode for performance
           requestRenderMode: false,
           maximumRenderTimeChange: Infinity,
