@@ -2,17 +2,12 @@
 
 import { useEffect, useRef } from "react";
 
-declare global {
-  interface Window {
-    Cesium: any;
- }
-}
-
 interface GlobeMapProps {
   className?: string;
-  /** Cesium Ion access token — if omitted, uses default (rate-limited) */
-  ionToken?: string;
 }
+
+const CESIUM_CDN = "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js";
+const CESIUM_CSS = "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css";
 
 export default function GlobeMap({ className = "" }: GlobeMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,19 +15,37 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
 
   useEffect(() => {
     if (!containerRef.current || typeof window === "undefined") return;
+    if (viewerRef.current) return;
 
     let cancelled = false;
 
+    function loadScript(src: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = src;
+        script.onload = () => resolve();
+        script.onerror = reject;
+        document.head.appendChild(script);
+      });
+    }
+
+    function loadCSS(href: string) {
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
+    }
+
     async function init() {
-      // Dynamic import of Cesium (client-side only)
-      const Cesium = await import("cesium");
+      loadCSS(CESIUM_CSS);
+      await loadScript(CESIUM_CDN);
       if (cancelled) return;
 
-      // Set base URL for assets
-      window.Cesium = Cesium;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const Cesium = (window as any).Cesium;
+      if (!Cesium) return;
 
       const viewer = new Cesium.Viewer(containerRef.current!, {
-        // Disable default UI clutter for embedded use
         animation: false,
         timeline: false,
         baseLayerPicker: false,
@@ -43,11 +56,9 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
         fullscreenButton: false,
         infoBox: false,
         selectionIndicator: false,
-        // Use a subtle basemap
         baseLayer: Cesium.ImageryLayer.fromProviderAsync(
-          Cesium.IonImageryProvider.fromAssetId(3845) // Natural Earth II
+          Cesium.IonImageryProvider.fromAssetId(3845)
         ),
-        // Dark sky for professional look
         skyBox: new Cesium.SkyBox({
           sources: {
             positiveX: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_px.jpg"),
@@ -58,9 +69,6 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
             negativeZ: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_mz.jpg"),
           },
         }),
-        // Disable terrain for smooth performance
-        terrain: undefined,
-        // Higher quality render
         requestRenderMode: false,
         maximumRenderTimeChange: Infinity,
       });
@@ -71,22 +79,8 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
       }
 
       viewerRef.current = viewer;
-
-      // Remove Cesium logo credit
       viewer.cesiumWidget.creditContainer.style.display = "none";
 
-      // Set initial camera to Caribbean (St. Kitts)
-      // Basseterre: 17.3°N, 62.7°W
-      viewer.camera.setView({
-        destination: Cesium.Cartesian3.fromDegrees(-62.7, 17.3, 500000),
-        orientation: {
-          heading: 0,
-          pitch: Cesium.Math.toRadians(-45),
-          roll: 0,
-        },
-      });
-
-      // Add St. Kitts marker
       viewer.entities.add({
         position: Cesium.Cartesian3.fromDegrees(-62.7, 17.3),
         point: {
@@ -110,7 +104,6 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
         },
       });
 
-      // Add fly-to animation
       viewer.camera.flyTo({
         destination: Cesium.Cartesian3.fromDegrees(-62.7, 17.3, 200000),
         orientation: {
@@ -121,7 +114,6 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
         duration: 3,
       });
 
-      // Slow auto-rotate when idle
       viewer.clock.onTick.addEventListener(() => {
         viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.0002);
       });
