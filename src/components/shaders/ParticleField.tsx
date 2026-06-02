@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 
 interface ParticleFieldProps {
   count?: number;
-  color?: string;
+  color?: string | string[];
   speed?: number;
   size?: number;
   className?: string;
@@ -30,16 +30,18 @@ export default function ParticleField({
     let w = (canvas.width = canvas.offsetWidth);
     let h = (canvas.height = canvas.offsetHeight);
 
-    const particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number }[] = [];
+    const palette = Array.isArray(color) ? color : [color];
+    const particles: { x: number; y: number; vx: number; vy: number; size: number; alpha: number; pcolor: string }[] = [];
 
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        vx: (Math.random() - 0.5) * speed,
-        vy: (Math.random() - 0.5) * speed,
+        vx: (Math.random() - 0.5) * speed * 0.3,
+        vy: -(Math.random() * speed + speed * 0.3),
         size: Math.random() * size + 0.5,
         alpha: Math.random() * 0.6 + 0.2,
+        pcolor: palette[Math.floor(Math.random() * palette.length)],
       });
     }
 
@@ -58,12 +60,13 @@ export default function ParticleField({
 
         if (p.x < 0) p.x = w;
         if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h;
-        if (p.y > h) p.y = 0;
+        if (p.y < -5) { p.y = h + 5; p.x = Math.random() * w; }
+        if (p.x < -5) p.x = w + 5;
+        if (p.x > w + 5) p.x = -5;
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = color;
+        ctx.fillStyle = p.pcolor;
         ctx.globalAlpha = p.alpha;
         ctx.fill();
       }

@@ -103,10 +103,14 @@ export function ScaleIn({ children, className = '', delay = 0 }: { children: Rea
 }
 
 export function StaggerContainer({ children, className = '', staggerDelay = 0.1 }: { children: ReactNode; className?: string; staggerDelay?: number }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
+
   return (
     <motion.div
+      ref={ref}
       initial="hidden"
-      animate="visible"
+      animate={isInView ? 'visible' : 'hidden'}
       variants={{
         hidden: { opacity: 0 },
         visible: { opacity: 1, transition: { staggerChildren: staggerDelay } }
@@ -125,6 +129,36 @@ export function StaggerItem({ children, className = '' }: { children: ReactNode;
       transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       className={className}
     >
+      {children}
+    </motion.div>
+  );
+}
+
+export function HoloCard({ children, className = '' }: { children: ReactNode; className?: string }) {
+  return (
+    <div className={`holo-card relative overflow-hidden rounded-2xl ${className}`}>
+      <div className="relative z-10">{children}</div>
+    </div>
+  );
+}
+
+interface ParallaxCardProps {
+  children: ReactNode;
+  depth?: 0 | 1 | 2 | 3;
+  className?: string;
+}
+
+export function ParallaxCard({ children, depth = 1, className = '' }: ParallaxCardProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const speedMap = { 0: 0, 1: -0.02, 2: -0.05, 3: -0.08 };
+  const y = useTransform(
+    useMotionValue(0),
+    [0, 1],
+    ['0%', `${speedMap[depth] * 100}%`]
+  );
+
+  return (
+    <motion.div ref={ref} style={{ y }} className={`parallax-will-change ${className}`}>
       {children}
     </motion.div>
   );

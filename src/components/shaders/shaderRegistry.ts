@@ -233,6 +233,14 @@ export const SHADERS: Record<string, ShaderConfig> = {
       }
     `,
   },
+  caribbean_ocean: {
+    name: 'Caribbean Ocean',
+    description: 'Vertex-displaced ocean in IBT Caribbean palette',
+    defaultColors: ['#0A1628', '#0F2744', '#14B8A6', '#FF6B35'],
+    css: '',
+    webgl: true,
+    webglType: 'fluid',
+  },
   // ─── WebGL Shaders ───────────────────────────────────────────────────────
   webgl_fluid: {
     name: 'WebGL Fluid',

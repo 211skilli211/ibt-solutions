@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge } from '@/components/ui';
 import { motion } from 'framer-motion';
-import { ScrollReveal, StaggerContainer, StaggerItem } from '@/components/animations';
+import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard, HoloCard, ParallaxCard } from '@/components/animations';
 import ParticleField from '@/components/shaders/ParticleField';
 import ShaderBackground from '@/components/shaders/ShaderBackground';
 
@@ -246,7 +246,9 @@ export default function HomePage() {
               <StaggerContainer className="contents">
                 {services.map((s, i) => (
                   <StaggerItem key={i}>
-                    <ServiceCard {...s} />
+                    <TiltCard intensity={6} className="h-full">
+                      {i === 0 ? <HoloCard><ServiceCard {...s} /></HoloCard> : <ServiceCard {...s} />}
+                    </TiltCard>
                   </StaggerItem>
                 ))}
               </StaggerContainer>

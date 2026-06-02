@@ -39,7 +39,7 @@ export function Button({
 
   const variants = {
     primary:
-      'bg-teal-500 hover:bg-teal-400 text-ocean-900 shadow-lg shadow-teal-500/20 hover:shadow-teal-400/30 active:scale-[0.98]',
+      'bg-teal-500 hover:bg-teal-400 text-ocean-900 font-semibold shadow-[0_4px_15px_rgba(20,184,166,0.3),_0_4px_0_#0d9488] hover:shadow-[0_6px_20px_rgba(20,184,166,0.5),_0_4px_0_#0d9488] hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-[0_1px_5px_rgba(0,0,0,0.6),_0_0_0_#0d9488] transition-all duration-100',
     secondary:
       'bg-surface-2 hover:bg-surface-3 text-white border border-surface-3 active:scale-[0.98]',
     outline:
