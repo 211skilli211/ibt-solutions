@@ -1,31 +1,38 @@
 /**
  * POST /api/admin/run-migration — Execute pending SQL migrations
- * Protected by MIGRATION_SECRET env var
- * 
- * Usage: curl -X POST https://ibt-solutions.onrender.com/api/admin/run-migration \
- *          -H "Authorization: Bearer <MIGRATION_SECRET>"
+ * Protected by MIGRATION_TOKEN env var
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { Pool } from 'pg';
 
-const MIGRATION_SECRET=proces...CRET || '';
+const MIGRATION_TOKEN = process.env['MIGRATION_TOKEN'] || '';
 
-// Migration 062: Payment Integration
-const MIGRATION_062 = `
+const MIGRATION_062 = `-- Migration: Payment Integration (Phase 1)
+const MIGRATION_TOKEN=proces.env.MIGRATION_TOKEN || "";
+-- Shared DB: IslandHub + IBT Solutions + Co-operative Federation
+-- Scope: ALL platform entities — vendors, service providers, co-op members, drivers, tour operators
+
+-- Payment terminals (sub-merchants across ALL platform entities)
 CREATE TABLE IF NOT EXISTS payment_terminals (
     id SERIAL PRIMARY KEY,
     terminal_id VARCHAR(100) UNIQUE NOT NULL,
+
+    -- Polymorphic entity reference
     entity_type VARCHAR(30) NOT NULL CHECK (entity_type IN ('vendor', 'service_provider', 'coop_member', 'driver', 'tour_operator')),
     entity_id INTEGER NOT NULL,
+
     terminal_type VARCHAR(20) NOT NULL DEFAULT 'sub_account' CHECK (terminal_type IN ('sub_account', 'payment_link')),
     status VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'suspended', 'closed')),
     display_name VARCHAR(200),
     fygaro_account_id VARCHAR(100),
+
+    -- Settlement destination (for sub-payouts)
     payout_bank_name VARCHAR(200),
     payout_account_last4 VARCHAR(4),
     payout_routing VARCHAR(9),
     payout_swift VARCHAR(11),
+
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),
     created_by INTEGER
@@ -35,24 +42,38 @@ CREATE INDEX IF NOT EXISTS idx_terminals_entity ON payment_terminals(entity_type
 CREATE INDEX IF NOT EXISTS idx_terminals_status ON payment_terminals(status);
 CREATE INDEX IF NOT EXISTS idx_terminals_terminal_id ON payment_terminals(terminal_id);
 
+-- Transactions
 CREATE TABLE IF NOT EXISTS payment_transactions (
     id SERIAL PRIMARY KEY,
     transaction_id VARCHAR(100) UNIQUE NOT NULL,
+
     terminal_id INTEGER REFERENCES payment_terminals(id),
     order_id VARCHAR(100),
     entity_type VARCHAR(30) NOT NULL CHECK (entity_type IN ('vendor', 'service_provider', 'coop_member', 'driver', 'tour_operator')),
     entity_id INTEGER NOT NULL,
+
+    -- Amount (stored in cents to avoid floating point)
     amount_cents INTEGER NOT NULL,
     currency VARCHAR(3) NOT NULL DEFAULT 'XCD',
     fee_cents INTEGER DEFAULT 0,
     net_cents INTEGER NOT NULL,
+
+    -- Payment method
     payment_method VARCHAR(20) NOT NULL CHECK (payment_method IN ('nfc_tap', 'qr_code', 'card_entry')),
+
+    -- Status tracking
     status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'processing', 'approved', 'declined', 'refunded', 'failed')),
     decline_reason VARCHAR(200),
+
+    -- Gateway response (tokenized — no raw card data)
     gateway_response JSONB,
     gateway_signature VARCHAR(500),
+
+    -- Timestamps
     created_at TIMESTAMP DEFAULT NOW(),
     completed_at TIMESTAMP,
+
+    -- Metadata
     device_info JSONB,
     receipt_sent BOOLEAN DEFAULT FALSE
 );
@@ -63,6 +84,7 @@ CREATE INDEX IF NOT EXISTS idx_transactions_status ON payment_transactions(statu
 CREATE INDEX IF NOT EXISTS idx_transactions_created ON payment_transactions(created_at);
 CREATE INDEX IF NOT EXISTS idx_transactions_order ON payment_transactions(order_id);
 
+-- Settlement batches (from gateway)
 CREATE TABLE IF NOT EXISTS payment_settlements (
     id SERIAL PRIMARY KEY,
     settlement_id VARCHAR(100) UNIQUE NOT NULL,
@@ -83,20 +105,27 @@ CREATE TABLE IF NOT EXISTS payment_settlements (
 CREATE INDEX IF NOT EXISTS idx_settlements_date ON payment_settlements(settlement_date);
 CREATE INDEX IF NOT EXISTS idx_settlements_status ON payment_settlements(status);
 
+-- Payout ledger (internal tracking)
 CREATE TABLE IF NOT EXISTS payout_ledger (
     id SERIAL PRIMARY KEY,
     entity_type VARCHAR(30) NOT NULL CHECK (entity_type IN ('vendor', 'service_provider', 'coop_member', 'driver', 'tour_operator')),
     entity_id INTEGER NOT NULL,
     transaction_id INTEGER REFERENCES payment_transactions(id),
     settlement_id INTEGER REFERENCES payment_settlements(id),
+
+    -- Amount breakdown
     gross_amount_cents INTEGER NOT NULL,
     gateway_fee_cents INTEGER NOT NULL,
     platform_fee_cents INTEGER DEFAULT 0,
     net_amount_cents INTEGER NOT NULL,
+
+    -- Payout status
     status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'scheduled', 'processing', 'completed', 'failed')),
     payout_method VARCHAR(20) DEFAULT 'bank_transfer' CHECK (payout_method IN ('bank_transfer', 'manual', 'wallet')),
     bank_account_last4 VARCHAR(4),
     bank_routing VARCHAR(9),
+
+    -- Timestamps
     created_at TIMESTAMP DEFAULT NOW(),
     scheduled_at TIMESTAMP,
     completed_at TIMESTAMP,
@@ -107,6 +136,7 @@ CREATE INDEX IF NOT EXISTS idx_payout_entity ON payout_ledger(entity_type, entit
 CREATE INDEX IF NOT EXISTS idx_payout_status ON payout_ledger(status);
 CREATE INDEX IF NOT EXISTS idx_payout_settlement ON payout_ledger(settlement_id);
 
+-- Webhook log (audit + retry)
 CREATE TABLE IF NOT EXISTS payment_webhooks (
     id SERIAL PRIMARY KEY,
     event_type VARCHAR(50) NOT NULL,
@@ -122,6 +152,7 @@ CREATE TABLE IF NOT EXISTS payment_webhooks (
 CREATE INDEX IF NOT EXISTS idx_webhooks_event ON payment_webhooks(event_type);
 CREATE INDEX IF NOT EXISTS idx_webhooks_processed ON payment_webhooks(processed);
 
+-- Terminal configuration
 CREATE TABLE IF NOT EXISTS terminal_config (
     id SERIAL PRIMARY KEY,
     terminal_id INTEGER REFERENCES payment_terminals(id) UNIQUE,
@@ -142,7 +173,7 @@ export async function POST(request: NextRequest) {
   const authHeader = request.headers.get('authorization') || '';
   const token = authHeader.replace('Bearer ', '');
   
-  if (!MIGRATION_SECRET || token !== MIGRATION_SECRET) {
+  if (!MIGRATION_TOKEN || token !== MIGRATION_TOKEN) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -154,7 +185,6 @@ export async function POST(request: NextRequest) {
   try {
     const client = await pool.connect();
 
-    // Check if tables already exist (idempotent)
     const existing = await client.query(
       "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'payment_terminals'"
     );
@@ -168,14 +198,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({
         status: 'already_run',
         message: 'Payment tables already exist',
-        tables: tables.rows.map((t: any) => t.table_name)
+        tables: tables.rows.map((t) => t.table_name)
       });
     }
 
-    // Run migration
     await client.query(MIGRATION_062);
 
-    // Verify
     const tables = await client.query(
       "SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' AND table_name LIKE 'payment_%' ORDER BY table_name"
     );
@@ -186,9 +214,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       status: 'success',
       message: 'Migration 062 (Payment Integration) executed successfully',
-      tables: tables.rows.map((t: any) => t.table_name)
+      tables: tables.rows.map((t) => t.table_name)
     });
-  } catch (error: any) {
+  } catch (error) {
     console.error('Migration error:', error);
     await pool.end();
     return NextResponse.json({
