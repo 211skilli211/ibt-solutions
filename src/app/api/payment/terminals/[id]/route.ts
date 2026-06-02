@@ -9,15 +9,16 @@ import { sql } from '@/lib/db';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const terminal = await sql`
       SELECT t.*, tc.daily_limit_cents, tc.single_txn_limit_cents, tc.require_pin,
              tc.receipt_email, tc.receipt_phone, tc.custom_branding
       FROM payment_terminals t
       LEFT JOIN terminal_config tc ON t.id = tc.terminal_id
-      WHERE t.id = ${parseInt(params.id)}
+      WHERE t.id = ${parseInt(id)}
     `;
 
     if (terminal.length === 0) {
@@ -28,7 +29,7 @@ export async function GET(
     const recentTxns = await sql`
       SELECT transaction_id, amount_cents, currency, status, payment_method, created_at
       FROM payment_transactions
-      WHERE terminal_id = ${parseInt(params.id)}
+      WHERE terminal_id = ${parseInt(id)}
       ORDER BY created_at DESC
       LIMIT 10
     `;
@@ -55,8 +56,9 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   try {
     const body = await request.json();
     const {
@@ -77,7 +79,7 @@ export async function PATCH(
         payout_routing = CASE WHEN ${payout_routing !== undefined} THEN ${payout_routing} ELSE payout_routing END,
         payout_swift = CASE WHEN ${payout_swift !== undefined} THEN ${payout_swift} ELSE payout_swift END,
         updated_at = NOW()
-      WHERE id = ${parseInt(params.id)}
+      WHERE id = ${parseInt(id)}
       RETURNING *
     `;
 
@@ -91,7 +93,7 @@ export async function PATCH(
       await sql`
         INSERT INTO terminal_config (terminal_id, daily_limit_cents, single_txn_limit_cents, require_pin, receipt_email, receipt_phone, custom_branding, updated_at)
         VALUES (
-          ${parseInt(params.id)},
+          ${parseInt(id)},
           COALESCE(${daily_limit_cents || null}, 500000),
           COALESCE(${single_txn_limit_cents || null}, 100000),
           COALESCE(${require_pin ?? null}, false),
@@ -120,14 +122,15 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
+  const { id } = await params;
   // Soft-delete: mark as closed
   try {
     const terminal = await sql`
       UPDATE payment_terminals
       SET status = 'closed', updated_at = NOW()
-      WHERE id = ${parseInt(params.id)}
+      WHERE id = ${parseInt(id)}
       RETURNING *
     `;
 
