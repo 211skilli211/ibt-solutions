@@ -73,7 +73,7 @@ export default function ParticleField({
 
       // Draw connections between nearby particles
       ctx.globalAlpha = 0.08;
-      ctx.strokeStyle = color;
+      ctx.strokeStyle = Array.isArray(color) ? color[0] : color;
       ctx.lineWidth = 0.5;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
