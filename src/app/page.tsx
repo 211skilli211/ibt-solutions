@@ -282,14 +282,14 @@ export default function HomePage() {
 
         {/* Regional Presence — Interactive Globe */}
         <ScrollReveal>
-          <Section className="py-20 bg-surface-50">
+          <Section className="py-20">
             <SectionHeader
               badge="Regional Presence"
               title="Serving the Caribbean"
               subtitle="Headquartered in St. Kitts & Nevis, delivering technology solutions across the Eastern Caribbean."
             />
-            <div className="mt-12 max-w-5xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
-              style={{ height: "480px" }}>
+            <div className="mt-12 max-w-5xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative"
+              style={{ height: "480px", background: "#0a0f1a" }}>
               <GlobeMap className="w-full h-full" />
             </div>
             <div className="max-w-3xl mx-auto mt-8 grid grid-cols-3 gap-6 text-center">

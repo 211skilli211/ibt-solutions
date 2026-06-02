@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface GlobeMapProps {
   className?: string;
@@ -12,6 +12,8 @@ const CESIUM_CSS = "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/C
 export default function GlobeMap({ className = "" }: GlobeMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current || typeof window === "undefined") return;
@@ -37,86 +39,102 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
     }
 
     async function init() {
+      // Load CSS first
       loadCSS(CESIUM_CSS);
+
+      // Load Cesium JS
       await loadScript(CESIUM_CDN);
       if (cancelled) return;
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const Cesium = (window as any).Cesium;
-      if (!Cesium) return;
-
-      const viewer = new Cesium.Viewer(containerRef.current!, {
-        animation: false,
-        timeline: false,
-        baseLayerPicker: false,
-        geocoder: false,
-        homeButton: false,
-        navigationHelpButton: false,
-        sceneModePicker: false,
-        fullscreenButton: false,
-        infoBox: false,
-        selectionIndicator: false,
-        baseLayer: Cesium.ImageryLayer.fromProviderAsync(
-          Cesium.IonImageryProvider.fromAssetId(3845)
-        ),
-        skyBox: new Cesium.SkyBox({
-          sources: {
-            positiveX: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_px.jpg"),
-            negativeX: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_mx.jpg"),
-            positiveY: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_py.jpg"),
-            negativeY: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_my.jpg"),
-            positiveZ: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_pz.jpg"),
-            negativeZ: Cesium.buildModuleUrl("Assets/Textures/SkyBox/tycho2t3_80_mz.jpg"),
-          },
-        }),
-        requestRenderMode: false,
-        maximumRenderTimeChange: Infinity,
-      });
-
-      if (cancelled) {
-        viewer.destroy();
+      if (!Cesium) {
+        setError(true);
         return;
       }
 
-      viewerRef.current = viewer;
-      viewer.cesiumWidget.creditContainer.style.display = "none";
+      try {
+        const viewer = new Cesium.Viewer(containerRef.current!, {
+          animation: false,
+          timeline: false,
+          baseLayerPicker: false,
+          geocoder: false,
+          homeButton: false,
+          navigationHelpButton: false,
+          sceneModePicker: false,
+          fullscreenButton: false,
+          infoBox: false,
+          selectionIndicator: false,
+          // OpenStreetMap imagery — no token needed
+          baseLayer: new Cesium.ImageryLayer(
+            new Cesium.OpenStreetMapImageryProvider({
+              url: "https://tile.openstreetmap.org/",
+            })
+          ),
+          // Simple dark sky — no texture dependencies
+          // Dark background instead of skybox
+          backgroundColor: Cesium.Color.fromCssColorString("#0a0f1a"),
+          // Request render mode for performance
+          requestRenderMode: false,
+          maximumRenderTimeChange: Infinity,
+        });
 
-      viewer.entities.add({
-        position: Cesium.Cartesian3.fromDegrees(-62.7, 17.3),
-        point: {
-          pixelSize: 8,
-          color: Cesium.Color.fromCssColorString("#00d4ff"),
-          outlineColor: Cesium.Color.WHITE,
-          outlineWidth: 2,
-          heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-          disableDepthTestDistance: 500000,
-        },
-        label: {
-          text: "IBT — St. Kitts",
-          font: "12px sans-serif",
-          fillColor: Cesium.Color.WHITE,
-          outlineColor: Cesium.Color.BLACK,
-          outlineWidth: 2,
-          style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-          pixelOffset: new Cesium.Cartesian2(0, -20),
-          heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-          disableDepthTestDistance: 500000,
-        },
-      });
+        if (cancelled) {
+          viewer.destroy();
+          return;
+        }
 
-      viewer.camera.flyTo({
-        destination: Cesium.Cartesian3.fromDegrees(-62.7, 17.3, 200000),
-        orientation: {
-          heading: 0,
-          pitch: Cesium.Math.toRadians(-30),
-          roll: 0,
-        },
-        duration: 3,
-      });
+        viewerRef.current = viewer;
 
-      viewer.clock.onTick.addEventListener(() => {
-        viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.0002);
-      });
+        // Remove bottom credits
+        const credit = viewer.cesiumWidget.creditContainer;
+        if (credit) credit.style.display = "none";
+
+        // St. Kitts marker
+        viewer.entities.add({
+          position: Cesium.Cartesian3.fromDegrees(-62.7248, 17.3026),
+          point: {
+            pixelSize: 10,
+            color: Cesium.Color.fromCssColorString("#00d4ff"),
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 2,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+            disableDepthTestDistance: 500000,
+          },
+          label: {
+            text: "IBT — St. Kitts",
+            font: "13px sans-serif",
+            fillColor: Cesium.Color.WHITE,
+            outlineColor: Cesium.Color.BLACK,
+            outlineWidth: 2,
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            pixelOffset: new Cesium.Cartesian2(0, -25),
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+            disableDepthTestDistance: 500000,
+          },
+        });
+
+        // Fly to Caribbean
+        viewer.camera.flyTo({
+          destination: Cesium.Cartesian3.fromDegrees(-62.7248, 17.3026, 250000),
+          orientation: {
+            heading: 0,
+            pitch: Cesium.Math.toRadians(-30),
+            roll: 0,
+          },
+          duration: 2,
+        });
+
+        // Very slow rotation
+        viewer.clock.onTick.addEventListener(() => {
+          viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.0001);
+        });
+
+        setLoaded(true);
+      } catch (err) {
+        console.error("Cesium init error:", err);
+        setError(true);
+      }
     }
 
     init();
@@ -130,11 +148,28 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
     };
   }, []);
 
+  if (error) {
+    return (
+      <div
+        className={`w-full flex items-center justify-center ${className}`}
+        style={{ minHeight: "400px", background: "#0a0f1a" }}
+      >
+        <div className="text-center">
+          <div className="text-slate-500 text-sm">Map unavailable</div>
+          <div className="text-slate-600 text-xs mt-1">Please check your connection</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       ref={containerRef}
-      className={`w-full h-full ${className}`}
-      style={{ minHeight: "400px" }}
+      className={`w-full ${className}`}
+      style={{
+        height: "480px",
+        background: "#0a0f1a",
+      }}
     />
   );
 }
