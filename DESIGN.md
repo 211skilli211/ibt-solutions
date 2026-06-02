@@ -650,10 +650,23 @@ On desktop (optional): Replace with R3F custom shader for true WebGL water/ocean
 
 **3D Implementation Priority:**
 1. ✅ CSS-based 3D (glass-morphism, animated gradients, particles) — works now, no deps needed
-2. 🔄 R3F hero scene (3D ocean/island scene as landing hero) — needs npm install
-3. 🔄 Cesium integration (3D globe for service locations) — already installed, needs implementation
-4. 🔄 Post-processing effects (bloom, film grain on 3D scenes) — needs npm install
-5. 🔄 GLSL custom shaders (water, holographic, glass refraction) — needs npm install
+2. ✅ R3F hero scene (OceanMesh GLSL shader) — component written, needs npm install
+3. ✅ 3D tilt cards (ListingCard3D) — component written, framer-motion already installed
+4. ✅ PageTransition + ParticleField + MagneticButton — all working
+5. 🔄 Cesium integration (3D globe for service locations) — already installed, needs implementation
+6. 🔄 Post-processing effects (bloom, film grain on 3D scenes) — needs npm install
+7. 🔄 GLSL custom shaders (water, holographic, glass refraction) — needs npm install
+
+### Component Library (Shipped)
+
+| Component | File | Status | Notes |
+|-----------|------|--------|-------|
+| `PageTransition` | `web/src/components/PageTransition.tsx` | ✅ Shipped | framer-motion AnimatePresence |
+| `ParticleField` | `web/src/components/ParticleField.tsx` | ✅ Shipped | Canvas-based tropical motes |
+| `MagneticButton` | `web/src/components/ui/MagneticButton.tsx` | ✅ Shipped | Spring-based magnetic hover |
+| `HeroCanvas` | `web/src/components/HeroCanvas.tsx` | ⚠️ Written, needs npm | R3F + GLSL ocean shader |
+| `ListingCard3D` | `web/src/components/ListingCard3D.tsx` | ✅ Shipped | Perspective tilt + glow |
+| CSS utilities | `web/src/app/globals.css` | ✅ Shipped | .glass-card, .btn-3d, .holo-card, .skeleton, .aurora-divider |
 
 ### Do's and Don'ts (3D Layer)
 
