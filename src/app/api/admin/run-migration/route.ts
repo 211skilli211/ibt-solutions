@@ -221,7 +221,7 @@ export async function POST(request: NextRequest) {
     await pool.end();
     return NextResponse.json({
       status: 'error',
-      message: error.message
+      message: error instanceof Error ? error.message : String(error)
     }, { status: 500 });
   }
 }
