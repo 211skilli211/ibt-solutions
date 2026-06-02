@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard, HoloCard, ParallaxCard } from '@/components/animations';
 import ParticleField from '@/components/shaders/ParticleField';
 import ShaderBackground from '@/components/shaders/ShaderBackground';
+import GlobeMap from '@/components/GlobeMap';
 
 interface HeroData {
   asset_url: string;
@@ -275,6 +276,35 @@ export default function HomePage() {
                   </div>
                 </Link>
               ))}
+            </div>
+          </Section>
+        </ScrollReveal>
+
+        {/* Regional Presence — Interactive Globe */}
+        <ScrollReveal>
+          <Section className="py-20 bg-surface-50">
+            <SectionHeader
+              badge="Regional Presence"
+              title="Serving the Caribbean"
+              subtitle="Headquartered in St. Kitts & Nevis, delivering technology solutions across the Eastern Caribbean."
+            />
+            <div className="mt-12 max-w-5xl mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
+              style={{ height: "480px" }}>
+              <GlobeMap className="w-full h-full" />
+            </div>
+            <div className="max-w-3xl mx-auto mt-8 grid grid-cols-3 gap-6 text-center">
+              <div>
+                <div className="text-2xl font-bold text-teal-400">14</div>
+                <div className="text-xs text-slate-500 mt-1">Caribbean Markets</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-teal-400">XCD</div>
+                <div className="text-xs text-slate-500 mt-1">Eastern Caribbean Dollar</div>
+              </div>
+              <div>
+                <div className="text-2xl font-bold text-teal-400">24h</div>
+                <div className="text-xs text-slate-500 mt-1">Response Time</div>
+              </div>
             </div>
           </Section>
         </ScrollReveal>
