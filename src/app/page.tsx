@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge } from '@/components/ui';
 import { motion } from 'framer-motion';
-import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard, HoloCard, ParallaxCard } from '@/components/animations';
+import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard, HoloCard } from '@/components/animations';
 import ParticleField from '@/components/shaders/ParticleField';
 import ShaderBackground from '@/components/shaders/ShaderBackground';
 import GlobeMap from '@/components/GlobeMap';
@@ -259,7 +259,7 @@ export default function HomePage() {
 
         {/* Co-ops */}
         <ScrollReveal>
-          <Section className="py-20 bg-surface-50">
+          <Section className="py-20">
             <SectionHeader
               badge="IBT Co-operative Federation"
               title="Community-Driven Cooperatives"
