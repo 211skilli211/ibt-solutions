@@ -6,13 +6,14 @@ interface GlobeMapProps {
   className?: string;
 }
 
-const CESIUM_CDN = "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js";
-const CESIUM_CSS = "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css";
+const CESIUM_CDN =
+  "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js";
+const CESIUM_CSS =
+  "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css";
 
 export default function GlobeMap({ className = "" }: GlobeMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
-  const [loaded, setLoaded] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -23,38 +24,34 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
 
     function loadScript(src: string): Promise<void> {
       return new Promise((resolve, reject) => {
-        const script = document.createElement("script");
-        script.src = src;
-        script.onload = () => resolve();
-        script.onerror = reject;
-        document.head.appendChild(script);
+        if (document.querySelector(`script[src="${src}"]`)) return resolve();
+        const s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.onload = () => resolve();
+        s.onerror = reject;
+        document.head.appendChild(s);
       });
     }
 
     function loadCSS(href: string) {
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.href = href;
-      document.head.appendChild(link);
+      if (document.querySelector(`link[href="${href}"]`)) return;
+      const l = document.createElement("link");
+      l.rel = "stylesheet";
+      l.href = href;
+      document.head.appendChild(l);
     }
 
     async function init() {
-      // Load CSS first
       loadCSS(CESIUM_CSS);
-
-      // Load Cesium JS
       await loadScript(CESIUM_CDN);
       if (cancelled) return;
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const Cesium = (window as any).Cesium;
-      if (!Cesium) {
-        setError(true);
-        return;
-      }
+      if (!Cesium) return setError(true);
 
-      // Set Cesium Ion access token for satellite + terrain
-      Cesium.Ion.defaultAccessToken = process.env.NEXT_PUBLIC_CESIUM_ION_TOKEN || '';
+      Cesium.Ion.defaultAccessToken =
+        process.env.NEXT_PUBLIC_CESIUM_ION_TOKEN || "";
 
       try {
         const viewer = new Cesium.Viewer(containerRef.current!, {
@@ -68,68 +65,79 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
           fullscreenButton: false,
           infoBox: false,
           selectionIndicator: false,
-          // Cesium Ion satellite imagery with 3D terrain
-          baseLayer: Cesium.ImageryLayer.fromProviderAsync(
-            Cesium.IonImageryProvider.fromAssetId(3845)  // Natural Earth II
+          creditContainer: document.createElement("div"),
+          baseLayer: await Cesium.ImageryLayer.fromProviderAsync(
+            Cesium.IonImageryProvider.fromAssetId(2)
           ),
-          terrain: Cesium.Terrain.fromWorldTerrain(),
-          // Request render mode for performance
-          requestRenderMode: false,
+          terrain: await Cesium.Terrain.fromWorldTerrainAsync(),
+          requestRenderMode: true,
           maximumRenderTimeChange: Infinity,
+          msaaSamples: 4,
+          skyBox: false,
+          skyAtmosphere: new Cesium.SkyAtmosphere(),
+          minimumZoomDistance: 50_000,
+          maximumZoomDistance: 10_000_000,
         });
 
-        if (cancelled) {
-          viewer.destroy();
-          return;
-        }
-
+        if (cancelled) return viewer.destroy();
         viewerRef.current = viewer;
 
-        // Remove bottom credits
-        const credit = viewer.cesiumWidget.creditContainer;
-        if (credit) credit.style.display = "none";
+        // Lighting + depth
+        viewer.scene.globe.enableLighting = true;
+        viewer.scene.globe.depthTestAgainstTerrain = true;
+        viewer.scene.postProcessStages.fxaa.enabled = true;
 
-        // St. Kitts marker
+        // Camera controls: damped inertia
+        const ssc = viewer.scene.screenSpaceCameraController;
+        ssc.inertiaSpin = 0.9;
+        ssc.inertiaTranslate = 0.9;
+        ssc.inertiaZoom = 0.8;
+
+        // Marker: St. Kitts & Nevis — teal accent per DESIGN.md
         viewer.entities.add({
           position: Cesium.Cartesian3.fromDegrees(-62.7248, 17.3026),
           point: {
-            pixelSize: 10,
-            color: Cesium.Color.fromCssColorString("#00d4ff"),
+            pixelSize: 12,
+            color: Cesium.Color.fromCssColorString("#14B8A6"),
             outlineColor: Cesium.Color.WHITE,
-            outlineWidth: 2,
+            outlineWidth: 3,
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-            disableDepthTestDistance: 500000,
+            disableDepthTestDistance: 1_000_000,
+            scaleByDistance: new Cesium.NearFarScalar(1e5, 1.4, 5e6, 0.6),
           },
           label: {
-            text: "IBT — St. Kitts",
-            font: "13px sans-serif",
+            text: "IBT &mdash; St. Kitts & Nevis",
+            fontFamily: "Geist, Inter, sans-serif",
+            fontSize: 14,
+            fontStyle: "600",
             fillColor: Cesium.Color.WHITE,
-            outlineColor: Cesium.Color.BLACK,
-            outlineWidth: 2,
+            outlineColor: new Cesium.Color(0.039, 0.086, 0.157, 1),
+            outlineWidth: 4,
             style: Cesium.LabelStyle.FILL_AND_OUTLINE,
-            pixelOffset: new Cesium.Cartesian2(0, -25),
+            pixelOffset: new Cesium.Cartesian2(0, -30),
             heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
-            disableDepthTestDistance: 500000,
+            disableDepthTestDistance: 1_000_000,
+            scaleByDistance: new Cesium.NearFarScalar(1e5, 1.0, 3e6, 0),
           },
         });
 
-        // Fly to Caribbean
+        // Initial view: 350km above Basseterre, 35deg pitch
         viewer.camera.flyTo({
-          destination: Cesium.Cartesian3.fromDegrees(-62.7248, 17.3026, 250000),
+          destination: Cesium.Cartesian3.fromDegrees(-62.7248, 17.3026, 350_000),
           orientation: {
             heading: 0,
-            pitch: Cesium.Math.toRadians(-30),
+            pitch: Cesium.Math.toRadians(-35),
             roll: 0,
           },
-          duration: 2,
+          duration: 2.5,
+          easingFunction: Cesium.EasingFunction.CUBIC_IN_OUT,
         });
 
-        // Very slow rotation
+        // Idle rotation: very slow
         viewer.clock.onTick.addEventListener(() => {
-          viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.0001);
+          if (viewer.scene.mode !== Cesium.SceneMode.SCENE3D) return;
+          viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.00008);
         });
-
-        setLoaded(true);
       } catch (err) {
         console.error("Cesium init error:", err);
         setError(true);
@@ -150,12 +158,16 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
   if (error) {
     return (
       <div
-        className={`w-full flex items-center justify-center ${className}`}
-        style={{ minHeight: "400px", background: "#0a0f1a" }}
+        className={`w-full flex items-center justify-center rounded-2xl ${className}`}
+        style={{ minHeight: "400px", background: "var(--color-surface-0, #0A1628)" }}
       >
         <div className="text-center">
-          <div className="text-slate-500 text-sm">Map unavailable</div>
-          <div className="text-slate-600 text-xs mt-1">Please check your connection</div>
+          <div className="text-sm" style={{ color: "var(--slate-500, #64748B)" }}>
+            Map unavailable
+          </div>
+          <div className="text-xs mt-1" style={{ color: "var(--slate-700, #334155)" }}>
+            Check your connection
+          </div>
         </div>
       </div>
     );
@@ -167,7 +179,9 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
       className={`w-full ${className}`}
       style={{
         height: "480px",
-        background: "#0a0f1a",
+        background: "var(--color-surface-0, #0A1628)",
+        borderRadius: "1rem",
+        overflow: "hidden",
       }}
     />
   );
