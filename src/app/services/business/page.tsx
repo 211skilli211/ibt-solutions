@@ -91,7 +91,7 @@ export default function BusinessPage() {
                 <h1 className="text-4xl sm:text-6xl font-bold text-white mb-6">
                   {title}
                   <br />
-                  <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-cyan-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-teal-400 via-cyan-400 to-amber-400 bg-clip-text text-transparent">
                     {titleGradient}
                   </span>
                 </h1>

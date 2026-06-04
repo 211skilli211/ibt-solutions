@@ -50,7 +50,7 @@ export default function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-surface-0/95 backdrop-blur-lg border-b border-surface-3 shadow-lg'
+            ? 'bg-surface-0/95 backdrop-blur-md border-b border-surface-3 shadow-lg'
             : 'bg-surface-0/80 backdrop-blur-md'
         }`}
       >
@@ -121,8 +121,8 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <>
-          <div className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
-          <div className="fixed top-16 left-0 right-0 z-50 bg-surface-1/98 backdrop-blur-lg border-b border-surface-3 shadow-2xl animate-slide-up">
+          <div className="fixed inset-0 z-40 bg-black/80" onClick={() => setIsOpen(false)} />
+          <div className="fixed top-16 left-0 right-0 z-50 bg-surface-1/98 backdrop-blur-md border-b border-surface-3 shadow-2xl animate-slide-up">
             <div className="max-w-7xl mx-auto px-4 py-4">
               <nav className="space-y-1">
                 {navLinks.map((link) => (

@@ -353,7 +353,7 @@ export function Modal({ open, onClose, title, children, size = 'md', footer }: M
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/80" onClick={onClose} />
       <div
         className={`relative w-full bg-surface-1 border border-surface-3 rounded-2xl shadow-xl ${sizes[size]}`}
       >

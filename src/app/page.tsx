@@ -248,7 +248,7 @@ export default function HomePage() {
                 {services.map((s, i) => (
                   <StaggerItem key={i}>
                     <TiltCard intensity={6} className="h-full">
-                      {i === 0 ? <HoloCard><ServiceCard {...s} /></HoloCard> : <ServiceCard {...s} />}
+                      <ServiceCard {...s} />
                     </TiltCard>
                   </StaggerItem>
                 ))}

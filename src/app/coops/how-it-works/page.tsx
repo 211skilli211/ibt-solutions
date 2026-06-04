@@ -100,7 +100,7 @@ export default function HowItWorksPage() {
                 <h3 className="font-semibold text-white mb-1">3-Phase Model</h3>
                 <p className="text-sm text-slate-400">Foundation → Transition → Independence</p>
               </div>
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-transparent border border-slate-800 text-center">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-teal-500/10 to-transparent border border-slate-800 text-center">
                 <div className="text-4xl mb-3">🏝️</div>
                 <h3 className="font-semibold text-white mb-1">Caribbean Focus</h3>
                 <p className="text-sm text-slate-400">Built for locals, by locals</p>

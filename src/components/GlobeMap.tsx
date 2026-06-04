@@ -138,7 +138,7 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
           },
           label: {
             text: "IBT — St. Kitts & Nevis",
-            fontFamily: "Geist, Inter, sans-serif",
+            fontFamily: "Geist, Albert Sans, sans-serif",
             fontSize: 14,
             fontStyle: "600",
             fillColor: Cesium.Color.WHITE,
