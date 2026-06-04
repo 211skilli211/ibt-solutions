@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
         path: false,
         crypto: false,
       };
+      // Cesium loaded via CDN in GlobeMap.tsx — never bundle
+      config.externals = config.externals || [];
+      config.externals.push('cesium');
     }
     return config;
   },
