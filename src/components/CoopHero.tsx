@@ -58,7 +58,7 @@ export default function CoopHero({ pageKey, fallback, rightContent }: CoopHeroPr
 
       <div className="relative pt-8 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <nav className="flex items-center gap-2 text-sm text-slate-400 mb-8">
+          <nav className="flex items-center gap-2 text-sm text-ink-400 mb-8">
             <Link href="/coops" className="hover:text-white transition-colors">IBT Co-ops</Link>
             <span>/</span>
             <span className="text-white">{title}</span>
@@ -76,18 +76,18 @@ export default function CoopHero({ pageKey, fallback, rightContent }: CoopHeroPr
                   {gradient}
                 </span>
               </h1>
-              <p className="text-xl text-slate-400 mb-8">
+              <p className="text-xl text-ink-400 mb-8">
                 {subtitle}
               </p>
               {(cta1Label || cta2Label) && (
                 <div className="flex flex-col sm:flex-row gap-4">
                   {cta1Label && cta1Link && (
-                    <Link href={cta1Link} className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all text-center">
+                    <Link href={cta1Link} className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-surface-1 font-semibold rounded-xl transition-all text-center">
                       {cta1Label}
                     </Link>
                   )}
                   {cta2Label && cta2Link && (
-                    <a href={cta2Link} target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-all text-center">
+                    <a href={cta2Link} target="_blank" rel="noopener noreferrer" className="px-8 py-4 border border-ink-700 hover:border-ink-600 text-white font-medium rounded-xl transition-all text-center">
                       {cta2Label}
                     </a>
                   )}

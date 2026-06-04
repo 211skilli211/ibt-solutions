@@ -42,7 +42,7 @@ export default function PortfolioPage() {
             <Card key={aim.title} hover>
               <div className="text-3xl mb-3">{aim.icon}</div>
               <h3 className="text-base font-bold text-white mb-2">{aim.title}</h3>
-              <p className="text-xs text-slate-400 leading-relaxed">{aim.description}</p>
+              <p className="text-xs text-ink-400 leading-relaxed">{aim.description}</p>
             </Card>
           ))}
         </div>
@@ -68,10 +68,10 @@ export default function PortfolioPage() {
                   <h3 className="text-base font-bold text-white group-hover:text-teal-400 transition-colors">{project.title}</h3>
                   <Badge variant={project.status === 'Live' ? 'emerald' : project.status === 'Building' ? 'teal' : project.status === 'Beta' ? 'sunset' : 'slate'} size="sm">{project.status}</Badge>
                 </div>
-                <p className="text-xs text-slate-400 mb-3 line-clamp-2">{project.description}</p>
+                <p className="text-xs text-ink-400 mb-3 line-clamp-2">{project.description}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {project.tags.map((tag) => (
-                    <span key={tag} className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-slate-400">{tag}</span>
+                    <span key={tag} className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-ink-400">{tag}</span>
                   ))}
                 </div>
               </div>
@@ -83,14 +83,14 @@ export default function PortfolioPage() {
       {/* CTA */}
       <Section>
         <div className="text-center p-6 rounded-2xl bg-surface-1 border border-surface-3">
-          <p className="text-slate-400 mb-4 text-sm">Interested in working together or contributing to these projects?</p>
+          <p className="text-ink-400 mb-4 text-sm">Interested in working together or contributing to these projects?</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/contact" className="inline-flex items-center justify-center px-6 py-3 bg-teal-500 hover:bg-teal-400 text-ocean-900 font-bold rounded-xl transition-all text-sm">Get in Touch</Link>
             <Link href="/coops" className="inline-flex items-center justify-center px-6 py-3 border border-surface-3 hover:border-teal-500/50 text-white font-medium rounded-xl transition-all text-sm">Join IBT Co-ops</Link>
           </div>
         </div>
         <div className="mt-8 text-center">
-          <Link href="/founder" className="text-sm text-slate-400 hover:text-teal-400 transition-colors inline-flex items-center gap-1">
+          <Link href="/founder" className="text-sm text-ink-400 hover:text-teal-400 transition-colors inline-flex items-center gap-1">
             Meet the Founder →
           </Link>
         </div>

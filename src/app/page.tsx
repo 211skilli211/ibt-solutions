@@ -205,7 +205,7 @@ export default function HomePage() {
             </motion.h1>
 
             <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
-              className="text-xl text-slate-400 max-w-2xl mx-auto mb-10">
+              className="text-xl text-ink-400 max-w-2xl mx-auto mb-10">
               {heroSubtitle}
             </motion.p>
 
@@ -218,7 +218,7 @@ export default function HomePage() {
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
               className="flex flex-wrap justify-center gap-3">
               {trustSignals.map((s, i) => (
-                <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-slate-400 font-medium">{s}</span>
+                <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-ink-400 font-medium">{s}</span>
               ))}
             </motion.div>
           </div>
@@ -272,7 +272,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4">
                     <div className="text-white font-bold text-sm">{c.title}</div>
-                    <div className="text-slate-400 text-xs">{c.desc}</div>
+                    <div className="text-ink-400 text-xs">{c.desc}</div>
                   </div>
                 </Link>
               ))}
@@ -319,7 +319,7 @@ export default function HomePage() {
           <Section className="py-20">
             <div className="max-w-2xl mx-auto text-center">
               <h2 className="text-4xl font-extrabold text-white mb-4">Start a Conversation</h2>
-              <p className="text-slate-400 mb-8">Share your project details and we'll respond within one business day.</p>
+              <p className="text-ink-400 mb-8">Share your project details and we'll respond within one business day.</p>
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
                 <input
                   type="email"
@@ -327,7 +327,7 @@ export default function HomePage() {
                   onChange={e => setEmail(e.target.value)}
                   placeholder="your@email.com"
                   required
-                  className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-teal-500 transition-colors"
+                  className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-ink-500 focus:outline-none focus:border-teal-500 transition-colors"
                 />
                 <button type="submit" className="px-6 py-3 bg-teal-500 text-white font-bold rounded-xl hover:bg-teal-600 transition-colors whitespace-nowrap">
                   Contact Us

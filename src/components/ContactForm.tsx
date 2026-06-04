@@ -50,24 +50,24 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Name *</label>
+          <label className="block text-sm font-medium text-ink-300 mb-2">Name *</label>
           <input
             type="text"
             required
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+            className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-cyan-500 transition-colors"
             placeholder="Your name"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Email *</label>
+          <label className="block text-sm font-medium text-ink-300 mb-2">Email *</label>
           <input
             type="email"
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+            className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-cyan-500 transition-colors"
             placeholder="you@example.com"
           />
         </div>
@@ -75,33 +75,33 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Phone</label>
+          <label className="block text-sm font-medium text-ink-300 mb-2">Phone</label>
           <input
             type="tel"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+            className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-cyan-500 transition-colors"
             placeholder="+1 (000) 000-0000"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-300 mb-2">Company</label>
+          <label className="block text-sm font-medium text-ink-300 mb-2">Company</label>
           <input
             type="text"
             value={formData.company}
             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+            className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-cyan-500 transition-colors"
             placeholder="Your company"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">Inquiry Type</label>
+        <label className="block text-sm font-medium text-ink-300 mb-2">Inquiry Type</label>
         <select
           value={formData.service_type}
           onChange={(e) => setFormData({ ...formData, service_type: e.target.value })}
-          className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+          className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
         >
           <option value="general">General Inquiry</option>
           <option value="web-dev">Web Development</option>
@@ -114,13 +114,13 @@ export default function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">Message *</label>
+        <label className="block text-sm font-medium text-ink-300 mb-2">Message *</label>
         <textarea
           required
           rows={5}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors resize-none"
+          className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-cyan-500 transition-colors resize-none"
           placeholder="Tell us about your project or inquiry..."
         />
       </div>
@@ -140,7 +140,7 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="w-full px-8 py-4 bg-cyan-500 hover:bg-cyan-400 disabled:bg-cyan-500/50 text-slate-900 font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
+        className="w-full px-8 py-4 bg-cyan-500 hover:bg-cyan-400 disabled:bg-cyan-500/50 text-surface-1 font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
       >
         {status === 'loading' ? (
           <>

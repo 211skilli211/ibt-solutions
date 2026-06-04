@@ -50,7 +50,7 @@ export default function BookingForm() {
 
   return (
     <div>
-      <p className="text-slate-400 text-sm mb-6">
+      <p className="text-ink-400 text-sm mb-6">
         Select your preferred date, time, and topic. We&apos;ll send a calendar invitation to confirm.
       </p>
 
@@ -60,7 +60,7 @@ export default function BookingForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <h3 className="text-lg font-semibold text-white mb-2">Request Received!</h3>
-          <p className="text-slate-400 text-sm">
+          <p className="text-ink-400 text-sm">
             We&apos;ll confirm your booking within a few hours. Check your email for a calendar invite.
           </p>
           <button
@@ -74,36 +74,36 @@ export default function BookingForm() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Name *</label>
+              <label className="block text-sm font-medium text-ink-300 mb-2">Name *</label>
               <input
                 type="text"
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-cyan-500 transition-colors"
                 placeholder="Your name"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Email *</label>
+              <label className="block text-sm font-medium text-ink-300 mb-2">Email *</label>
               <input
                 type="email"
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+                className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-cyan-500 transition-colors"
                 placeholder="you@example.com"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">Topic *</label>
+            <label className="block text-sm font-medium text-ink-300 mb-2">Topic *</label>
             <select
               required
               value={formData.topic}
               onChange={(e) => setFormData({ ...formData, topic: e.target.value })}
-              className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+              className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
             >
               <option value="">Select a topic...</option>
               {topics.map((topic) => (
@@ -114,23 +114,23 @@ export default function BookingForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Preferred Date *</label>
+              <label className="block text-sm font-medium text-ink-300 mb-2">Preferred Date *</label>
               <input
                 type="date"
                 required
                 min={getMinDate()}
                 value={formData.preferredDate}
                 onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-300 mb-2">Preferred Time *</label>
+              <label className="block text-sm font-medium text-ink-300 mb-2">Preferred Time *</label>
               <select
                 required
                 value={formData.preferredTime}
                 onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                className="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
+                className="w-full px-4 py-3 bg-surface-2 border border-ink-700 rounded-xl text-white focus:outline-none focus:border-cyan-500 transition-colors"
               >
                 <option value="">Select time...</option>
                 {timeSlots.map((time) => (
@@ -143,7 +143,7 @@ export default function BookingForm() {
           <button
             type="submit"
             disabled={status === 'loading'}
-            className="w-full px-8 py-4 bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-500/50 text-slate-900 font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
+            className="w-full px-8 py-4 bg-emerald-500 hover:bg-emerald-400 disabled:bg-emerald-500/50 text-surface-1 font-semibold rounded-xl transition-all flex items-center justify-center gap-2"
           >
             {status === 'loading' ? (
               <>
@@ -158,7 +158,7 @@ export default function BookingForm() {
             )}
           </button>
 
-          <p className="text-xs text-slate-500 text-center">
+          <p className="text-xs text-ink-500 text-center">
             Free 30-minute consultation. We&apos;ll confirm via email within 24 hours.
           </p>
         </form>

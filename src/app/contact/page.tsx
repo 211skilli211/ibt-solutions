@@ -67,7 +67,7 @@ export default function ContactPage() {
                   >
                     <span className="text-3xl">{method.icon}</span>
                     <div>
-                      <div className="text-sm text-slate-400">{method.label}</div>
+                      <div className="text-sm text-ink-400">{method.label}</div>
                       <div className="text-white group-hover:text-teal-400 transition-colors">{method.value}</div>
                     </div>
                   </a>
@@ -77,7 +77,7 @@ export default function ContactPage() {
 
             <Card className="p-8">
               <h2 className="text-2xl font-bold text-white mb-4">Schedule a Consultation</h2>
-              <p className="text-slate-400 mb-6">
+              <p className="text-ink-400 mb-6">
                 Book a free 30-minute consultation to discuss your business needs.
               </p>
               <BookingForm />
@@ -94,7 +94,7 @@ export default function ContactPage() {
         </div>
 
         <div className="mt-12 text-center">
-          <Link href="/founder" className="text-sm text-slate-500 hover:text-teal-400 transition-colors">
+          <Link href="/founder" className="text-sm text-ink-500 hover:text-teal-400 transition-colors">
             Meet the Founder →
           </Link>
         </div>

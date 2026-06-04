@@ -65,7 +65,7 @@ export default function ShaderBackground({
 
   if (!config) {
     return (
-      <div className={`relative overflow-hidden bg-slate-900 ${className}`} style={cssVars}>
+      <div className={`relative overflow-hidden bg-surface-1 ${className}`} style={cssVars}>
         {children}
       </div>
     );

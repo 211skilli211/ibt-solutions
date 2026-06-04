@@ -61,14 +61,14 @@ export default function AIPage() {
                   <br />
                   <GradientText>{titleGradient}</GradientText>
                 </h1>
-                <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+                <p className="text-xl text-ink-300 mb-8 leading-relaxed">
                   {subtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
                   <Button href={cta1Link} size="lg">{cta1Label}</Button>
                   <Button href={cta2Link} variant="outline" size="lg">{cta2Label}</Button>
                 </div>
-                <div className="flex flex-wrap gap-4 text-sm text-slate-400">
+                <div className="flex flex-wrap gap-4 text-sm text-ink-400">
                   {['No per-task pricing', '48-hour deployment', 'Learns your business'].map((t) => (
                     <span key={t} className="flex items-center gap-1.5">
                       <svg className="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
@@ -87,7 +87,7 @@ export default function AIPage() {
                       <svg className="w-10 h-10 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.554z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                     </div>
                     <p className="text-white font-semibold mb-1">See Your Agent in Action</p>
-                    <p className="text-slate-400 text-sm">Loom demo — agent operating in sandbox</p>
+                    <p className="text-ink-400 text-sm">Loom demo — agent operating in sandbox</p>
                   </div>
                   <div className="absolute top-4 right-4"><Badge variant="sunset">DEMO</Badge></div>
                 </div>
@@ -106,7 +106,7 @@ export default function AIPage() {
             <br />
             <GradientText>One Flat Fee.</GradientText>
           </h2>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-ink-400 max-w-2xl mx-auto">
             Stop paying per task. Stop paying per agent. Hire as many as you need — for one fixed monthly investment.
           </p>
         </div>
@@ -114,8 +114,8 @@ export default function AIPage() {
         <Card className="max-w-3xl mx-auto text-center">
           <div className="mb-10">
             <span className="text-6xl sm:text-7xl font-black text-white">$5,000</span>
-            <span className="text-2xl text-slate-400 ml-2">/month</span>
-            <p className="text-slate-400 text-sm mt-2">Everything included. No add-ons. No hidden fees.</p>
+            <span className="text-2xl text-ink-400 ml-2">/month</span>
+            <p className="text-ink-400 text-sm mt-2">Everything included. No add-ons. No hidden fees.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10">
             {[
@@ -130,13 +130,13 @@ export default function AIPage() {
                 </div>
                 <div>
                   <h4 className="font-bold text-white mb-1">{item.label}</h4>
-                  <p className="text-sm text-slate-400">{item.desc}</p>
+                  <p className="text-sm text-ink-400">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
           <Button href="#contact" size="lg">Start With Your First Agent</Button>
-          <p className="text-xs text-slate-500 mt-3">48-hour turnaround on first agent. No long-term contract required.</p>
+          <p className="text-xs text-ink-500 mt-3">48-hour turnaround on first agent. No long-term contract required.</p>
         </Card>
       </Section>
 
@@ -147,7 +147,7 @@ export default function AIPage() {
             <Card key={g.label} className="text-center">
               <div className="text-2xl mb-3">{g.icon}</div>
               <h4 className="font-bold text-white mb-1 text-sm">{g.label}</h4>
-              <p className="text-xs text-slate-400">{g.desc}</p>
+              <p className="text-xs text-ink-400">{g.desc}</p>
             </Card>
           ))}
         </div>
@@ -167,7 +167,7 @@ export default function AIPage() {
                 {v.outcomes.map((o) => (
                   <li key={o} className="flex items-start gap-3">
                     <svg className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                    <span className="text-slate-300 text-sm">{o}</span>
+                    <span className="text-ink-300 text-sm">{o}</span>
                   </li>
                 ))}
               </ul>
@@ -175,7 +175,7 @@ export default function AIPage() {
           ))}
         </div>
         <div className="mt-10 text-center">
-          <p className="text-slate-400 text-sm mb-4">Don't see your industry? Every business has repeatable knowledge work.</p>
+          <p className="text-ink-400 text-sm mb-4">Don't see your industry? Every business has repeatable knowledge work.</p>
           <Button href="/contact" variant="ghost">Request Custom Assessment →</Button>
         </div>
       </Section>
@@ -186,9 +186,9 @@ export default function AIPage() {
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
             We Don't Talk About Time Saved.
             <br />
-            <span className="text-slate-400">We Talk About Revenue Generated.</span>
+            <span className="text-ink-400">We Talk About Revenue Generated.</span>
           </h2>
-          <p className="text-slate-300 max-w-xl mx-auto leading-relaxed">
+          <p className="text-ink-300 max-w-xl mx-auto leading-relaxed">
             Your digital employee isn't here to "save you 20 hours a week." It's here to generate revenue — drafting proposals that win contracts, processing claims that close faster, qualifying leads that convert.
           </p>
         </Card>
@@ -201,7 +201,7 @@ export default function AIPage() {
           {moreServices.map((s) => (
             <Link key={s.title} href={s.href} className="bg-surface-1 border border-surface-3 rounded-xl p-5 hover:border-teal-500/30 transition-all group">
               <h4 className="font-bold text-white mb-1 group-hover:text-teal-400 transition-colors">{s.title}</h4>
-              <p className="text-xs text-slate-400 mb-3">{s.desc}</p>
+              <p className="text-xs text-ink-400 mb-3">{s.desc}</p>
               <span className="text-xs text-teal-400 font-medium">Learn More →</span>
             </Link>
           ))}
@@ -212,13 +212,13 @@ export default function AIPage() {
       <Section id="contact">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-4xl font-bold text-white mb-4">Ready to Hire Your First Digital Employee?</h2>
-          <p className="text-slate-400 mb-8">Book a discovery call. We'll map your first workflow, show you a demo agent operating in a sandbox, and have your production agent live within 48 hours.</p>
+          <p className="text-ink-400 mb-8">Book a discovery call. We'll map your first workflow, show you a demo agent operating in a sandbox, and have your production agent live within 48 hours.</p>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your work email" required />
             <Button type="submit">Book Discovery Call</Button>
           </form>
           {formStatus && <p className="mt-4 text-teal-400 text-sm">{formStatus}</p>}
-          <p className="text-xs text-slate-500 mt-4">No credit card. No long-term contract. Cancel anytime.</p>
+          <p className="text-xs text-ink-500 mt-4">No credit card. No long-term contract. Cancel anytime.</p>
         </div>
       </Section>
     </div>

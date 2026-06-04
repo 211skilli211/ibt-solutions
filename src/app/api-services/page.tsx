@@ -43,7 +43,7 @@ export default function APIServicesPage() {
           <h1 className="text-4xl sm:text-6xl font-bold text-white mt-4 mb-6">
             Build with <GradientText>IBT APIs</GradientText>
           </h1>
-          <p className="text-xl text-slate-400 mb-8">
+          <p className="text-xl text-ink-400 mb-8">
             Powerful, reliable APIs for Caribbean applications. Tourism data, business automation, geospatial intelligence — all in one developer platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -66,7 +66,7 @@ export default function APIServicesPage() {
         <SectionHeader badge="API Catalog" title="Available APIs" subtitle="Everything you need to build Caribbean-focused applications." />
         <div className="flex gap-2 mb-8 justify-center">
           {categories.map((cat) => (
-            <button key={cat} className="px-4 py-1.5 rounded-lg text-sm font-medium bg-surface-2 text-slate-400 hover:text-white border border-surface-3 transition-colors">
+            <button key={cat} className="px-4 py-1.5 rounded-lg text-sm font-medium bg-surface-2 text-ink-200 hover:text-white border border-surface-3 transition-colors">
               {cat}
             </button>
           ))}
@@ -77,18 +77,18 @@ export default function APIServicesPage() {
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <h3 className="font-semibold text-white">{api.name}</h3>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{api.category}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-ink-500">{api.category}</p>
                 </div>
                 <Badge variant={api.status === 'Live' ? 'emerald' : 'slate'} size="sm">{api.status}</Badge>
               </div>
-              <p className="text-sm text-slate-400 mb-3">{api.description}</p>
+              <p className="text-sm text-ink-400 mb-3">{api.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex flex-wrap gap-1">
                   {api.features.slice(0, 2).map((f) => (
-                    <span key={f} className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-slate-400">{f}</span>
+                    <span key={f} className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-ink-200">{f}</span>
                   ))}
                   {api.features.length > 2 && (
-                    <span className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-slate-400">+{api.features.length - 2}</span>
+                    <span className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-ink-200">+{api.features.length - 2}</span>
                   )}
                 </div>
                 <Badge variant={api.tier === 'free' ? 'emerald' : 'teal'} size="sm">
@@ -114,9 +114,9 @@ export default function APIServicesPage() {
               <div className="text-center mb-6">
                 <div className="text-lg font-bold text-white mb-1">{tier.name}</div>
                 <div className="text-3xl font-bold text-white mb-1">{tier.price}</div>
-                <div className="text-sm text-slate-500">{tier.period}</div>
+                <div className="text-sm text-ink-500">{tier.period}</div>
               </div>
-              <ul className="text-sm text-slate-400 space-y-2 mb-6">
+              <ul className="text-sm text-ink-400 space-y-2 mb-6">
                 {tier.features.map((f) => (
                   <li key={f} className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
@@ -124,7 +124,7 @@ export default function APIServicesPage() {
                   </li>
                 ))}
                 {'excluded' in tier && tier.excluded?.map((f) => (
-                  <li key={f} className="flex items-center gap-2 text-slate-600">
+                  <li key={f} className="flex items-center gap-2 text-ink-600">
                     <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                     {f}
                   </li>
@@ -145,10 +145,10 @@ export default function APIServicesPage() {
                   <h4 className="font-semibold text-white">{addon.name}</h4>
                   <span className="text-lg font-bold text-teal-400">{addon.price}</span>
                 </div>
-                <p className="text-xs text-slate-400 mb-3">{addon.description}</p>
+                <p className="text-xs text-ink-400 mb-3">{addon.description}</p>
                 <ul className="space-y-1 mb-4">
                   {addon.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2 text-xs text-slate-400">
+                    <li key={f} className="flex items-center gap-2 text-xs text-ink-400">
                       <svg className="w-3.5 h-3.5 text-teal-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
                       {f}
                     </li>
@@ -169,7 +169,7 @@ export default function APIServicesPage() {
             <Card key={sdk.name} className="flex items-center justify-between">
               <div>
                 <h4 className="font-semibold text-white">{sdk.name}</h4>
-                <p className="text-xs text-slate-500">{sdk.version} · {sdk.installs} installs</p>
+                <p className="text-xs text-ink-500">{sdk.version} · {sdk.installs} installs</p>
               </div>
               <Button variant="secondary" size="sm">Install</Button>
             </Card>
@@ -181,7 +181,7 @@ export default function APIServicesPage() {
       <Section>
         <Card className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-3">Ready to Start Building?</h2>
-          <p className="text-slate-400 mb-6">Get your free API key and make your first call in minutes.</p>
+          <p className="text-ink-400 mb-6">Get your free API key and make your first call in minutes.</p>
           <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input placeholder="Enter your email" type="email" />
             <Button>Get API Key</Button>

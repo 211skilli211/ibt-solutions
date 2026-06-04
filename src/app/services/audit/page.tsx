@@ -26,8 +26,8 @@ function ScoreCircle({ score, label }: { score: number; label: string }) {
           <span className="text-2xl font-bold text-teal-400">{grade}</span>
         </div>
       </div>
-      <span className="text-sm text-slate-400 mt-2">{label}</span>
-      <span className="text-xs text-slate-500">{score}/100</span>
+      <span className="text-sm text-ink-400 mt-2">{label}</span>
+      <span className="text-xs text-ink-500">{score}/100</span>
     </div>
   );
 }
@@ -92,7 +92,7 @@ export default function AuditPage() {
                 <br />
                 <GradientText>{titleGradient}</GradientText>
               </h1>
-              <p className="text-xl text-slate-400">
+              <p className="text-xl text-ink-400">
                 {subtitle}
               </p>
             </div>
@@ -108,9 +108,9 @@ export default function AuditPage() {
             <Card key={dim.id}>
               <div className="text-4xl mb-4">{dim.icon}</div>
               <h3 className="text-lg font-bold text-white mb-2">{dim.name}</h3>
-              <p className="text-sm text-slate-400 mb-4">{dim.description}</p>
+              <p className="text-sm text-ink-400 mb-4">{dim.description}</p>
               <div className="flex items-center justify-between">
-                <span className="text-sm text-slate-500">Weight</span>
+                <span className="text-sm text-ink-500">Weight</span>
                 <span className="text-sm font-medium text-white">{dim.weight}%</span>
               </div>
             </Card>
@@ -136,7 +136,7 @@ export default function AuditPage() {
             <div className="text-center mb-8">
               <h2 className="text-2xl font-bold text-white mb-2">{result.domain}</h2>
               <div className="text-6xl font-bold text-white mb-2">{result.grade}</div>
-              <p className="text-slate-400">Overall Score: {result.overallScore}/100</p>
+              <p className="text-ink-400">Overall Score: {result.overallScore}/100</p>
             </div>
             <div className="flex justify-center gap-8 mb-8">
               <ScoreCircle score={result.seoScore} label="SEO" />
@@ -149,7 +149,7 @@ export default function AuditPage() {
                 <h3 className="text-lg font-bold text-white mb-4">Issues Found</h3>
                 <ul className="space-y-2">
                   {result.issues.map((issue, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-400 text-sm">
+                    <li key={i} className="flex items-center gap-2 text-ink-400 text-sm">
                       <span className="w-2 h-2 rounded-full bg-error" />{issue}
                     </li>
                   ))}
@@ -159,7 +159,7 @@ export default function AuditPage() {
                 <h3 className="text-lg font-bold text-white mb-4">Recommendations</h3>
                 <ul className="space-y-2">
                   {result.recommendations.map((rec, i) => (
-                    <li key={i} className="flex items-center gap-2 text-slate-400 text-sm">
+                    <li key={i} className="flex items-center gap-2 text-ink-400 text-sm">
                       <span className="w-2 h-2 rounded-full bg-success" />{rec}
                     </li>
                   ))}
@@ -178,7 +178,7 @@ export default function AuditPage() {
       <Section>
         <Card className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-white mb-4">Don't Have a Website?</h2>
-          <p className="text-slate-400 mb-6">
+          <p className="text-ink-400 mb-6">
             Our audit can find businesses that don't have a web presence. We specialize in creating professional websites for Caribbean businesses — from restaurants to tour operators.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">

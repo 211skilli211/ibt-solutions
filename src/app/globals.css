@@ -30,6 +30,28 @@
   --color-surface-2: #1A3A5C;
   --color-surface-3: #264D73;
 
+  /* Ink (text — Caribbean-tinted, never pure gray) */
+  --color-ink-900: #0F1729;
+  --color-ink-800: #1A2436;
+  --color-ink-700: #2A3444;
+  --color-ink-600: #4A5568;
+  --color-ink-500: #6B7B8D;
+  --color-ink-400: #94A3B8;
+  --color-ink-300: #CBD5E1;
+  --color-ink-200: #E2E8F0;
+  --color-ink-100: #F1F5F9;
+
+  /* Sand (warm neutral — borders, dividers) */
+  --color-sand-900: #3D2E1E;
+  --color-sand-800: #5C4A33;
+  --color-sand-700: #7A6550;
+  --color-sand-600: #9C8A72;
+  --color-sand-500: #B8A88E;
+  --color-sand-400: #D4C8B4;
+  --color-sand-300: #E8DFD2;
+  --color-sand-200: #F2EDE5;
+  --color-sand-100: #FAF7F3;
+
   /* Semantic */
   --color-success: #10B981;
   --color-warning: #F59E0B;

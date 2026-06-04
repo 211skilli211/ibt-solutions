@@ -65,7 +65,7 @@ export default function Navbar() {
                   IBT
                 </span>
               )}
-              <span className="text-sm text-slate-500 font-medium hidden sm:block">Solutions</span>
+              <span className="text-sm text-ink-500 font-medium hidden sm:block">Solutions</span>
             </Link>
 
             {/* Desktop Nav */}
@@ -75,7 +75,7 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={`text-sm font-medium transition-colors relative py-1 ${
-                    pathname === link.href ? 'text-teal-400' : 'text-slate-300 hover:text-white'
+                    pathname === link.href ? 'text-teal-400' : 'text-ink-300 hover:text-white'
                   } after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-teal-400 after:transform after:scale-x-0 after:transition-transform ${
                     pathname === link.href ? 'after:scale-x-100' : 'hover:after:scale-x-100'
                   }`}
@@ -102,7 +102,7 @@ export default function Navbar() {
               aria-label="Toggle menu"
               aria-expanded={isOpen}
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden min-w-[44px] min-h-[44px] p-2 text-slate-300 hover:text-white hover:bg-surface-2 rounded-lg transition-colors flex items-center justify-center"
+              className="md:hidden min-w-[44px] min-h-[44px] p-2 text-ink-300 hover:text-white hover:bg-surface-2 rounded-lg transition-colors flex items-center justify-center"
             >
               {isOpen ? (
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -132,7 +132,7 @@ export default function Navbar() {
                     className={`flex items-center justify-between py-3 px-4 text-base font-medium rounded-xl transition-colors ${
                       pathname === link.href
                         ? 'bg-teal-500/10 text-teal-400 border border-teal-500/30'
-                        : 'text-slate-300 hover:text-white hover:bg-surface-2'
+                        : 'text-ink-300 hover:text-white hover:bg-surface-2'
                     }`}
                   >
                     {link.label}

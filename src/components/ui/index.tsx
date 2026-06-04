@@ -44,7 +44,7 @@ export function Button({
       'bg-surface-2 hover:bg-surface-3 text-white border border-surface-3 active:scale-[0.98]',
     outline:
       'border-2 border-teal-500/50 text-teal-400 hover:bg-teal-500/10 hover:border-teal-400 active:scale-[0.98]',
-    ghost: 'text-slate-300 hover:text-white hover:bg-surface-2 active:scale-[0.98]',
+    ghost: 'text-ink-300 hover:text-white hover:bg-surface-2 active:scale-[0.98]',
     danger:
       'bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 active:scale-[0.98]',
   };
@@ -126,7 +126,7 @@ export function SectionHeader({ badge, title, subtitle, center = true, light = f
         {title}
       </h2>
       {subtitle && (
-        <p className="text-lg text-slate-400 max-w-2xl mx-auto">{subtitle}</p>
+        <p className="text-lg text-ink-400 max-w-2xl mx-auto">{subtitle}</p>
       )}
     </div>
   );
@@ -189,7 +189,7 @@ export function ServiceCard({ title, description, href, image, icon }: ServiceCa
         <h3 className="text-lg font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">
           {title}
         </h3>
-        <p className="text-sm text-slate-400 line-clamp-2">{description}</p>
+        <p className="text-sm text-ink-400 line-clamp-2">{description}</p>
       </div>
     </Link>
   );
@@ -205,7 +205,7 @@ export function Stat({ value, label }: StatProps) {
   return (
     <div className="text-center">
       <div className="text-3xl sm:text-4xl font-bold text-white">{value}</div>
-      <div className="text-sm text-slate-500 mt-1">{label}</div>
+      <div className="text-sm text-ink-500 mt-1">{label}</div>
     </div>
   );
 }
@@ -223,7 +223,7 @@ export function Badge({ children, variant = 'teal', size = 'sm', className = '' 
     teal: 'bg-teal-500/10 border-teal-500/20 text-teal-400',
     emerald: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
     sunset: 'bg-orange-500/10 border-orange-500/20 text-orange-400',
-    slate: 'bg-surface-2 border-surface-3 text-slate-300',
+    slate: 'bg-surface-2 border-surface-3 text-ink-300',
     red: 'bg-red-500/10 border-red-500/20 text-red-400',
   };
   const sizes = { sm: 'px-3 py-1 text-xs', md: 'px-4 py-1.5 text-sm' };
@@ -259,13 +259,13 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export function Input({ label, error, icon, className = '', ...props }: InputProps) {
   return (
     <div className="w-full">
-      {label && <label className="block text-sm font-medium text-slate-300 mb-1.5">{label}</label>}
+      {label && <label className="block text-sm font-medium text-ink-300 mb-1.5">{label}</label>}
       <div className="relative">
-        {icon && <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">{icon}</div>}
+        {icon && <div className="absolute left-3 top-1/2 -translate-y-1/2 text-ink-400">{icon}</div>}
         <input
           className={`
             w-full bg-surface-2 border border-surface-3 rounded-xl px-4 py-3 text-sm text-white
-            placeholder:text-slate-500 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/30
+            placeholder:text-ink-500 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/30
             disabled:opacity-50 disabled:cursor-not-allowed
             ${icon ? 'pl-10' : ''}
             ${error ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/30' : ''}
@@ -288,11 +288,11 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 export function Textarea({ label, error, className = '', ...props }: TextareaProps) {
   return (
     <div className="w-full">
-      {label && <label className="block text-sm font-medium text-slate-300 mb-1.5">{label}</label>}
+      {label && <label className="block text-sm font-medium text-ink-300 mb-1.5">{label}</label>}
       <textarea
         className={`
           w-full bg-surface-2 border border-surface-3 rounded-xl px-4 py-3 text-sm text-white
-          placeholder:text-slate-500 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/30
+          placeholder:text-ink-500 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/30
           disabled:opacity-50 disabled:cursor-not-allowed resize-none
           ${error ? 'border-red-500/50 focus:border-red-500/50 focus:ring-red-500/30' : ''}
           ${className}
@@ -314,7 +314,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 export function Select({ label, error, options, className = '', ...props }: SelectProps) {
   return (
     <div className="w-full">
-      {label && <label className="block text-sm font-medium text-slate-300 mb-1.5">{label}</label>}
+      {label && <label className="block text-sm font-medium text-ink-300 mb-1.5">{label}</label>}
       <select
         className={`
           w-full bg-surface-2 border border-surface-3 rounded-xl px-4 py-3 text-sm text-white
@@ -361,7 +361,7 @@ export function Modal({ open, onClose, title, children, size = 'md', footer }: M
           <h2 className="text-lg font-semibold text-white">{title}</h2>
           <button
             onClick={onClose}
-            className="p-1 rounded-lg text-slate-400 hover:text-white hover:bg-surface-2 transition-colors"
+            className="p-1 rounded-lg text-ink-400 hover:text-white hover:bg-surface-2 transition-colors"
           >
             ✕
           </button>
@@ -402,7 +402,7 @@ export function Toast({ message, type = 'info', onClose }: ToastProps) {
     <div className={`flex items-center gap-3 px-4 py-3 rounded-xl border ${colors[type]}`}>
       <span className={`text-sm font-medium ${textColors[type]}`}>{message}</span>
       {onClose && (
-        <button onClick={onClose} className="ml-auto text-slate-400 hover:text-white text-sm">
+        <button onClick={onClose} className="ml-auto text-ink-400 hover:text-white text-sm">
           ✕
         </button>
       )}
@@ -448,9 +448,9 @@ interface EmptyStateProps {
 export function EmptyState({ icon, title, description, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-12 text-center">
-      {icon && <div className="text-slate-500 mb-4">{icon}</div>}
-      <h3 className="text-lg font-medium text-slate-300">{title}</h3>
-      {description && <p className="text-sm text-slate-500 mt-1 max-w-sm">{description}</p>}
+      {icon && <div className="text-ink-500 mb-4">{icon}</div>}
+      <h3 className="text-lg font-medium text-ink-300">{title}</h3>
+      {description && <p className="text-sm text-ink-500 mt-1 max-w-sm">{description}</p>}
       {action && <div className="mt-4">{action}</div>}
     </div>
   );
@@ -470,7 +470,7 @@ export function Table({ headers, children, className = '' }: TableProps) {
         <thead>
           <tr className="border-b border-surface-3">
             {headers.map((h, i) => (
-              <th key={i} className="text-left text-slate-400 font-medium px-4 py-3">
+              <th key={i} className="text-left text-ink-400 font-medium px-4 py-3">
                 {h}
               </th>
             ))}

@@ -80,7 +80,7 @@ export default function WebDevPage() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-ocean-900 min-h-screen">
       <AdminServiceHero
         pageKey="ibt-services-web"
         fallback={{
@@ -104,7 +104,7 @@ export default function WebDevPage() {
                   {titleGradient}
                 </span>
               </h1>
-              <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+              <p className="text-xl text-ink-400 max-w-2xl mx-auto">
                 {subtitle}
               </p>
             </div>
@@ -116,9 +116,9 @@ export default function WebDevPage() {
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {webServices.map((service) => (
-              <div key={service.id} className={`bg-slate-900 rounded-3xl overflow-hidden border ${service.popular ? 'border-emerald-500/50' : 'border-slate-800'} relative`}>
+              <div key={service.id} className={`bg-surface-1 rounded-3xl overflow-hidden border ${service.popular ? 'border-emerald-500/50' : 'border-surface-2'} relative`}>
                 {service.popular && (
-                  <span className="absolute top-3 right-3 z-10 px-3 py-1 bg-emerald-500 text-slate-900 text-xs font-bold rounded-full shadow-lg">
+                  <span className="absolute top-3 right-3 z-10 px-3 py-1 bg-emerald-500 text-surface-1 text-xs font-bold rounded-full shadow-lg">
                     PROMO
                   </span>
                 )}
@@ -127,16 +127,16 @@ export default function WebDevPage() {
                 </div>
                 <div className="p-5">
                   <h3 className="text-lg font-bold text-white mb-1">{service.title}</h3>
-                  <p className="text-slate-400 text-xs mb-3">{service.description}</p>
+                  <p className="text-ink-400 text-xs mb-3">{service.description}</p>
                   <div className="mb-3">
                     <span className="text-xl font-bold text-white">{service.price}</span>
                     {service.originalPrice && (
-                      <span className="ml-2 text-sm text-slate-500 line-through">{service.originalPrice}</span>
+                      <span className="ml-2 text-sm text-ink-500 line-through">{service.originalPrice}</span>
                     )}
                   </div>
                   <ul className="space-y-1.5 mb-4">
                     {service.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-xs text-slate-400">
+                      <li key={f} className="flex items-center gap-2 text-xs text-ink-400">
                         <svg className="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
@@ -144,7 +144,7 @@ export default function WebDevPage() {
                       </li>
                     ))}
                   </ul>
-                  <button className={`w-full py-2.5 rounded-lg font-medium text-sm ${service.popular ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-900' : 'bg-slate-800 hover:bg-slate-700 text-white'}`}>
+                  <button className={`w-full py-2.5 rounded-lg font-medium text-sm ${service.popular ? 'bg-emerald-500 hover:bg-emerald-400 text-surface-1' : 'bg-surface-2 hover:bg-ink-700 text-white'}`}>
                     Get Quote
                   </button>
                 </div>
@@ -154,7 +154,7 @@ export default function WebDevPage() {
         </div>
       </section>
 
-      <section className="py-20 border-t border-slate-800">
+      <section className="py-20 border-t border-surface-2">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-white text-center mb-12">How It Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
@@ -169,20 +169,20 @@ export default function WebDevPage() {
                   {s.step}
                 </div>
                 <h3 className="text-white font-medium mb-2">{s.title}</h3>
-                <p className="text-sm text-slate-400">{s.desc}</p>
+                <p className="text-sm text-ink-400">{s.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-20 border-t border-slate-800">
+      <section className="py-20 border-t border-surface-2">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-6">Ready to get started?</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email" className="w-full px-6 py-4 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-emerald-500" required />
-            <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us about your project" className="w-full px-6 py-4 bg-slate-900 border border-slate-800 rounded-xl text-white h-32 focus:outline-none focus:border-emerald-500" />
-            <button className="w-full px-6 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-900 font-semibold rounded-xl">Send Inquiry</button>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email" className="w-full px-6 py-4 bg-surface-1 border border-surface-2 rounded-xl text-white focus:outline-none focus:border-emerald-500" required />
+            <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Tell us about your project" className="w-full px-6 py-4 bg-surface-1 border border-surface-2 rounded-xl text-white h-32 focus:outline-none focus:border-emerald-500" />
+            <button className="w-full px-6 py-4 bg-emerald-500 hover:bg-emerald-400 text-surface-1 font-semibold rounded-xl">Send Inquiry</button>
           </form>
           {formStatus && <p className="mt-4 text-emerald-400">{formStatus}</p>}
         </div>

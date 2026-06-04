@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased scroll-smooth">
-      <body className={`${geist.variable} ${geistMono.variable} min-h-full bg-surface-0 text-slate-100 flex flex-col`}>
+      <body className={`${geist.variable} ${geistMono.variable} min-h-full bg-surface-0 text-ink-100 flex flex-col`}>
         <Navbar />
         <main className="flex-1 pt-16 md:pt-20">
           <PageTransition>{children}</PageTransition>

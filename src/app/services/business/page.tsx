@@ -70,7 +70,7 @@ export default function BusinessPage() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="bg-ocean-900 min-h-screen">
       <AdminServiceHero
         pageKey="ibt-services-business"
         fallback={{
@@ -95,7 +95,7 @@ export default function BusinessPage() {
                     {titleGradient}
                   </span>
                 </h1>
-                <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+                <p className="text-xl text-ink-400 max-w-2xl mx-auto">
                   {subtitle}
                 </p>
               </div>
@@ -108,8 +108,8 @@ export default function BusinessPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-1">
-              <div className="bg-slate-900 rounded-2xl p-4 border border-slate-800 sticky top-24">
-                <h3 className="text-sm font-medium text-slate-400 mb-4 uppercase tracking-wider">APIs</h3>
+              <div className="bg-surface-1 rounded-2xl p-4 border border-surface-2 sticky top-24">
+                <h3 className="text-sm font-medium text-ink-400 mb-4 uppercase tracking-wider">APIs</h3>
                 <div className="space-y-2">
                   {businessAPIs.map((api) => (
                     <button
@@ -118,11 +118,11 @@ export default function BusinessPage() {
                       className={`w-full text-left p-4 rounded-xl transition-all ${
                         activeAPI.id === api.id
                           ? 'bg-blue-500/20 border border-blue-500/50 text-white'
-                          : 'bg-slate-800/50 border border-transparent text-slate-400 hover:text-white hover:bg-slate-800'
+                          : 'bg-surface-2/50 border border-transparent text-ink-400 hover:text-white hover:bg-surface-2'
                       }`}
                     >
                       <div className="font-medium">{api.name}</div>
-                      <div className="text-sm text-slate-500">{api.price}</div>
+                      <div className="text-sm text-ink-500">{api.price}</div>
                     </button>
                   ))}
                 </div>
@@ -130,20 +130,20 @@ export default function BusinessPage() {
             </div>
 
             <div className="lg:col-span-2">
-              <div className="bg-slate-900 rounded-3xl p-8 border border-slate-800">
+              <div className="bg-surface-1 rounded-3xl p-8 border border-surface-2">
                 <div className="flex items-start justify-between mb-6">
                   <div>
                     <h2 className="text-3xl font-bold text-white mb-2">{activeAPI.name}</h2>
-                    <p className="text-slate-400">{activeAPI.description}</p>
+                    <p className="text-ink-400">{activeAPI.description}</p>
                   </div>
                   <div className="text-right">
                     <div className="text-3xl font-bold text-white">{activeAPI.price}</div>
-                    <div className="text-sm text-slate-500">per month</div>
+                    <div className="text-sm text-ink-500">per month</div>
                   </div>
                 </div>
 
                 <div className="mb-8">
-                  <h3 className="text-sm font-medium text-slate-400 mb-4 uppercase tracking-wider">Features</h3>
+                  <h3 className="text-sm font-medium text-ink-400 mb-4 uppercase tracking-wider">Features</h3>
                   <div className="grid grid-cols-2 gap-3">
                     {activeAPI.features.map((feature) => (
                       <div key={feature} className="flex items-center gap-2 text-white">
@@ -157,10 +157,10 @@ export default function BusinessPage() {
                 </div>
 
                 <div className="flex gap-4">
-                  <button className="flex-1 px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white text-center font-medium rounded-xl">
+                  <button className="flex-1 px-6 py-3 bg-surface-2 hover:bg-ink-700 text-white text-center font-medium rounded-xl">
                     View Docs
                   </button>
-                  <button className="flex-1 px-6 py-3 bg-blue-500 hover:bg-blue-400 text-slate-900 text-center font-medium rounded-xl">
+                  <button className="flex-1 px-6 py-3 bg-blue-500 hover:bg-blue-400 text-surface-1 text-center font-medium rounded-xl">
                     Get API Key
                   </button>
                 </div>
@@ -170,12 +170,12 @@ export default function BusinessPage() {
         </div>
       </section>
 
-      <section id="pricing" className="py-20 border-t border-slate-800">
+      <section id="pricing" className="py-20 border-t border-surface-2">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-6">Ready to automate?</h2>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="flex-1 px-6 py-4 bg-slate-900 border border-slate-800 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:border-blue-500" required />
-            <button type="submit" className="px-8 py-4 bg-blue-500 hover:bg-blue-400 text-slate-900 font-semibold rounded-xl">Get Key</button>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" className="flex-1 px-6 py-4 bg-surface-1 border border-surface-2 rounded-xl text-white placeholder:text-ink-500 focus:outline-none focus:border-blue-500" required />
+            <button type="submit" className="px-8 py-4 bg-blue-500 hover:bg-blue-400 text-surface-1 font-semibold rounded-xl">Get Key</button>
           </form>
           {formStatus && <p className="mt-4 text-emerald-400">{formStatus}</p>}
         </div>

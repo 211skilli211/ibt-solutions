@@ -22,7 +22,7 @@ const features = [
 
 export default function GraphicTrendsPage() {
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-ocean-900">
       <CoopHero
         pageKey="ibt-coops-graphic-trends"
         fallback={{
@@ -43,10 +43,10 @@ export default function GraphicTrendsPage() {
                 { icon: '🎁', title: 'Promotional', desc: 'Mugs, bags, swag' },
                 { icon: '🚗', title: 'Signage', desc: 'Vehicle wraps, graphics' },
               ].map((item) => (
-                <div key={item.title} className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-slate-800 text-center">
+                <div key={item.title} className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-surface-2 text-center">
                   <div className="text-4xl mb-3">{item.icon}</div>
                   <h3 className="font-semibold text-white mb-1">{item.title}</h3>
-                  <p className="text-sm text-slate-400">{item.desc}</p>
+                  <p className="text-sm text-ink-400">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -55,19 +55,19 @@ export default function GraphicTrendsPage() {
       />
 
       {/* Products */}
-      <section className="py-20 bg-slate-900/50">
+      <section className="py-20 bg-surface-1/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">What We Produce</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">From custom apparel to full-scale signage solutions.</p>
+            <p className="text-ink-400 max-w-2xl mx-auto">From custom apparel to full-scale signage solutions.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {products.map((product) => (
-              <div key={product.category} className="p-6 rounded-2xl bg-slate-900 border border-slate-800">
+              <div key={product.category} className="p-6 rounded-2xl bg-surface-1 border border-surface-2">
                 <h3 className="text-lg font-bold text-white mb-4">{product.category}</h3>
                 <ul className="space-y-2">
                   {product.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-slate-400">
+                    <li key={item} className="flex items-center gap-2 text-sm text-ink-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500" />
                       {item}
                     </li>
@@ -84,13 +84,13 @@ export default function GraphicTrendsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Why Choose Us</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">Community-based production with professional quality.</p>
+            <p className="text-ink-400 max-w-2xl mx-auto">Community-based production with professional quality.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature) => (
-              <div key={feature.title} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center">
+              <div key={feature.title} className="p-6 rounded-2xl bg-surface-1 border border-surface-2 text-center">
                 <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                <p className="text-sm text-slate-400">{feature.description}</p>
+                <p className="text-sm text-ink-400">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -98,11 +98,11 @@ export default function GraphicTrendsPage() {
       </section>
 
       {/* IslandHub */}
-      <section className="py-20 bg-gradient-to-b from-slate-950 to-slate-900">
+      <section className="py-20 bg-gradient-to-b from-ocean-900 to-surface-1">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-3xl">🏝️</div>
           <h2 className="text-3xl font-bold text-white mb-4">Available on IslandHub</h2>
-          <p className="text-slate-400 mb-6">
+          <p className="text-ink-400 mb-6">
             Products from this cooperative will be available through the IslandHub marketplace,
             making it easy for customers across the Caribbean to order custom merchandise.
           </p>
@@ -116,15 +116,15 @@ export default function GraphicTrendsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 border-t border-slate-800">
+      <section className="py-20 border-t border-surface-2">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Join the Cooperative</h2>
-          <p className="text-slate-400 mb-8">Whether you are a designer, production specialist, or want to support local manufacturing.</p>
+          <p className="text-ink-400 mb-8">Whether you are a designer, production specialist, or want to support local manufacturing.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/coops/get-involved" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all">
+            <Link href="/coops/get-involved" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-surface-1 font-semibold rounded-xl transition-all">
               Express Interest
             </Link>
-            <a href="https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW" target="_blank" className="px-8 py-4 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-all">
+            <a href="https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW" target="_blank" className="px-8 py-4 border border-ink-700 hover:border-ink-600 text-white font-medium rounded-xl transition-all">
               Join WhatsApp Group
             </a>
           </div>

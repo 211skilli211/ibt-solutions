@@ -31,7 +31,7 @@ export default function GeospatialPage() {
     : pois.filter(p => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-ocean-900">
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
@@ -40,7 +40,7 @@ export default function GeospatialPage() {
               In Development
             </span>
           </div>
-          <p className="text-slate-400">Caribbean geospatial mapping — powered by OpenStreetMap (temporary view)</p>
+          <p className="text-ink-400">Caribbean geospatial mapping — powered by OpenStreetMap (temporary view)</p>
         </div>
 
         <div className="mb-6 p-5 rounded-2xl bg-gradient-to-r from-cyan-900/20 via-emerald-900/10 to-cyan-900/20 border border-cyan-800/30">
@@ -52,17 +52,17 @@ export default function GeospatialPage() {
             </div>
             <div className="flex-1">
               <h3 className="font-semibold text-white mb-1">Custom Geospatial Platform Coming Soon</h3>
-              <p className="text-xs text-slate-400 mb-3">
+              <p className="text-xs text-ink-400 mb-3">
                 IBT Solutions is building a proprietary Caribbean geospatial API and interactive mapping platform — 
                 real-time POI data, business listings, events, weather, marine conditions, and more for St. Kitts & Nevis 
                 and the wider Caribbean. The map below is a temporary OpenStreetMap preview. 
                 Contact us to join beta testing or contribute data.
               </p>
               <div className="flex gap-3">
-                <a href="/contact" className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-slate-900 text-xs font-semibold rounded-lg transition-colors">
+                <a href="/contact" className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-surface-1 text-xs font-semibold rounded-lg transition-colors">
                   Join Beta
                 </a>
-                <a href="https://github.com/211skilli211" target="_blank" className="px-4 py-2 border border-slate-700 hover:border-slate-600 text-white text-xs font-medium rounded-lg transition-colors">
+                <a href="https://github.com/211skilli211" target="_blank" className="px-4 py-2 border border-ink-700 hover:border-ink-600 text-white text-xs font-medium rounded-lg transition-colors">
                   Contribute on GitHub
                 </a>
               </div>
@@ -77,8 +77,8 @@ export default function GeospatialPage() {
               onClick={() => setActiveRegion(region.id)}
               className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
                 activeRegion === region.id
-                  ? 'bg-cyan-500 text-slate-900'
-                  : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                  ? 'bg-cyan-500 text-surface-1'
+                  : 'bg-surface-1 border border-surface-2 text-ink-400 hover:text-white hover:border-ink-700'
               }`}
             >
               {region.name}
@@ -88,7 +88,7 @@ export default function GeospatialPage() {
             href="https://www.openstreetmap.org" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-xl text-sm font-medium bg-slate-800 border border-slate-700 text-slate-400 hover:text-white transition-all whitespace-nowrap"
+            className="px-4 py-2 rounded-xl text-sm font-medium bg-surface-2 border border-ink-700 text-ink-400 hover:text-white transition-all whitespace-nowrap"
           >
             OpenStreetMap
             <svg className="w-3 h-3 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@ export default function GeospatialPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           <div className="lg:col-span-2 space-y-4">
-            <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
+            <div className="rounded-2xl overflow-hidden border border-surface-2 bg-surface-1">
               <div className="relative">
                 <div className="aspect-[16/10]">
                   <iframe
@@ -109,14 +109,14 @@ export default function GeospatialPage() {
                     loading="lazy"
                   />
                 </div>
-                <div className="absolute top-3 left-3 px-3 py-1.5 bg-slate-900/90 backdrop-blur rounded-lg border border-slate-700">
-                  <span className="text-xs text-slate-300">
+                <div className="absolute top-3 left-3 px-3 py-1.5 bg-surface-1/90 backdrop-blur rounded-lg border border-ink-700">
+                  <span className="text-xs text-ink-300">
                     OpenStreetMap Preview — {activeRegionData.name}
                   </span>
                 </div>
               </div>
-              <div className="p-3 border-t border-slate-800 flex items-center justify-between">
-                <p className="text-xs text-slate-400">
+              <div className="p-3 border-t border-surface-2 flex items-center justify-between">
+                <p className="text-xs text-ink-400">
                   {activeRegionData.lat.toFixed(4)}, {activeRegionData.lng.toFixed(4)}
                 </p>
                 <a 
@@ -134,23 +134,23 @@ export default function GeospatialPage() {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 text-center">
+              <div className="bg-surface-1 border border-surface-2 rounded-xl p-4 text-center">
                 <div className="text-xl font-bold text-cyan-400">{pois.length}</div>
-                <div className="text-[10px] text-slate-500 mt-0.5">Points of Interest</div>
+                <div className="text-[10px] text-ink-500 mt-0.5">Points of Interest</div>
               </div>
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 text-center">
+              <div className="bg-surface-1 border border-surface-2 rounded-xl p-4 text-center">
                 <div className="text-xl font-bold text-emerald-400">2</div>
-                <div className="text-[10px] text-slate-500 mt-0.5">Islands</div>
+                <div className="text-[10px] text-ink-500 mt-0.5">Islands</div>
               </div>
-              <div className="bg-slate-900 border border-slate-800 rounded-xl p-4 text-center">
+              <div className="bg-surface-1 border border-surface-2 rounded-xl p-4 text-center">
                 <div className="text-xl font-bold text-amber-400">{categories.length - 1}</div>
-                <div className="text-[10px] text-slate-500 mt-0.5">Categories</div>
+                <div className="text-[10px] text-ink-500 mt-0.5">Categories</div>
               </div>
             </div>
           </div>
 
           <div className="space-y-4">
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <div className="bg-surface-1 border border-surface-2 rounded-xl p-4">
               <h3 className="font-semibold text-white mb-3">Filter by Category</h3>
               <div className="flex flex-wrap gap-2">
                 {categories.map((cat) => (
@@ -159,8 +159,8 @@ export default function GeospatialPage() {
                     onClick={() => setSelectedCategory(cat)}
                     className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${
                       selectedCategory === cat
-                        ? 'bg-cyan-500 text-slate-900'
-                        : 'bg-slate-800 text-slate-400 hover:text-white'
+                        ? 'bg-cyan-500 text-surface-1'
+                        : 'bg-surface-2 text-ink-400 hover:text-white'
                     }`}
                   >
                     {cat}
@@ -169,28 +169,28 @@ export default function GeospatialPage() {
               </div>
             </div>
 
-            <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+            <div className="bg-surface-1 border border-surface-2 rounded-xl p-4">
               <h3 className="font-semibold text-white mb-3">Points of Interest</h3>
               <div className="space-y-2 max-h-72 overflow-y-auto">
                 {filteredPOIs.map((poi) => (
                   <div
                     key={poi.id}
-                    className="p-3 rounded-xl bg-slate-800/50 border border-slate-700/50"
+                    className="p-3 rounded-xl bg-surface-2/50 border border-ink-700/50"
                   >
                     <p className="text-sm text-white font-medium">{poi.name}</p>
                     <div className="flex items-center gap-2 mt-0.5">
-                      <span className="text-xs text-slate-500">{poi.category}</span>
-                      <span className="w-1 h-1 rounded-full bg-slate-600" />
-                      <span className="text-xs text-slate-500">{poi.island}</span>
+                      <span className="text-xs text-ink-500">{poi.category}</span>
+                      <span className="w-1 h-1 rounded-full bg-ink-600" />
+                      <span className="text-xs text-ink-500">{poi.island}</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-4">
+            <div className="bg-surface-1/50 border border-surface-2 rounded-xl p-4">
               <h3 className="font-medium text-white mb-2 text-sm">For Developers</h3>
-              <p className="text-xs text-slate-400 mb-3">
+              <p className="text-xs text-ink-400 mb-3">
                 Geospatial APIs for POI data, routing, and location services — coming in 2026.
               </p>
               <a 

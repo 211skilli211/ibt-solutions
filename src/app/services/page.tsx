@@ -67,7 +67,7 @@ export default function ServicesPage() {
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeCategory === cat.id
                     ? 'bg-teal-500 text-ocean-900'
-                    : 'bg-surface-2 text-slate-400 hover:text-white border border-surface-3'
+                    : 'bg-surface-2 text-ink-400 hover:text-white border border-surface-3'
                 }`}
               >
                 {cat.label}
@@ -100,13 +100,13 @@ export default function ServicesPage() {
                   {service.whiteLabel && <Badge variant="slate" size="sm">White Label</Badge>}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
-                <p className="text-slate-400 text-sm mb-3">{service.description}</p>
+                <p className="text-ink-400 text-sm mb-3">{service.description}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {service.features.slice(0, 3).map((f) => (
-                    <span key={f} className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-slate-400">{f}</span>
+                    <span key={f} className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-ink-400">{f}</span>
                   ))}
                   {service.features.length > 3 && (
-                    <span className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-slate-500">+{service.features.length - 3}</span>
+                    <span className="px-2 py-0.5 text-[10px] rounded-full bg-surface-2 text-ink-500">+{service.features.length - 3}</span>
                   )}
                 </div>
               </div>
@@ -115,7 +115,7 @@ export default function ServicesPage() {
         </div>
         {filtered.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-slate-400">No services found in this category.</p>
+            <p className="text-ink-400">No services found in this category.</p>
           </div>
         )}
       </Section>
@@ -124,7 +124,7 @@ export default function ServicesPage() {
       <Section className="bg-surface-1/50">
         <Card className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Partner with IBT Solutions</h2>
-          <p className="text-slate-400 mb-8 max-w-xl mx-auto">
+          <p className="text-ink-400 mb-8 max-w-xl mx-auto">
             All our services are white-label ready. Partner with us to deliver premium solutions under your brand. Reseller packages available for agencies and consultants.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -138,7 +138,7 @@ export default function ServicesPage() {
       <Section id="contact">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Get in Touch</h2>
-          <p className="text-slate-400 mb-8">Have questions about our services? We'll get back to you within 24 hours.</p>
+          <p className="text-ink-400 mb-8">Have questions about our services? We'll get back to you within 24 hours.</p>
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required />
             <Button type="submit">Request Info</Button>

@@ -24,7 +24,7 @@ export default function CoopCard({ title, description, icon, href, features, sta
 
   return (
     <Link href={href} className="group block">
-      <div className="relative rounded-3xl overflow-hidden bg-slate-900 border border-slate-800 group-hover:border-slate-700 transition-all h-full">
+      <div className="relative rounded-3xl overflow-hidden bg-surface-1 border border-surface-2 group-hover:border-ink-700 transition-all h-full">
         {imageUrl && (
           <div className="aspect-[16/10] overflow-hidden">
             <img
@@ -52,11 +52,11 @@ export default function CoopCard({ title, description, icon, href, features, sta
           </div>
           
           <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-          <p className="text-slate-400 text-sm mb-4">{description}</p>
+          <p className="text-ink-400 text-sm mb-4">{description}</p>
           
           <div className="flex flex-wrap gap-2 mb-4">
             {features.slice(0, 3).map((feature) => (
-              <span key={feature} className="px-3 py-1 text-xs rounded-full bg-slate-800 text-slate-400">
+              <span key={feature} className="px-3 py-1 text-xs rounded-full bg-surface-2 text-ink-400">
                 {feature}
               </span>
             ))}

@@ -206,13 +206,13 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
         <div className="text-center">
           <div
             className="text-sm"
-            style={{ color: "var(--slate-500, #64748B)" }}
+            style={{ color: "var(--ink-500, #64748B)" }}
           >
             Map unavailable
           </div>
           <div
             className="text-xs mt-1"
-            style={{ color: "var(--slate-700, #334155)" }}
+            style={{ color: "var(--ink-700, #334155)" }}
           >
             Check your connection
           </div>

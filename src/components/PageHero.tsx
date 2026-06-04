@@ -134,7 +134,7 @@ export default function PageHero({ pageKey, fallback }: PageHeroProps) {
           ) : title}
         </h1>
 
-        <p className="text-xl text-slate-400 mb-8">{subtitle}</p>
+        <p className="text-xl text-ink-400 mb-8">{subtitle}</p>
 
         {(cta1Label || cta2Label) && (
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

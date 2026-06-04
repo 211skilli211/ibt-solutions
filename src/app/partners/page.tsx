@@ -20,7 +20,7 @@ const partners = [
 
 export default function PartnersPage() {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
+    <div className="min-h-screen bg-ocean-900 text-white">
       <PageHero
         pageKey="ibt-portfolio"
         fallback={{
@@ -39,16 +39,16 @@ export default function PartnersPage() {
             <Link
               key={partner.name}
               href={partner.href}
-              className="group relative bg-slate-900 border border-slate-800 rounded-2xl p-8 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-500/5"
+              className="group relative bg-surface-1 border border-surface-2 rounded-2xl p-8 hover:border-teal-500/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-teal-500/5"
             >
               <div className="absolute top-4 right-4">
-                <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-slate-800 text-slate-400">
+                <span className="text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full bg-surface-2 text-ink-400">
                   {partner.tag}
                 </span>
               </div>
               <div className="text-5xl mb-4">{partner.icon}</div>
               <h2 className="text-2xl font-black mb-3 group-hover:text-teal-400 transition-colors">{partner.name}</h2>
-              <p className="text-slate-400 leading-relaxed mb-6">{partner.description}</p>
+              <p className="text-ink-400 leading-relaxed mb-6">{partner.description}</p>
               <div className="flex items-center gap-2 text-sm font-bold text-teal-400 group-hover:gap-3 transition-all">
                 Visit Partner <span>→</span>
               </div>
@@ -56,10 +56,10 @@ export default function PartnersPage() {
           ))}
 
           {/* Add New Partner Card */}
-          <div className="relative bg-slate-900/50 border-2 border-dashed border-slate-700 rounded-2xl p-8 flex flex-col items-center justify-center text-center hover:border-slate-600 transition-colors min-h-[280px]">
+          <div className="relative bg-surface-1/50 border-2 border-dashed border-ink-700 rounded-2xl p-8 flex flex-col items-center justify-center text-center hover:border-ink-600 transition-colors min-h-[280px]">
             <div className="text-4xl mb-4 opacity-30">➕</div>
-            <h3 className="text-lg font-bold text-slate-500 mb-2">Become a Partner</h3>
-            <p className="text-sm text-slate-600 mb-4">Interested in partnering with IBT Solutions?</p>
+            <h3 className="text-lg font-bold text-ink-500 mb-2">Become a Partner</h3>
+            <p className="text-sm text-ink-600 mb-4">Interested in partnering with IBT Solutions?</p>
             <Link href="/contact" className="text-sm font-bold text-teal-400 hover:text-teal-300 transition-colors">
               Get in Touch →
             </Link>
@@ -68,10 +68,10 @@ export default function PartnersPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-slate-800 py-16 px-4">
+      <section className="border-t border-surface-2 py-16 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-2xl md:text-3xl font-black mb-4">Explore All Partner Stores on IslandHub</h2>
-          <p className="text-slate-400 mb-8">Visit our marketplace to discover products from all our partners and local vendors.</p>
+          <p className="text-ink-400 mb-8">Visit our marketplace to discover products from all our partners and local vendors.</p>
           <a
             href="https://islandhub-git-master-rpskilli211-3018s-projects.vercel.app"
             target="_blank"

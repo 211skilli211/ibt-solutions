@@ -50,8 +50,8 @@ export default function AskMapsPage() {
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-lg border-b border-slate-800">
+    <div className="bg-ocean-900 min-h-screen">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-ocean-900/80 backdrop-blur-lg border-b border-surface-2">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <Link href="/services" className="flex items-center gap-2">
@@ -59,7 +59,7 @@ export default function AskMapsPage() {
             </Link>
             <div className="flex items-center gap-6">
               <Link href="/services/ai" className="text-sm text-emerald-400">AI Solutions</Link>
-              <Link href="#contact" className="px-4 py-2 bg-cyan-500 text-slate-900 text-sm font-medium rounded-lg">Contact</Link>
+              <Link href="#contact" className="px-4 py-2 bg-cyan-500 text-surface-1 text-sm font-medium rounded-lg">Contact</Link>
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@ export default function AskMapsPage() {
               Anything
             </span>
           </h1>
-          <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+          <p className="text-xl text-ink-400 max-w-2xl mx-auto">
             AI-powered business Q&A using Google Maps data. Find businesses, 
             analyze reviews, and get local insights - all through natural conversation.
           </p>
@@ -93,7 +93,7 @@ export default function AskMapsPage() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Ask anything about local businesses..."
-              className="w-full px-6 py-5 pr-16 bg-slate-900 border border-slate-700 rounded-2xl text-white text-lg placeholder:text-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
+              className="w-full px-6 py-5 pr-16 bg-surface-1 border border-ink-700 rounded-2xl text-white text-lg placeholder:text-ink-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20"
             />
             <button
               type="submit"
@@ -119,18 +119,18 @@ export default function AskMapsPage() {
       {results && (
         <section className="py-10">
           <div className="max-w-2xl mx-auto px-4">
-            <div className="bg-slate-900 rounded-2xl p-6 border border-slate-800">
+            <div className="bg-surface-1 rounded-2xl p-6 border border-surface-2">
               <p className="text-white mb-6">{results.answer}</p>
               <div className="space-y-3">
                 {results.places.map((place, i) => (
-                  <div key={i} className="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl">
+                  <div key={i} className="flex items-center justify-between p-4 bg-surface-2/50 rounded-xl">
                     <div>
                       <h4 className="font-medium text-white">{place.name}</h4>
-                      <p className="text-sm text-slate-400">{place.category} • {place.distance}</p>
+                      <p className="text-sm text-ink-400">{place.category} • {place.distance}</p>
                     </div>
                     <div className="text-right">
                       <div className="text-lg font-bold text-white">⭐ {place.rating}</div>
-                      <p className="text-xs text-slate-500">{place.reviews} reviews</p>
+                      <p className="text-xs text-ink-500">{place.reviews} reviews</p>
                     </div>
                   </div>
                 ))}
@@ -141,7 +141,7 @@ export default function AskMapsPage() {
       )}
 
       {/* Example Questions */}
-      <section className="py-20 border-t border-slate-800">
+      <section className="py-20 border-t border-surface-2">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-xl font-bold text-white text-center mb-8">Try asking...</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -149,7 +149,7 @@ export default function AskMapsPage() {
               <button
                 key={i}
                 onClick={() => setQuery(ex.q)}
-                className="p-4 bg-slate-900 rounded-xl border border-slate-800 text-left hover:border-indigo-500/50 transition-all"
+                className="p-4 bg-surface-1 rounded-xl border border-surface-2 text-left hover:border-indigo-500/50 transition-all"
               >
                 <p className="text-sm text-white">{ex.q}</p>
               </button>
@@ -159,7 +159,7 @@ export default function AskMapsPage() {
       </section>
 
       {/* Features */}
-      <section className="py-20 border-t border-slate-800">
+      <section className="py-20 border-t border-surface-2">
         <div className="max-w-4xl mx-auto px-4">
           <h2 className="text-2xl font-bold text-white text-center mb-12">Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -169,28 +169,28 @@ export default function AskMapsPage() {
               { title: 'Local Insights', desc: 'Get insider knowledge about places' },
               { title: 'White Label API', desc: 'Integrate into your own app' },
             ].map((f, i) => (
-              <div key={i} className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+              <div key={i} className="bg-surface-1 rounded-xl p-6 border border-surface-2">
                 <h3 className="text-white font-medium mb-2">{f.title}</h3>
-                <p className="text-slate-400 text-sm">{f.desc}</p>
+                <p className="text-ink-400 text-sm">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-20 border-t border-slate-800">
+      <section id="contact" className="py-20 border-t border-surface-2">
         <div className="max-w-2xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-white mb-6">Integrate Ask Maps</h2>
-          <p className="text-slate-400 mb-8">Add AI-powered Maps search to your website or app.</p>
+          <p className="text-ink-400 mb-8">Add AI-powered Maps search to your website or app.</p>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email" className="w-full px-6 py-4 bg-slate-900 border border-slate-800 rounded-xl text-white focus:outline-none focus:border-indigo-500" required />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Your email" className="w-full px-6 py-4 bg-surface-1 border border-surface-2 rounded-xl text-white focus:outline-none focus:border-indigo-500" required />
             <button className="w-full px-6 py-4 bg-indigo-500 hover:bg-indigo-400 text-white font-semibold rounded-xl">Request API Access</button>
           </form>
           {formStatus && <p className="mt-4 text-emerald-400">{formStatus}</p>}
         </div>
       </section>
 
-      <footer className="py-12 border-t border-slate-800 text-center text-slate-500">
+      <footer className="py-12 border-t border-surface-2 text-center text-ink-500">
         <p>© 2025 IBT Solutions</p>
       </footer>
     </div>

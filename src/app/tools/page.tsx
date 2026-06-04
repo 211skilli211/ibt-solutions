@@ -94,11 +94,11 @@ export default function ToolsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 pt-20 pb-12">
+    <div className="min-h-screen bg-ocean-900 pt-20 pb-12">
       <div className="max-w-7xl mx-auto px-4">
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-white mb-2">Business APIs</h1>
-          <p className="text-slate-400">Powerful APIs for automation and enterprise integration</p>
+          <p className="text-ink-400">Powerful APIs for automation and enterprise integration</p>
         </div>
 
         {/* Category Tabs */}
@@ -110,13 +110,13 @@ export default function ToolsPage() {
               className={`flex items-center gap-3 px-6 py-3 rounded-xl transition-all whitespace-nowrap ${
                 activeCategory === cat.id 
                   ? 'bg-cyan-500/20 border border-cyan-500 text-cyan-400' 
-                  : 'bg-slate-900 border border-slate-800 text-slate-400 hover:border-slate-700'
+                  : 'bg-surface-1 border border-surface-2 text-ink-400 hover:border-ink-700'
               }`}
             >
               <span className="text-2xl">{cat.icon}</span>
               <div>
                 <p className="font-medium">{cat.name}</p>
-                <p className="text-xs text-slate-500">{cat.tools.length} tools</p>
+                <p className="text-xs text-ink-500">{cat.tools.length} tools</p>
               </div>
             </button>
           ))}
@@ -126,36 +126,36 @@ export default function ToolsPage() {
         {activeCategory === 'business-apis' && (
           <div className="space-y-8">
             {/* Data Conversion */}
-            <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+            <div className="bg-surface-1 rounded-xl p-6 border border-surface-2">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">📊</span>
                 <h3 className="text-xl font-semibold text-white">Data → Spreadsheet</h3>
               </div>
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-ink-400 text-sm mb-4">
                 Convert JSON, CSV, or any data to spreadsheet format (CSV)
               </p>
               <textarea
                 value={jsonInput}
                 onChange={(e) => setJsonInput(e.target.value)}
                 placeholder='[{"name": "Product", "price": 100}, {"name": "Product 2", "price": 150}]'
-                className="w-full h-32 bg-slate-800 border border-slate-700 rounded-lg p-4 text-white font-mono text-sm mb-4"
+                className="w-full h-32 bg-surface-2 border border-ink-700 rounded-lg p-4 text-white font-mono text-sm mb-4"
               />
               <button
                 onClick={handleConversion}
                 disabled={loading || !jsonInput}
-                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-slate-700 text-slate-900 font-medium rounded-lg"
+                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-ink-700 text-surface-1 font-medium rounded-lg"
               >
                 {loading ? 'Converting...' : 'Convert'}
               </button>
             </div>
 
             {/* Accounting */}
-            <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+            <div className="bg-surface-1 rounded-xl p-6 border border-surface-2">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">💳</span>
                 <h3 className="text-xl font-semibold text-white">Accounting API</h3>
               </div>
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-ink-400 text-sm mb-4">
                 Create invoices, calculate totals, manage billing
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -164,7 +164,7 @@ export default function ToolsPage() {
                   placeholder="Customer name"
                   value={invoiceData.customer}
                   onChange={(e) => setInvoiceData({...invoiceData, customer: e.target.value})}
-                  className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-white"
+                  className="bg-surface-2 border border-ink-700 rounded-lg p-3 text-white"
                 />
                 <input
                   type="number"
@@ -174,25 +174,25 @@ export default function ToolsPage() {
                     ...invoiceData, 
                     items: [{...invoiceData.items[0], price: parseFloat(e.target.value) || 0}]
                   })}
-                  className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-white"
+                  className="bg-surface-2 border border-ink-700 rounded-lg p-3 text-white"
                 />
               </div>
               <button
                 onClick={handleInvoiceCreate}
                 disabled={loading || !invoiceData.customer}
-                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-slate-700 text-slate-900 font-medium rounded-lg"
+                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-ink-700 text-surface-1 font-medium rounded-lg"
               >
                 {loading ? 'Creating...' : 'Create Invoice'}
               </button>
             </div>
 
             {/* Inventory */}
-            <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+            <div className="bg-surface-1 rounded-xl p-6 border border-surface-2">
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-2xl">📦</span>
                 <h3 className="text-xl font-semibold text-white">Inventory API</h3>
               </div>
-              <p className="text-slate-400 text-sm mb-4">
+              <p className="text-ink-400 text-sm mb-4">
                 Track stock levels, get low stock alerts
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
@@ -201,34 +201,34 @@ export default function ToolsPage() {
                   placeholder="Item name"
                   value={inventoryItem.name}
                   onChange={(e) => setInventoryItem({...inventoryItem, name: e.target.value})}
-                  className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-white"
+                  className="bg-surface-2 border border-ink-700 rounded-lg p-3 text-white"
                 />
                 <input
                   type="number"
                   placeholder="Quantity"
                   value={inventoryItem.quantity}
                   onChange={(e) => setInventoryItem({...inventoryItem, quantity: parseInt(e.target.value) || 0})}
-                  className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-white"
+                  className="bg-surface-2 border border-ink-700 rounded-lg p-3 text-white"
                 />
                 <input
                   type="number"
                   placeholder="Min stock level"
                   value={inventoryItem.minStock}
                   onChange={(e) => setInventoryItem({...inventoryItem, minStock: parseInt(e.target.value) || 0})}
-                  className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-white"
+                  className="bg-surface-2 border border-ink-700 rounded-lg p-3 text-white"
                 />
                 <input
                   type="number"
                   placeholder="Price"
                   value={inventoryItem.price}
                   onChange={(e) => setInventoryItem({...inventoryItem, price: parseFloat(e.target.value) || 0})}
-                  className="bg-slate-800 border border-slate-700 rounded-lg p-3 text-white"
+                  className="bg-surface-2 border border-ink-700 rounded-lg p-3 text-white"
                 />
               </div>
               <button
                 onClick={handleInventoryAdd}
                 disabled={loading || !inventoryItem.name}
-                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-slate-700 text-slate-900 font-medium rounded-lg"
+                className="px-6 py-2 bg-cyan-500 hover:bg-cyan-400 disabled:bg-ink-700 text-surface-1 font-medium rounded-lg"
               >
                 {loading ? 'Adding...' : 'Add Item'}
               </button>
@@ -236,9 +236,9 @@ export default function ToolsPage() {
 
             {/* Result Display */}
             {result && (
-              <div className="bg-slate-900 rounded-xl p-6 border border-slate-800">
+              <div className="bg-surface-1 rounded-xl p-6 border border-surface-2">
                 <h3 className="text-lg font-semibold text-white mb-4">Result</h3>
-                <pre className="text-sm text-slate-300 overflow-auto max-h-64">
+                <pre className="text-sm text-ink-300 overflow-auto max-h-64">
                   {JSON.stringify(result, null, 2)}
                 </pre>
               </div>
@@ -248,14 +248,14 @@ export default function ToolsPage() {
 
         {/* AI Solutions Section */}
         {activeCategory === 'ai' && (
-          <a href="/influencer" className="block bg-slate-900 rounded-xl p-8 border border-slate-800 hover:border-cyan-500 transition-colors">
+          <a href="/influencer" className="block bg-surface-1 rounded-xl p-8 border border-surface-2 hover:border-cyan-500 transition-colors">
             <span className="text-6xl mb-4 block">🎯</span>
             <h3 className="text-2xl font-bold text-white mb-2">AI Digital Influencer</h3>
-            <p className="text-slate-400 mb-6">
+            <p className="text-ink-400 mb-6">
               Create AI-powered influencers with authentic Caribbean accents. 
               Full setup including voice cloning for marketing and social media.
             </p>
-            <span className="inline-block px-4 py-2 bg-cyan-500 text-slate-900 font-medium rounded-full text-sm">
+            <span className="inline-block px-4 py-2 bg-cyan-500 text-surface-1 font-medium rounded-full text-sm">
               Launch Tool →
             </span>
           </a>
@@ -264,22 +264,22 @@ export default function ToolsPage() {
         {/* Connectivity Section */}
         {activeCategory === 'connectivity' && (
           <div className="space-y-6">
-            <div className="bg-slate-900 rounded-xl p-8 border border-slate-800 text-center">
+            <div className="bg-surface-1 rounded-xl p-8 border border-surface-2 text-center">
               <span className="text-6xl mb-4 block">🔗</span>
               <h3 className="text-2xl font-bold text-white mb-2">B2B API Connectivity</h3>
-              <p className="text-slate-400 mb-6">
+              <p className="text-ink-400 mb-6">
                 Enterprise connectivity and telecom partnerships for regional businesses.
               </p>
               <span className="inline-block px-4 py-2 bg-amber-500/20 text-amber-400 rounded-full text-sm">
                 Coming Soon
               </span>
             </div>
-            <a href="/geospatial" className="block bg-slate-900 rounded-xl p-6 border border-slate-800 hover:border-cyan-500 transition-colors">
+            <a href="/geospatial" className="block bg-surface-1 rounded-xl p-6 border border-surface-2 hover:border-cyan-500 transition-colors">
               <div className="flex items-center gap-4">
                 <span className="text-3xl">🌎</span>
                 <div>
                   <h4 className="text-lg font-semibold text-white">Regional Intel</h4>
-                  <p className="text-slate-400 text-sm">Location intelligence & mapping</p>
+                  <p className="text-ink-400 text-sm">Location intelligence & mapping</p>
                 </div>
               </div>
             </a>

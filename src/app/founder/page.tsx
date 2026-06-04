@@ -62,7 +62,7 @@ export default function FounderPage() {
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
         {/* Back link */}
         <div className="mb-8">
-          <Link href="/portfolio" className="text-sm text-slate-400 hover:text-white transition-colors inline-flex items-center gap-2">
+          <Link href="/portfolio" className="text-sm text-ink-400 hover:text-white transition-colors inline-flex items-center gap-2">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
             Back to Portfolio
           </Link>
@@ -78,23 +78,23 @@ export default function FounderPage() {
 
             {/* Info */}
             <div className="flex-1 text-center md:text-left">
-              <h2 className="text-xl text-slate-400 mb-1">Graphic Designer · App Developer · 3D Designer</h2>
+              <h2 className="text-xl text-ink-400 mb-1">Graphic Designer · App Developer · 3D Designer</h2>
 
               {/* Contact pills */}
               <div className="flex flex-wrap gap-2 justify-center md:justify-start mb-5 mt-4">
-                <a href="tel:+186****9919" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-slate-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
+                <a href="tel:+186****9919" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-ink-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                   +1 (869) 763-9919
                 </a>
-                <a href="mailto:businesstrends869@gmail.com" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-slate-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
+                <a href="mailto:businesstrends869@gmail.com" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-ink-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                   businesstrends869@gmail.com
                 </a>
-                <a href="https://quikrsolutions.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-slate-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
+                <a href="https://quikrsolutions.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-ink-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
                   quikrsolutions.app
                 </a>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-slate-300 text-sm">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-ink-300 text-sm">
                   <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
                   St. Kitts
                 </span>
@@ -111,7 +111,7 @@ export default function FounderPage() {
             </span>
             About
           </h2>
-          <div className="text-slate-300 leading-relaxed space-y-4">
+          <div className="text-ink-300 leading-relaxed space-y-4">
             <p>
               <span className="text-teal-400 font-semibold">N. J. Robin</span> is a multi-disciplinary creative technologist and founder based in St. Kitts & Nevis. With over <span className="text-white font-medium">13 years of experience in graphic design</span>, <span className="text-white font-medium">5+ years in app development</span>, and a decade of hands-on work in painting and construction, he brings a rare combination of creative vision and technical execution to every project.
             </p>
@@ -140,8 +140,8 @@ export default function FounderPage() {
                   <h3 className="text-lg font-bold text-white">{exp.title}</h3>
                   <Badge variant="teal" size="sm">{exp.period}</Badge>
                 </div>
-                <p className="text-sm text-slate-400 mb-2">{exp.org}</p>
-                <p className="text-sm text-slate-300 leading-relaxed">{exp.desc}</p>
+                <p className="text-sm text-ink-400 mb-2">{exp.org}</p>
+                <p className="text-sm text-ink-300 leading-relaxed">{exp.desc}</p>
               </div>
             ))}
           </div>
@@ -157,7 +157,7 @@ export default function FounderPage() {
           </h2>
           <div className="flex flex-wrap gap-2">
             {skills.map((skill) => (
-              <span key={skill} className="px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-slate-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors cursor-default">
+              <span key={skill} className="px-3 py-1.5 rounded-full bg-surface-2 border border-surface-3 text-ink-300 text-sm hover:border-teal-500/30 hover:text-teal-400 transition-colors cursor-default">
                 {skill}
               </span>
             ))}
@@ -167,7 +167,7 @@ export default function FounderPage() {
         {/* CTA */}
         <div className="bg-gradient-to-br from-surface-1 to-surface-2 border border-surface-3 rounded-3xl p-8 md:p-12 text-center">
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">Let's Build Something Together</h2>
-          <p className="text-slate-400 mb-8 max-w-lg mx-auto">
+          <p className="text-ink-400 mb-8 max-w-lg mx-auto">
             Whether you need a complete brand identity, a mobile app, 3D visualization, or a full digital transformation — let's talk.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

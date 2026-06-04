@@ -71,7 +71,7 @@ const governanceStructure = [
 
 export default function HowItWorksPage() {
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-ocean-900">
       <CoopHero
         pageKey="ibt-coops"
         fallback={{
@@ -85,25 +85,25 @@ export default function HowItWorksPage() {
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/10 to-emerald-500/10 rounded-3xl blur-xl" />
             <div className="relative space-y-6">
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-slate-800 text-center">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-transparent border border-surface-2 text-center">
                 <div className="text-4xl mb-3">🏛️</div>
                 <h3 className="font-semibold text-white mb-1">Democratic</h3>
-                <p className="text-sm text-slate-400">One member, one vote</p>
+                <p className="text-sm text-ink-400">One member, one vote</p>
               </div>
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent border border-slate-800 text-center">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent border border-surface-2 text-center">
                 <div className="text-4xl mb-3">💰</div>
                 <h3 className="font-semibold text-white mb-1">Profit Sharing</h3>
-                <p className="text-sm text-slate-400">Based on participation</p>
+                <p className="text-sm text-ink-400">Based on participation</p>
               </div>
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent border border-slate-800 text-center">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 to-transparent border border-surface-2 text-center">
                 <div className="text-4xl mb-3">🔄</div>
                 <h3 className="font-semibold text-white mb-1">3-Phase Model</h3>
-                <p className="text-sm text-slate-400">Foundation → Transition → Independence</p>
+                <p className="text-sm text-ink-400">Foundation → Transition → Independence</p>
               </div>
-              <div className="p-6 rounded-2xl bg-gradient-to-br from-teal-500/10 to-transparent border border-slate-800 text-center">
+              <div className="p-6 rounded-2xl bg-gradient-to-br from-teal-500/10 to-transparent border border-surface-2 text-center">
                 <div className="text-4xl mb-3">🏝️</div>
                 <h3 className="font-semibold text-white mb-1">Caribbean Focus</h3>
-                <p className="text-sm text-slate-400">Built for locals, by locals</p>
+                <p className="text-sm text-ink-400">Built for locals, by locals</p>
               </div>
             </div>
           </div>
@@ -111,30 +111,30 @@ export default function HowItWorksPage() {
       />
 
       {/* Phases */}
-      <section className="py-20 bg-slate-900/50">
+      <section className="py-20 bg-surface-1/50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">The 3-Phase Model</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">A structured path from founding to full independence.</p>
+            <p className="text-ink-400 max-w-2xl mx-auto">A structured path from founding to full independence.</p>
           </div>
 
           <div className="space-y-8">
             {phases.map((phase) => (
-              <div key={phase.phase} className="p-8 rounded-2xl bg-slate-900 border border-slate-800">
+              <div key={phase.phase} className="p-8 rounded-2xl bg-surface-1 border border-surface-2">
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center text-slate-900 font-bold text-xl">{phase.phase}</div>
+                  <div className="w-12 h-12 rounded-full bg-cyan-500 flex items-center justify-center text-surface-1 font-bold text-xl">{phase.phase}</div>
                   <div>
                     <h3 className="text-xl font-bold text-white">{phase.title}</h3>
                     <p className="text-cyan-400 text-sm">{phase.duration}</p>
                   </div>
                 </div>
-                <p className="text-slate-400 mb-4">{phase.description}</p>
+                <p className="text-ink-400 mb-4">{phase.description}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                   <div>
                     <h4 className="text-sm font-semibold text-white mb-2">Key Activities</h4>
                     <ul className="space-y-1">
                       {phase.activities.map((activity) => (
-                        <li key={activity} className="flex items-center gap-2 text-sm text-slate-400">
+                        <li key={activity} className="flex items-center gap-2 text-sm text-ink-400">
                           <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
                           {activity}
                         </li>
@@ -143,7 +143,7 @@ export default function HowItWorksPage() {
                   </div>
                   <div className="p-4 rounded-xl bg-cyan-500/5 border border-cyan-500/20">
                     <h4 className="text-sm font-semibold text-cyan-400 mb-1">IBT Role</h4>
-                    <p className="text-sm text-slate-400">{phase.ibtRole}</p>
+                    <p className="text-sm text-ink-400">{phase.ibtRole}</p>
                   </div>
                 </div>
               </div>
@@ -157,17 +157,17 @@ export default function HowItWorksPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Governance Structure</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">Every member has a voice in how the cooperative operates.</p>
+            <p className="text-ink-400 max-w-2xl mx-auto">Every member has a voice in how the cooperative operates.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {governanceStructure.map((level) => (
-              <div key={level.level} className="p-8 rounded-2xl bg-slate-900 border border-slate-800 text-center">
+              <div key={level.level} className="p-8 rounded-2xl bg-surface-1 border border-surface-2 text-center">
                 <h3 className="text-xl font-bold text-white mb-3">{level.level}</h3>
-                <p className="text-slate-400 text-sm mb-6">{level.description}</p>
+                <p className="text-ink-400 text-sm mb-6">{level.description}</p>
                 <div className="space-y-2">
                   {level.powers.map((power) => (
-                    <div key={power} className="flex items-center gap-2 text-sm text-slate-400">
+                    <div key={power} className="flex items-center gap-2 text-sm text-ink-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 flex-shrink-0" />
                       {power}
                     </div>
@@ -180,15 +180,15 @@ export default function HowItWorksPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 border-t border-slate-800">
+      <section className="py-20 border-t border-surface-2">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Involved?</h2>
-          <p className="text-slate-400 mb-8">Join the founding phase and help shape the future of cooperative business in the Caribbean.</p>
+          <p className="text-ink-400 mb-8">Join the founding phase and help shape the future of cooperative business in the Caribbean.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/coops/get-involved" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-900 font-semibold rounded-xl transition-all">
+            <Link href="/coops/get-involved" className="px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-surface-1 font-semibold rounded-xl transition-all">
               Express Interest
             </Link>
-            <a href="https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW" target="_blank" className="px-8 py-4 border border-slate-700 hover:border-slate-600 text-white font-medium rounded-xl transition-all">
+            <a href="https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW" target="_blank" className="px-8 py-4 border border-ink-700 hover:border-ink-600 text-white font-medium rounded-xl transition-all">
               Join WhatsApp Group
             </a>
           </div>
