@@ -6,10 +6,11 @@ interface GlobeMapProps {
   className?: string;
 }
 
+// Upgraded from 1.114 → 1.121 (fixes ScreenSpaceCameraController zoom glitch)
 const CESIUM_CDN =
-  "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Cesium.js";
+  "https://cesium.com/downloads/cesiumjs/releases/1.121/Build/Cesium/Cesium.js";
 const CESIUM_CSS =
-  "https://cesium.com/downloads/cesiumjs/releases/1.114/Build/Cesium/Widgets/widgets.css";
+  "https://cesium.com/downloads/cesiumjs/releases/1.121/Build/Cesium/Widgets/widgets.css";
 
 export default function GlobeMap({ className = "" }: GlobeMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,8 +23,9 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
 
     let cancelled = false;
     let timeoutId: ReturnType<typeof setTimeout>;
+    let userInteracting = false;
+    let interactionTimeout: ReturnType<typeof setTimeout>;
 
-    // Fail-safe: if Cesium doesn't load in 15s, show error
     timeoutId = setTimeout(() => {
       if (!viewerRef.current && !cancelled) setError(true);
     }, 15000);
@@ -90,7 +92,6 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
           viewer.imageryLayers.removeAll();
           viewer.imageryLayers.add(ionLayer);
         } catch {
-          // Fallback: OpenStreetMap
           viewer.imageryLayers.removeAll();
           viewer.imageryLayers.add(
             new Cesium.ImageryLayer(
@@ -101,28 +102,77 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
           );
         }
 
-        // Terrain: try world terrain, silent fail
+        // Terrain
         try {
           viewer.terrainProvider =
             await Cesium.Terrain.fromWorldTerrainAsync();
-        } catch {
-          // flat globe is fine
-        }
+        } catch {}
 
-        // Rendering
+        // Rendering quality
         viewer.scene.globe.enableLighting = true;
         viewer.scene.globe.depthTestAgainstTerrain = true;
+        viewer.scene.fog.enabled = true;
+        viewer.scene.globe.showGroundAtmosphere = true;
         try {
           viewer.scene.postProcessStages.fxaa.enabled = true;
-        } catch {
-          // FXAA not supported on all GPUs
-        }
+        } catch {}
 
-        // Camera controls
+        // ===== CAMERA CONTROL FIXES =====
+
         const ssc = viewer.scene.screenSpaceCameraController;
-        ssc.inertiaSpin = 0.9;
-        ssc.inertiaTranslate = 0.9;
-        ssc.inertiaZoom = 0.8;
+
+        // FIX 1: Zero inertia — eliminates coasting/drift after user stops input
+        // Old: 0.9/0.9/0.8 caused globe to keep spinning after any touch
+        ssc.inertiaSpin = 0;
+        ssc.inertiaTranslate = 0;
+        ssc.inertiaZoom = 0;
+
+        // FIX 2: Constrain tilt — prevent camera going under the globe
+        // Limits pitch so user can't flip upside down
+        const minPitch = Cesium.Math.toRadians(-89);
+        const maxPitch = Cesium.Math.toRadians(-5);
+        viewer.scene.preRender.addEventListener(() => {
+          const camera = viewer.scene.camera;
+          const pitch = camera.pitch;
+          if (pitch > maxPitch || pitch < minPitch) {
+            camera.setView({
+              orientation: {
+                heading: camera.heading,
+                pitch: Cesium.Math.clamp(pitch, minPitch, maxPitch),
+                roll: 0,
+              },
+            });
+          }
+        });
+
+        // FIX 3: Auto-rotate pauses during user interaction
+        // Track mouse/touch input to pause the idle spin
+        const canvas = viewer.canvas as HTMLCanvasElement;
+
+        const onInteractionStart = () => {
+          userInteracting = true;
+          clearTimeout(interactionTimeout);
+        };
+        const onInteractionEnd = () => {
+          // Resume auto-rotate 3 seconds after user stops touching
+          clearTimeout(interactionTimeout);
+          interactionTimeout = setTimeout(() => {
+            userInteracting = false;
+          }, 3000);
+        };
+
+        canvas.addEventListener("mousedown", onInteractionStart);
+        canvas.addEventListener("mouseup", onInteractionEnd);
+        canvas.addEventListener("touchstart", onInteractionStart);
+        canvas.addEventListener("touchend", onInteractionEnd);
+        canvas.addEventListener("wheel", onInteractionStart, { passive: true });
+        // Wheel doesn't have a clean "end" — debounce resume
+        canvas.addEventListener("wheel", () => {
+          clearTimeout(interactionTimeout);
+          interactionTimeout = setTimeout(() => {
+            userInteracting = false;
+          }, 2000);
+        }, { passive: true });
 
         // Marker: St. Kitts & Nevis
         viewer.entities.add({
@@ -137,7 +187,7 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
             scaleByDistance: new Cesium.NearFarScalar(1e5, 1.4, 5e6, 0.6),
           },
           label: {
-            text: "IBT — St. Kitts & Nevis",
+            text: "IBT \u2014 St. Kitts & Nevis",
             fontFamily: "Geist, Albert Sans, sans-serif",
             fontSize: 14,
             fontStyle: "600",
@@ -168,10 +218,12 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
           easingFunction: Cesium.EasingFunction.CUBIC_IN_OUT,
         });
 
-        // Idle rotation
+        // Idle auto-rotate — PAUSED when user is interacting
+        const IDLE_SPIN_RATE = 0.00008;
         viewer.clock.onTick.addEventListener(() => {
           if (viewer.scene.mode !== Cesium.SceneMode.SCENE3D) return;
-          viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, 0.00008);
+          if (userInteracting) return; // Don't rotate while user is zooming/dragging
+          viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, IDLE_SPIN_RATE);
         });
 
         clearTimeout(timeoutId);
@@ -187,6 +239,7 @@ export default function GlobeMap({ className = "" }: GlobeMapProps) {
     return () => {
       cancelled = true;
       clearTimeout(timeoutId);
+      clearTimeout(interactionTimeout);
       if (viewerRef.current && !viewerRef.current.isDestroyed()) {
         viewerRef.current.destroy();
         viewerRef.current = null;
