@@ -15,7 +15,7 @@ const apis = [
 
 const tiers = [
   { name: 'Free', price: '$0', period: 'Forever free', cta: 'Get Free Key', features: ['1,000 requests/month', 'Currency Exchange API', 'Weather API (basic)', 'Community support'], excluded: ['Events & Places APIs'] },
-  { name: 'Pro', price: '$39', period: 'per month', cta: 'Subscribe Pro', popular: true, features: ['10,000 requests/month', 'All Tourism APIs', 'All Business APIs', 'Email support', 'Add-ons available'] },
+  { name: 'Pro', price: '$39', period: 'per month', cta: 'Start My Pro Plan', popular: true, features: ['10,000 requests/month', 'All Tourism APIs', 'All Business APIs', 'Email support', 'Add-ons available'] },
   { name: 'Enterprise', price: 'Custom', period: 'Contact for pricing', cta: 'Contact Sales', features: ['Unlimited requests', 'White-label', 'Dedicated support', 'Custom SLAs', 'All add-ons included'] },
 ];
 

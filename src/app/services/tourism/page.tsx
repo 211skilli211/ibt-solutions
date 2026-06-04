@@ -18,7 +18,7 @@ const proAPIs = [
 
 const pricingTiers = [
   { name: 'Free', price: '$0', period: 'Forever free', features: ['1,000 requests/month', 'Currency Exchange API', 'Weather API (basic)', 'Community support'], cta: 'Get Free Key', variant: 'secondary' as const },
-  { name: 'Pro', price: '$39', period: 'per month', features: ['10,000 requests/month', 'All Tourism APIs', 'Priority support', 'Rate limit increases', 'Webhook access'], cta: 'Subscribe Pro', popular: true, variant: 'primary' as const },
+  { name: 'Pro', price: '$39', period: 'per month', features: ['10,000 requests/month', 'All Tourism APIs', 'Priority support', 'Rate limit increases', 'Webhook access'], cta: 'Start My Pro Plan', popular: true, variant: 'primary' as const },
   { name: 'Enterprise', price: 'Custom', period: 'Contact for pricing', features: ['Unlimited requests', 'White-label', 'Dedicated support', 'Custom SLAs', 'All add-ons included'], cta: 'Contact Sales', href: '/contact', variant: 'secondary' as const },
 ];
 
