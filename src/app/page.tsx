@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge } from '@/components/ui';
 import { motion } from 'framer-motion';
-import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard, HoloCard } from '@/components/animations';
+import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard } from '@/components/animations';
 import ParticleField from '@/components/shaders/ParticleField';
 import ShaderBackground from '@/components/shaders/ShaderBackground';
 import dynamic from 'next/dynamic';
