@@ -6,11 +6,11 @@ interface GlobeMapProps {
   className?: string;
 }
 
-// Upgraded from 1.114 → 1.121 (fixes ScreenSpaceCameraController zoom glitch)
+// Upgraded from 1.121 → 1.133 (adds 3D Tiles gaussian splat support via KHR_gaussian_splatting)
 const CESIUM_CDN =
-  "https://cesium.com/downloads/cesiumjs/releases/1.121/Build/Cesium/Cesium.js";
+  "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Cesium.js";
 const CESIUM_CSS =
-  "https://cesium.com/downloads/cesiumjs/releases/1.121/Build/Cesium/Widgets/widgets.css";
+  "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Widgets/widgets.css";
 
 export default function GlobeMap({ className = "" }: GlobeMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
