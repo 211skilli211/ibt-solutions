@@ -22,7 +22,7 @@ interface CesiumGaussianSplatProps {
 // CesiumJS 1.133+ with 3D Tiles gaussian splat support
 const CESIUM_CDN =
   "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Cesium.js";
-const CESIUM_CSS =
+const CESIUM_CSS_URL =
   "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Widgets/widgets.css";
 
 export default function CesiumGaussianSplat({
@@ -74,7 +74,7 @@ export default function CesiumGaussianSplat({
     }
 
     async function init() {
-      loadCSS(CSS);
+      loadCSS(CESIUM_CSS_URL);
       await loadScript(CESIUM_CDN);
       if (cancelled) return;
 
