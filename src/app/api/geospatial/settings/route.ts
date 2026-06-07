@@ -1,24 +1,22 @@
 import { NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 
-// UPSERT helper — works even if site_settings table has no unique constraint
+// UPSERT helper — INSERT ON CONFLICT DO UPDATE
 async function upsertSetting(
   key: string,
   value: string,
   type: string,
   description: string
 ) {
-  // Try update first, then insert
-  const updated = await sql`
-    UPDATE site_settings SET setting_value = ${value}, setting_type = ${type}, updated_at = NOW()
-    WHERE setting_key = ${key}
+  await sql`
+    INSERT INTO site_settings (setting_key, setting_value, setting_type, description)
+    VALUES (${key}, ${value}, ${type}, ${description})
+    ON CONFLICT (setting_key)
+    DO UPDATE SET
+      setting_value = ${value},
+      setting_type = ${type},
+      updated_at = NOW()
   `;
-  if (updated.count === 0) {
-    await sql`
-      INSERT INTO site_settings (setting_key, setting_value, setting_type, description)
-      VALUES (${key}, ${value}, ${type}, ${description})
-    `;
-  }
 }
 
 // ─── GET: Fetch geospatial settings ──────────────────────────────────────────
