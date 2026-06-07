@@ -44,57 +44,57 @@ const services = [
     title: 'Website Auditing',
     description: "Comprehensive analysis of your website's SEO, performance, user experience, and conversion potential.",
     href: '/services/audit',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=250&fit=crop',
+    icon: '📊',
   },
   {
     title: 'Web & App Design',
     description: 'Custom websites and mobile applications built with modern technologies. From landing pages to full platforms.',
     href: '/services/web-dev',
-    image: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=400&h=250&fit=crop',
+    icon: '🎨',
   },
   {
     title: 'Graphic Design',
     description: 'Professional branding, logos, marketing materials, and print-on-demand merchandise.',
     href: '/coops/graphic-trends',
-    image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=250&fit=crop',
+    icon: '✨',
   },
   {
     title: 'Business Automation',
     description: 'Streamline operations with automated workflows, API integrations, and intelligent business processes.',
     href: '/services/business',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop',
+    icon: '⚙️',
   },
   {
     title: 'AI Solutions',
     description: 'From chatbots to predictive analytics — leverage AI to transform your operations.',
     href: '/services/ai',
-    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=250&fit=crop',
+    icon: '🤖',
   },
   {
     title: 'Lead Generation',
     description: 'Data-driven strategies to identify and capture high-quality leads for your business.',
     href: '/contact',
-    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=250&fit=crop',
+    icon: '🎯',
   },
   {
     title: 'Business Gap Analysis',
     description: 'Comprehensive assessment to identify operational challenges and uncover growth opportunities.',
     href: '/contact',
-    image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=250&fit=crop',
+    icon: '🔍',
   },
   {
     title: 'Consultation',
     description: 'Expert guidance on digital strategy, technology decisions, and business growth.',
     href: '/contact',
-    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=250&fit=crop',
+    icon: '💡',
   },
 ];
 
 const coops = [
-  { title: 'Trades & Services', desc: 'Skilled workers united', href: '/coops/trades', image: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=400&h=300&fit=crop' },
-  { title: 'Micro-Farms', desc: 'Local agriculture', href: '/coops/micro-farms', image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop' },
-  { title: 'Graphic Trends', desc: 'Micro-manufacturing', href: '/coops/graphic-trends', image: 'https://images.unsplash.com/photo-1626785774573-4b799315345d?w=400&h=300&fit=crop' },
-  { title: 'Storage & Logistics', desc: 'Coming soon', href: '#', image: 'https://images.unsplash.com/photo-1553413077-190dd305871c?w=400&h=300&fit=crop' },
+  { title: 'Trades & Services', desc: 'Skilled workers united', href: '/coops/trades', icon: '🔧' },
+  { title: 'Micro-Farms', desc: 'Local agriculture', href: '/coops/micro-farms', icon: '🌿' },
+  { title: 'Graphic Trends', desc: 'Micro-manufacturing', href: '/coops/graphic-trends', icon: '🎨' },
+  { title: 'Storage & Logistics', desc: 'Coming soon', href: '#', icon: '📦' },
 ];
 
 const stats = [
@@ -241,7 +241,7 @@ export default function HomePage() {
           </Section>
         </ScrollReveal>
 
-        {/* Services */}
+        {/* Services / What We Do */}
         <ScrollReveal>
           <Section className="py-20">
             <SectionHeader
@@ -273,12 +273,11 @@ export default function HomePage() {
             />
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
               {coops.map((c, i) => (
-                <Link key={i} href={c.href} className="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5">
-                  <img src={c.image} alt={c.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
+                <Link key={i} href={c.href} className="group relative aspect-[4/3] rounded-2xl overflow-hidden border border-white/5 bg-surface-1 hover:border-teal-500/30 transition-all duration-300">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">{c.icon}</div>
                     <div className="text-white font-bold text-sm">{c.title}</div>
-                    <div className="text-ink-400 text-xs">{c.desc}</div>
+                    <div className="text-ink-400 text-xs mt-1">{c.desc}</div>
                   </div>
                 </Link>
               ))}

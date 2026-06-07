@@ -162,34 +162,31 @@ interface ServiceCardProps {
   title: string;
   description: string;
   href: string;
-  image?: string;
   icon?: ReactNode;
 }
 
-export function ServiceCard({ title, description, href, image, icon }: ServiceCardProps) {
+export function ServiceCard({ title, description, href, icon }: ServiceCardProps) {
   return (
     <Link
       href={href}
-      className="group block rounded-2xl overflow-hidden bg-surface-1 border border-surface-3 hover:border-teal-500/30 transition-all duration-300 hover:-translate-y-1"
+      className="group block rounded-2xl overflow-hidden bg-surface-1 border border-surface-3 hover:border-teal-500/30 transition-all duration-300 hover:-translate-y-1 h-full"
     >
-      {image && (
-        <div className="aspect-[16/10] overflow-hidden bg-surface-2">
-          <img
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = 'none';
-            }}
-          />
-        </div>
-      )}
-      <div className="p-5">
-        {icon && <div className="text-teal-400 mb-3">{icon}</div>}
+      <div className="p-6 flex flex-col h-full">
+        {icon && (
+          <div className="w-12 h-12 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-2xl mb-4 group-hover:scale-110 transition-transform duration-300">
+            {icon}
+          </div>
+        )}
         <h3 className="text-lg font-bold text-white mb-2 group-hover:text-teal-400 transition-colors">
           {title}
         </h3>
-        <p className="text-sm text-ink-400 line-clamp-2">{description}</p>
+        <p className="text-sm text-ink-400 line-clamp-2 flex-1">{description}</p>
+        <div className="mt-4 flex items-center gap-2 text-teal-400 text-sm font-medium group-hover:gap-3 transition-all">
+          Learn more
+          <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </div>
       </div>
     </Link>
   );
