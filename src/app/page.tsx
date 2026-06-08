@@ -121,7 +121,6 @@ export default function HomePage() {
   };
 
   // Use hero data from API, with fallbacks
-  const heroBg = hero?.asset_url || 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop&q=80';
   const heroTitle = hero?.title || 'Business Solutions for the Caribbean';
   const heroGradient = hero?.subtitle?.split(' ')[0] || 'Technology & Consulting';
   const heroSubtitle = hero?.subtitle || 'Professional services, cooperative infrastructure, and modern technology — purpose-built for Caribbean businesses ready to compete globally.';
@@ -130,7 +129,7 @@ export default function HomePage() {
   const heroCta2 = hero?.cta2_text || 'Join IBT Co-ops';
   const heroCta2Link = hero?.cta2_link || '/coops';
 
-  // Hero background from admin config
+  // Hero background from admin config — no external fallback images
   const assetType = hero?.asset_type || 'image';
   const styleConfig = hero?.style_config || {};
   const overlayColor = hero?.overlay_color || '#000000';
@@ -151,10 +150,10 @@ export default function HomePage() {
         </div>
       );
     }
-    if (assetType === 'video' && heroBg) {
+    if (assetType === 'video' && hero?.asset_url) {
       return (
         <div className="absolute inset-0 z-0">
-          <video src={heroBg} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30" />
+          <video src={hero.asset_url} autoPlay loop muted playsInline className="w-full h-full object-cover opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
         </div>
       );
@@ -172,12 +171,20 @@ export default function HomePage() {
         </div>
       );
     }
-    // Default: image
+    // Default: admin-configured image only — no external fallback
+    if (hero?.asset_url) {
+      return (
+        <div className="absolute inset-0 z-0">
+          <img src={hero.asset_url} alt="" className="w-full h-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
+        </div>
+      );
+    }
+    // No image set — use branded gradient
     return (
       <div className="absolute inset-0 z-0">
-        <img src={heroBg} alt="" className="w-full h-full object-cover opacity-20"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-surface-0/40 via-surface-0/70 to-surface-0" />
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-900/30 via-surface-0 to-cyan-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-b from-surface-0/20 via-transparent to-surface-0" />
       </div>
     );
   };
@@ -250,15 +257,9 @@ export default function HomePage() {
               subtitle="Professional services and technology solutions designed for Caribbean enterprises."
             />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-              <StaggerContainer className="contents">
-                {services.map((s, i) => (
-                  <StaggerItem key={i}>
-                    <TiltCard intensity={6} className="h-full">
-                      <ServiceCard {...s} />
-                    </TiltCard>
-                  </StaggerItem>
-                ))}
-              </StaggerContainer>
+              {services.map((s, i) => (
+                <ServiceCard key={i} {...s} />
+              ))}
             </div>
           </Section>
         </ScrollReveal>
