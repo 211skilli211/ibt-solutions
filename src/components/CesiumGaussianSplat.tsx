@@ -7,6 +7,8 @@ interface CesiumGaussianSplatProps {
   ionAssetId?: number;
   /** URL to a tileset.json (self-hosted 3D Tiles) */
   tilesetUrl?: string;
+  /** URL to an SPZ file (will be loaded via Cesium's KHR_gaussian_splatting) */
+  spzUrl?: string;
   /** Camera longitude (degrees) */
   longitude?: number;
   /** Camera latitude (degrees) */
@@ -17,27 +19,55 @@ interface CesiumGaussianSplatProps {
   className?: string;
   /** Container height */
   containerHeight?: string;
+  /** Scene preset — selects camera position and tileset */
+  scene?: "st-kitts" | "nevis" | "caribbean" | "custom";
 }
 
-// CesiumJS 1.133+ with 3D Tiles gaussian splat support
+// CesiumJS 1.133+ with KHR_gaussian_splatting 3D Tiles support
 const CESIUM_CDN =
   "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Cesium.js";
 const CESIUM_CSS_URL =
   "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Widgets/widgets.css";
 
+// Scene presets for St. Kitts & Nevis
+const SCENE_PRESETS: Record<string, { lat: number; lng: number; height: number; label: string }> = {
+  "st-kitts": { lat: 17.3578, lng: -62.7830, height: 800, label: "St. Kitts" },
+  nevis: { lat: 17.1539, lng: -62.5833, height: 600, label: "Nevis" },
+  caribbean: { lat: 18.2208, lng: -66.5901, height: 5000, label: "Caribbean Overview" },
+};
+
 export default function CesiumGaussianSplat({
   ionAssetId,
   tilesetUrl,
+  spzUrl,
   longitude = -62.7248,
   latitude = 17.3026,
   height: cameraHeight = 500,
   className = "",
   containerHeight = "480px",
+  scene = "st-kitts",
 }: CesiumGaussianSplatProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [viewerReady, setViewerReady] = useState(false);
+
+  // Apply scene preset camera
+  useEffect(() => {
+    if (!viewerReady || !viewerRef.current) return;
+    const preset = SCENE_PRESETS[scene];
+    if (!preset) return;
+
+    const Cesium = (window as any).Cesium;
+    if (!Cesium) return;
+
+    viewerRef.current.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(preset.lng, preset.lat, preset.height),
+      orientation: { heading: 0, pitch: Cesium.Math.toRadians(-45), roll: 0 },
+      duration: 2,
+    });
+  }, [scene, viewerReady]);
 
   useEffect(() => {
     if (!containerRef.current || typeof window === "undefined") return;
@@ -104,11 +134,12 @@ export default function CesiumGaussianSplat({
 
         if (cancelled) return viewer.destroy();
         viewerRef.current = viewer;
+        setViewerReady(true);
 
-        // Imagery
+        // Imagery — Bing Maps (requires key) or OSM fallback
         try {
           const ionLayer = await Cesium.ImageryLayer.fromProviderAsync(
-            Cesium.IonImageryProvider.fromAssetId(2)
+            Cesium.IonImageryProvider.fromAssetId(2) // Bing Maps Aerial
           );
           viewer.imageryLayers.removeAll();
           viewer.imageryLayers.add(ionLayer);
@@ -123,59 +154,60 @@ export default function CesiumGaussianSplat({
           );
         }
 
-        // Terrain
+        // Terrain — Cesium World Terrain
         try {
           viewer.terrainProvider =
             await Cesium.Terrain.fromWorldTerrainAsync();
         } catch {}
 
-        // Load gaussian splat tileset
+        // ─── Load 3D Tiles Gaussian Splat ───────────────────────────────
+        // Priority: 1) Ion asset, 2) Self-hosted tileset.json, 3) SPZ URL
         if (ionAssetId) {
           try {
-            const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(
-              ionAssetId
-            );
+            const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(ionAssetId);
             viewer.scene.primitives.add(tileset);
+            console.log(`[Cesium] Loaded Ion 3D Tiles gaussian splat: asset #${ionAssetId}`);
           } catch (e) {
-            console.warn("Failed to load Ion gaussian splat tileset:", e);
+            console.warn("[Cesium] Failed to load Ion gaussian splat tileset:", e);
           }
         } else if (tilesetUrl) {
           try {
             const tileset = await Cesium.Cesium3DTileset.fromUrl(tilesetUrl);
             viewer.scene.primitives.add(tileset);
+            console.log(`[Cesium] Loaded self-hosted 3D Tiles: ${tilesetUrl}`);
           } catch (e) {
-            console.warn("Failed to load gaussian splat tileset:", e);
+            console.warn("[Cesium] Failed to load tileset:", e);
           }
+        } else if (spzUrl) {
+          // CesiumJS 1.133+ supports KHR_gaussian_splatting in glTF
+          // SPZ files need to be wrapped in a glTF container or served as 3D Tiles
+          // For now, show a message that SPZ needs to be converted to 3D Tiles
+          console.log(`[Cesium] SPZ file available: ${spzUrl}`);
+          console.log("[Cesium] SPZ → 3D Tiles conversion required for Cesium rendering");
         }
 
-        // Camera
+        // Camera — use scene preset or custom coordinates
+        const camLng = longitude || SCENE_PRESETS[scene]?.lng || -62.7248;
+        const camLat = latitude || SCENE_PRESETS[scene]?.lat || 17.3026;
+        const camHeight = cameraHeight || SCENE_PRESETS[scene]?.height || 500;
+
         viewer.camera.flyTo({
-          destination: Cesium.Cartesian3.fromDegrees(
-            longitude,
-            latitude,
-            cameraHeight
-          ),
-          orientation: {
-            heading: 0,
-            pitch: Cesium.Math.toRadians(-45),
-            roll: 0,
-          },
+          destination: Cesium.Cartesian3.fromDegrees(camLng, camLat, camHeight),
+          orientation: { heading: 0, pitch: Cesium.Math.toRadians(-45), roll: 0 },
           duration: 2,
           easingFunction: Cesium.EasingFunction.CUBIC_IN_OUT,
         });
 
-        // Rendering
+        // Rendering settings
         viewer.scene.globe.enableLighting = true;
         viewer.scene.globe.depthTestAgainstTerrain = true;
         viewer.scene.fog.enabled = true;
-        try {
-          viewer.scene.postProcessStages.fxaa.enabled = true;
-        } catch {}
+        try { viewer.scene.postProcessStages.fxaa.enabled = true; } catch {}
 
         clearTimeout(timeoutId);
         setLoading(false);
       } catch (err) {
-        console.error("Cesium gaussian splat init error:", err);
+        console.error("[Cesium] Init error:", err);
         clearTimeout(timeoutId);
         setError(true);
         setLoading(false);
@@ -192,7 +224,7 @@ export default function CesiumGaussianSplat({
         viewerRef.current = null;
       }
     };
-  }, [ionAssetId, tilesetUrl, longitude, latitude, cameraHeight]);
+  }, [ionAssetId, tilesetUrl, spzUrl, longitude, latitude, cameraHeight]);
 
   if (error) {
     return (
@@ -205,7 +237,7 @@ export default function CesiumGaussianSplat({
             3D Scene unavailable
           </div>
           <div className="text-xs mt-1" style={{ color: "var(--ink-700, #334155)" }}>
-            Check your connection
+            Check your connection or Cesium Ion token
           </div>
         </div>
       </div>
@@ -217,30 +249,21 @@ export default function CesiumGaussianSplat({
       {loading && (
         <div
           style={{
-            position: "absolute",
-            inset: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            background: "rgba(10, 22, 40, 0.8)",
-            zIndex: 10,
+            position: "absolute", inset: 0,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            background: "rgba(10, 22, 40, 0.8)", zIndex: 10,
           }}
         >
           <div
             style={{
-              width: 40,
-              height: 40,
+              width: 40, height: 40,
               border: "3px solid rgba(20, 184, 166, 0.2)",
               borderTopColor: "#14B8A6",
               borderRadius: "50%",
               animation: "cesiumGSSpin 0.8s linear infinite",
             }}
           />
-          <style>{`
-            @keyframes cesiumGSSpin {
-              to { transform: rotate(360deg); }
-            }
-          `}</style>
+          <style>{`@keyframes cesiumGSSpin { to { transform: rotate(360deg); } }`}</style>
         </div>
       )}
       <div

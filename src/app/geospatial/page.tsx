@@ -63,6 +63,7 @@ interface GeospatialSettings {
   enable_gaussian_splat: boolean;
   cesium_ion_asset_id: number | null;
   splat_ply_url: string | null;
+  spz_url: string | null;
   splat_camera_lat: number;
   splat_camera_lng: number;
   splat_camera_height: number;
@@ -73,6 +74,7 @@ const DEFAULT_SETTINGS: GeospatialSettings = {
   enable_gaussian_splat: false,
   cesium_ion_asset_id: null,
   splat_ply_url: null,
+  spz_url: null,
   splat_camera_lat: 17.3026,
   splat_camera_lng: -62.7248,
   splat_camera_height: 500,
@@ -289,10 +291,12 @@ export default function GeospatialPage() {
                 <CesiumGaussianSplat
                   ionAssetId={settings.cesium_ion_asset_id || undefined}
                   tilesetUrl={settings.splat_ply_url || undefined}
+                  spzUrl={settings.spz_url || undefined}
                   longitude={activeRegionData.lng}
                   latitude={activeRegionData.lat}
                   height={settings.splat_camera_height}
                   containerHeight="520px"
+                  scene={activeRegion as any}
                 />
                 <div className="p-3 border-t border-surface-2 flex items-center justify-between">
                   <p className="text-xs text-ink-400">

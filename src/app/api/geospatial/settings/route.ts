@@ -92,6 +92,12 @@ export async function POST(req: Request) {
         coerce: (v: any) => String(v),
       },
       {
+        field: "spz_url",
+        key: "geospatial_spz_url",
+        type: "string",
+        coerce: (v: any) => String(v),
+      },
+      {
         field: "splat_camera_lat",
         key: "geospatial_splat_camera_lat",
         type: "number",
