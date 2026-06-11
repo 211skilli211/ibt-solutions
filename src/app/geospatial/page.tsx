@@ -151,7 +151,7 @@ export default function GeospatialPage() {
               Beta
             </span>
             <span className="px-3 py-1 text-xs font-medium rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
-              Cesium 1.133
+              Cesium 1.139
             </span>
           </div>
           <p className="text-ink-400">
@@ -170,9 +170,9 @@ export default function GeospatialPage() {
             <div className="flex-1">
               <h3 className="font-semibold text-white mb-1">3D Gaussian Splatting + 3D Tiles Integration</h3>
               <p className="text-xs text-ink-400 mb-3">
-                Using CesiumJS 1.133 with KHR_gaussian_splatting + SPZ compression (Niantic Spatial / Khronos standard).
-                Integration with Skyfall-GS satellite-to-3D pipeline in progress.
-                Scaniverse on-device capture for St. Kitts locations planned.
+                Using CesiumJS 1.139 with KHR_gaussian_splatting_spz_2 + SPZ 4.0 compression (Niantic/Khronos standard).
+                Cesium Ion direct PLY/SPZ upload now supported for automatic 3D Tiles generation with LOD.
+                Skyfall-GS satellite-to-3D pipeline and Scaniverse on-device capture for St. Kitts locations in progress.
               </p>
               <div className="flex gap-3">
                 <a href="/contact" className="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-surface-1 text-xs font-semibold rounded-lg transition-colors">
@@ -424,15 +424,15 @@ export default function GeospatialPage() {
               <div className="space-y-2 text-xs text-ink-400">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-cyan-400" />
-                  CesiumJS 1.133 + 3D Tiles 2.0
+                  CesiumJS 1.139 + 3D Tiles 2.0
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                  KHR_gaussian_splatting (glTF)
+                  KHR_gaussian_splatting_spz_2 (glTF)
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-amber-400" />
-                  SPZ 2.0 compression (Niantic)
+                  SPZ 4.0 compression (Niantic/Khronos)
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-violet-400" />
@@ -441,6 +441,10 @@ export default function GeospatialPage() {
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-pink-400" />
                   Skyfall-GS satellite pipeline
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-400" />
+                  TAK 4.4 CoT integration
                 </div>
               </div>
             </div>

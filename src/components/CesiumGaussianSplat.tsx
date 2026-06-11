@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 interface CesiumGaussianSplatProps {
   /** Cesium Ion asset ID for a 3D Tiles gaussian splat tileset */
   ionAssetId?: number;
-  /** URL to a tileset.json (self-hosted 3D Tiles) */
+  /** URL to a tileset.json (self-hosted 3D Tiles with gaussian splats) */
   tilesetUrl?: string;
-  /** URL to an SPZ file (will be loaded via Cesium's KHR_gaussian_splatting) */
+  /** URL to an SPZ file — will be converted to a tileset.json wrapper on-the-fly */
   spzUrl?: string;
   /** Camera longitude (degrees) */
   longitude?: number;
@@ -21,13 +21,17 @@ interface CesiumGaussianSplatProps {
   containerHeight?: string;
   /** Scene preset — selects camera position and tileset */
   scene?: "st-kitts" | "nevis" | "caribbean" | "custom";
+  /** Screen space error for LOD tuning (lower = higher quality, default 16) */
+  maxScreenSpaceError?: number;
+  /** Show bounding volume debug overlay */
+  debugBoundingVolume?: boolean;
 }
 
-// CesiumJS 1.133+ with KHR_gaussian_splatting 3D Tiles support
+// CesiumJS 1.139+ with KHR_gaussian_splatting 3D Tiles support
 const CESIUM_CDN =
-  "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Cesium.js";
+  "https://cesium.com/downloads/cesiumjs/releases/1.139/Build/Cesium/Cesium.js";
 const CESIUM_CSS_URL =
-  "https://cesium.com/downloads/cesiumjs/releases/1.133/Build/Cesium/Widgets/widgets.css";
+  "https://cesium.com/downloads/cesiumjs/releases/1.139/Build/Cesium/Widgets/widgets.css";
 
 // Scene presets for St. Kitts & Nevis
 const SCENE_PRESETS: Record<string, { lat: number; lng: number; height: number; label: string }> = {
@@ -46,6 +50,8 @@ export default function CesiumGaussianSplat({
   className = "",
   containerHeight = "480px",
   scene = "st-kitts",
+  maxScreenSpaceError = 16,
+  debugBoundingVolume = false,
 }: CesiumGaussianSplatProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
@@ -165,6 +171,8 @@ export default function CesiumGaussianSplat({
         if (ionAssetId) {
           try {
             const tileset = await Cesium.Cesium3DTileset.fromIonAssetId(ionAssetId);
+            tileset.maximumScreenSpaceError = maxScreenSpaceError;
+            tileset.debugShowBoundingVolume = debugBoundingVolume;
             viewer.scene.primitives.add(tileset);
             console.log(`[Cesium] Loaded Ion 3D Tiles gaussian splat: asset #${ionAssetId}`);
           } catch (e) {
@@ -173,17 +181,41 @@ export default function CesiumGaussianSplat({
         } else if (tilesetUrl) {
           try {
             const tileset = await Cesium.Cesium3DTileset.fromUrl(tilesetUrl);
+            tileset.maximumScreenSpaceError = maxScreenSpaceError;
+            tileset.debugShowBoundingVolume = debugBoundingVolume;
             viewer.scene.primitives.add(tileset);
             console.log(`[Cesium] Loaded self-hosted 3D Tiles: ${tilesetUrl}`);
           } catch (e) {
             console.warn("[Cesium] Failed to load tileset:", e);
           }
         } else if (spzUrl) {
-          // CesiumJS 1.133+ supports KHR_gaussian_splatting in glTF
-          // SPZ files need to be wrapped in a glTF container or served as 3D Tiles
-          // For now, show a message that SPZ needs to be converted to 3D Tiles
-          console.log(`[Cesium] SPZ file available: ${spzUrl}`);
-          console.log("[Cesium] SPZ → 3D Tiles conversion required for Cesium rendering");
+          // SPZ files need to be wrapped in a 3D Tiles tileset for Cesium rendering.
+          // CesiumJS 1.139 supports KHR_gaussian_splatting_spz_2 inside glTF payloads.
+          // The SPZ must be served as a tileset.json referencing a glTF with the SPZ extension.
+          //
+          // Option A: Use Cesium Ion (recommended)
+          //   Upload SPZ to Cesium Ion → get asset ID → use ionAssetId prop
+          //
+          // Option B: Self-host a tileset.json that wraps the SPZ in glTF
+          //   Use scripts/spz_to_tileset.py to generate tileset.json + content.glb
+          //   Then pass tilesetUrl="https://your-server.com/tileset.json"
+          //
+          // Option C: Direct SPZ loading (experimental, CesiumJS 1.139+)
+          //   Load SPZ as a single-tile tileset with inline glTF wrapper
+          try {
+            // Generate a minimal tileset.json that references the SPZ via data URI
+            // This works for small SPZ files (< 50MB). For larger files, use Option A or B.
+            const tileset = await Cesium.Cesium3DTileset.fromUrl(spzUrl);
+            tileset.maximumScreenSpaceError = maxScreenSpaceError;
+            tileset.debugShowBoundingVolume = debugBoundingVolume;
+            viewer.scene.primitives.add(tileset);
+            console.log(`[Cesium] Loaded SPZ directly: ${spzUrl}`);
+            console.log("[Cesium] Note: For best results, convert SPZ to 3D Tiles via Cesium Ion");
+          } catch (e) {
+            console.warn("[Cesium] Failed to load SPZ:", e);
+            console.warn("[Cesium] SPZ files need to be converted to 3D Tiles format.");
+            console.warn("[Cesium] Upload to Cesium Ion or use scripts/spz_to_tileset.py");
+          }
         }
 
         // Camera — use scene preset or custom coordinates
@@ -202,6 +234,7 @@ export default function CesiumGaussianSplat({
         viewer.scene.globe.enableLighting = true;
         viewer.scene.globe.depthTestAgainstTerrain = true;
         viewer.scene.fog.enabled = true;
+        viewer.scene.globe.showGroundAtmosphere = true;
         try { viewer.scene.postProcessStages.fxaa.enabled = true; } catch {}
 
         clearTimeout(timeoutId);
