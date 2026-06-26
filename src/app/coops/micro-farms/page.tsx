@@ -1,0 +1,130 @@
+import Link from 'next/link';
+import CoopHero from '@/components/CoopHero';
+
+export const metadata = {
+  title: 'Micro-Farms Cooperative | IBT Co-operative Federation',
+  description: 'Connecting small-scale farmers and urban growers through the IBT Co-operative Federation with shared resources and market access.',
+};
+
+const offerings = [
+  { title: 'Fresh Produce', description: 'Seasonal vegetables, herbs, and fruits from local farms.', icon: '🥬' },
+  { title: 'Organic Options', description: 'Certified organic produce grown without synthetic inputs.', icon: '🌿' },
+  { title: 'Farm Shares', description: 'Weekly or bi-weekly subscription boxes of fresh harvest.', icon: '📦' },
+  { title: 'Wholesale Supply', description: 'Restaurants, hotels, and retailers can source locally.', icon: '🏨' },
+];
+
+const benefits = [
+  { title: 'Shared Resources', description: 'Pool equipment, seeds, and supplies to reduce individual costs.' },
+  { title: 'Knowledge Exchange', description: 'Learn from experienced growers and share best practices.' },
+  { title: 'Market Access', description: 'Direct connection to restaurants, hotels, and IslandHub customers.' },
+  { title: 'Distribution Network', description: 'Shared logistics and cold chain infrastructure.' },
+];
+
+export default function MicroFarmsPage() {
+  return (
+    <div className="min-h-screen bg-ocean-900">
+      <CoopHero
+        pageKey="ibt-coops-micro-farms"
+        fallback={{
+          badge: '🌱 Founding Phase',
+          title: 'Micro-Farms',
+          titleGradient: 'Cooperative',
+          subtitle: 'Connecting small-scale farmers and urban growers to share resources, knowledge, and access to the IslandHub marketplace. From backyard gardens to community plots — everyone grows together.',
+          ctaPrimary: { label: 'Join the Co-op', href: '/coops/get-involved' },
+          ctaSecondary: { label: 'Join WhatsApp', href: 'https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW' },
+        }}
+        rightContent={
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 rounded-3xl blur-xl" />
+            <div className="relative grid grid-cols-2 gap-4">
+              {[
+                { icon: '🌱', title: 'Urban Growers', desc: 'Rooftop gardens, vertical farms' },
+                { icon: '🚜', title: 'Small Farms', desc: '1-5 acre plots' },
+                { icon: '🏡', title: 'Community Plots', desc: 'Shared garden spaces' },
+                { icon: '🌿', title: 'Herbs & Specialty', desc: 'Medical, culinary, ornamental' },
+              ].map((item) => (
+                <div key={item.title} className="p-6 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent border border-surface-2 text-center">
+                  <div className="text-4xl mb-3">{item.icon}</div>
+                  <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                  <p className="text-sm text-ink-400">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        }
+      />
+
+      {/* Offerings */}
+      <section className="py-20 bg-surface-1/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">What We Offer</h2>
+            <p className="text-ink-400 max-w-2xl mx-auto">From plot to plate — connecting local growers with customers who value fresh, sustainably grown produce.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {offerings.map((offering) => (
+              <div key={offering.title} className="p-6 rounded-2xl bg-surface-1 border border-surface-2 text-center">
+                <div className="text-4xl mb-4">{offering.icon}</div>
+                <h3 className="text-lg font-semibold text-white mb-2">{offering.title}</h3>
+                <p className="text-sm text-ink-400">{offering.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">Member Benefits</h2>
+            <p className="text-ink-400 max-w-2xl mx-auto">By joining together, small growers gain advantages usually reserved for large operations.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit) => (
+              <div key={benefit.title} className="p-6 rounded-2xl bg-surface-1 border border-surface-2">
+                <h3 className="text-lg font-bold text-white mb-2">{benefit.title}</h3>
+                <p className="text-sm text-ink-400">{benefit.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* IslandHub */}
+      <section className="py-20 bg-gradient-to-b from-ocean-900 to-surface-1">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="w-16 h-16 mx-auto mb-6 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-3xl">🏝️</div>
+          <h2 className="text-3xl font-bold text-white mb-4">IslandHub Marketplace Integration</h2>
+          <p className="text-ink-400 mb-6">
+            Micro-Farms produce will be listed on IslandHub, giving members direct access to
+            customers across the Caribbean. Manage orders, track deliveries, and grow your customer base
+            through our integrated platform.
+          </p>
+          <a href="https://islandhub.app" target="_blank" className="inline-flex items-center gap-2 text-emerald-400 font-medium hover:text-emerald-300">
+            Visit IslandHub Marketplace
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 border-t border-surface-2">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">Grow With Us</h2>
+          <p className="text-ink-400 mb-8">Whether you have a backyard garden or a small farm — there is room for you.</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/coops/get-involved" className="px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-surface-1 font-semibold rounded-xl transition-all">
+              Express Interest
+            </Link>
+            <a href="https://chat.whatsapp.com/IfkJFCpgKRn9dOLaAUzOxW" target="_blank" className="px-8 py-4 border border-ink-700 hover:border-ink-600 text-white font-medium rounded-xl transition-all">
+              Join WhatsApp Group
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}

@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════
+   IBT Solutions — Design System v2
+   Caribbean Dark Theme
+   ═══════════════════════════════════════════════════════════ */
+
+@theme {
+  /* Ocean (primary) */
+  --color-ocean-900: #0A1628;
+  --color-ocean-800: #0F2744;
+  --color-ocean-700: #1A3A5C;
+  --color-ocean-600: #264D73;
+  --color-ocean-500: #0066CC;
+  --color-ocean-400: #3388E0;
+  --color-ocean-300: #80B3E8;
+
+  /* Teal (accent) */
+  --color-teal-500: #14B8A6;
+  --color-teal-400: #2DD4BF;
+  --color-teal-300: #5EEAD4;
+
+  /* Sunset (warm) */
+  --color-sunset-500: #FF6B35;
+  --color-sunset-400: #FF8A5C;
+
+  /* Surfaces */
+  --color-surface-0: #0A1628;
+  --color-surface-1: #0F2744;
+  --color-surface-2: #1A3A5C;
+  --color-surface-3: #264D73;
+
+  /* Ink (text — Caribbean-tinted, never pure gray) */
+  --color-ink-900: #0F1729;
+  --color-ink-800: #1A2436;
+  --color-ink-700: #2A3444;
+  --color-ink-600: #4A5568;
+  --color-ink-500: #6B7B8D;
+  --color-ink-400: #94A3B8;
+  --color-ink-300: #CBD5E1;
+  --color-ink-200: #E2E8F0;
+  --color-ink-100: #F1F5F9;
+
+  /* Sand (warm neutral — borders, dividers) */
+  --color-sand-900: #3D2E1E;
+  --color-sand-800: #5C4A33;
+  --color-sand-700: #7A6550;
+  --color-sand-600: #9C8A72;
+  --color-sand-500: #B8A88E;
+  --color-sand-400: #D4C8B4;
+  --color-sand-300: #E8DFD2;
+  --color-sand-200: #F2EDE5;
+  --color-sand-100: #FAF7F3;
+
+  /* Semantic */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-error: #EF4444;
+  --color-info: #3B82F6;
+
+  /* Fonts */
+  --font-sans: 'Geist', 'Albert Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+}
+
+/* Base */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-surface-0);
+  color: #F8FAFC;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface-1); }
+::-webkit-scrollbar-thumb { background: var(--color-surface-3); border-radius: 3px; }
+
+/* Selection */
+::selection {
+  background: rgba(20, 184, 166, 0.3);
+  color: white;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-fade-in { animation: fadeIn 0.3s ease-out; }
+.animate-slide-up { animation: slideUp 0.3s ease-out; }
+.animate-marquee { animation: marquee 30s linear infinite; }
+
+/* Line clamp */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   3D Depth System + Glassmorphism + Animated Shading
+   ═══════════════════════════════════════════════════════════ */
+
+/* 3D Transform defaults */
+:root {
+  --card-perspective: 800px;
+  --card-hover-rotateX: -4deg;
+  --card-hover-translateZ: 12px;
+  --card-hover-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 0 1px rgba(20,184,166,0.15);
+  --glow-ocean: rgba(20, 184, 166, 0.3);
+  --glow-gold: rgba(245, 158, 11, 0.25);
+  --glass-blur: blur(16px) saturate(160%);
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: 1px solid rgba(255,255,255,0.10);
+  --glass-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+}
+
+/* Glassmorphism card utility */
+.glass-card {
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 1rem;
+  box-shadow: var(--glass-shadow);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-card:hover {
+  border-color: rgba(20, 184, 166, 0.25);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(20,184,166,0.15), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+/* Glass variants */
+.glass-teal {
+  background: rgba(20, 184, 166, 0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(20, 184, 166, 0.15);
+}
+.glass-gold {
+  background: rgba(245, 158, 11, 0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(245, 158, 11, 0.12);
+}
+
+/* 3D Press Button */
+.btn-3d {
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+  box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3), 0 4px 0 #0d9488;
+}
+.btn-3d:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(20, 184, 166, 0.5), 0 4px 0 #0d9488;
+}
+.btn-3d:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.6), 0 0 0 #0d9488;
+}
+
+/* Holographic Card */
+.holo-card {
+  position: relative;
+  overflow: hidden;
+}
+.holo-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0F2744 0%, #14B8A6 25%, #FF6B35 50%, #2DD4BF 75%, #0F2744 100%);
+  background-size: 400% 400%;
+  animation: holoshift 4s ease infinite;
+  opacity: 0.12;
+  z-index: 0;
+  border-radius: inherit;
+}
+.holo-card > * {
+  position: relative;
+  z-index: 1;
+}
+@keyframes holoshift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Skeleton Shimmer */
+.skeleton-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(20,184,166,0.08) 50%, rgba(255,255,255,0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite linear;
+  border-radius: 0.5rem;
+}
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Glow Pulse */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 5px var(--glow-ocean); }
+  50% { box-shadow: 0 0 20px var(--glow-ocean), 0 0 40px var(--glow-ocean); }
+}
+.glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+
+/* Parallax helper */
+.parallax-will-change { will-change: transform; }
+
+/* Mobile: disable expensive effects */
+@media (max-width: 768px) {
+  .glass-card, .glass-teal, .glass-gold {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: rgba(10, 22, 40, 0.95);
+  }
+}

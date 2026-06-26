@@ -1,0 +1,287 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+interface GlobeMapProps {
+  className?: string;
+}
+
+// CesiumJS 1.139 with 3D Tiles gaussian splat support via KHR_gaussian_splatting
+const CESIUM_CDN =
+  "https://cesium.com/downloads/cesiumjs/releases/1.139/Build/Cesium/Cesium.js";
+const CESIUM_CSS =
+  "https://cesium.com/downloads/cesiumjs/releases/1.139/Build/Cesium/Widgets/widgets.css";
+
+export default function GlobeMap({ className = "" }: GlobeMapProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const viewerRef = useRef<any>(null);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (!containerRef.current || typeof window === "undefined") return;
+    if (viewerRef.current) return;
+
+    let cancelled = false;
+    let timeoutId: ReturnType<typeof setTimeout>;
+    let userInteracting = false;
+    let interactionTimeout: ReturnType<typeof setTimeout>;
+
+    timeoutId = setTimeout(() => {
+      if (!viewerRef.current && !cancelled) setError(true);
+    }, 15000);
+
+    function loadScript(src: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        if (document.querySelector(`script[src="${src}"]`)) return resolve();
+        const s = document.createElement("script");
+        s.src = src;
+        s.async = true;
+        s.onload = () => resolve();
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+
+    function loadCSS(href: string) {
+      if (document.querySelector(`link[href="${href}"]`)) return;
+      const l = document.createElement("link");
+      l.rel = "stylesheet";
+      l.href = href;
+      document.head.appendChild(l);
+    }
+
+    async function init() {
+      loadCSS(CESIUM_CSS);
+      await loadScript(CESIUM_CDN);
+      if (cancelled) return;
+
+      const Cesium = (window as any).Cesium;
+      if (!Cesium) return setError(true);
+
+      Cesium.Ion.defaultAccessToken =
+        process.env.NEXT_PUBLIC_CESIUM_ION_TOKEN || "";
+
+      try {
+        const viewer = new Cesium.Viewer(containerRef.current!, {
+          animation: false,
+          timeline: false,
+          baseLayerPicker: false,
+          geocoder: false,
+          homeButton: false,
+          navigationHelpButton: false,
+          sceneModePicker: false,
+          fullscreenButton: false,
+          infoBox: false,
+          selectionIndicator: false,
+          creditContainer: document.createElement("div"),
+          requestRenderMode: true,
+          maximumRenderTimeChange: Infinity,
+          skyBox: false,
+          minimumZoomDistance: 50_000,
+          maximumZoomDistance: 10_000_000,
+        });
+
+        if (cancelled) return viewer.destroy();
+        viewerRef.current = viewer;
+
+        // Imagery: try Ion Bing Aerial, fallback to OSM
+        try {
+          const ionLayer = await Cesium.ImageryLayer.fromProviderAsync(
+            Cesium.IonImageryProvider.fromAssetId(2)
+          );
+          viewer.imageryLayers.removeAll();
+          viewer.imageryLayers.add(ionLayer);
+        } catch {
+          viewer.imageryLayers.removeAll();
+          viewer.imageryLayers.add(
+            new Cesium.ImageryLayer(
+              new Cesium.OpenStreetMapImageryProvider({
+                url: "https://tile.openstreetmap.org/",
+              })
+            )
+          );
+        }
+
+        // Terrain
+        try {
+          viewer.terrainProvider =
+            await Cesium.Terrain.fromWorldTerrainAsync();
+        } catch {}
+
+        // Rendering quality
+        viewer.scene.globe.enableLighting = true;
+        viewer.scene.globe.depthTestAgainstTerrain = true;
+        viewer.scene.fog.enabled = true;
+        viewer.scene.globe.showGroundAtmosphere = true;
+        try {
+          viewer.scene.postProcessStages.fxaa.enabled = true;
+        } catch {}
+
+        // ===== CAMERA CONTROL FIXES =====
+
+        const ssc = viewer.scene.screenSpaceCameraController;
+
+        // FIX 1: Zero inertia — eliminates coasting/drift after user stops input
+        // Old: 0.9/0.9/0.8 caused globe to keep spinning after any touch
+        ssc.inertiaSpin = 0;
+        ssc.inertiaTranslate = 0;
+        ssc.inertiaZoom = 0;
+
+        // FIX 2: Constrain tilt — prevent camera going under the globe
+        // Limits pitch so user can't flip upside down
+        const minPitch = Cesium.Math.toRadians(-89);
+        const maxPitch = Cesium.Math.toRadians(-5);
+        viewer.scene.preRender.addEventListener(() => {
+          const camera = viewer.scene.camera;
+          const pitch = camera.pitch;
+          if (pitch > maxPitch || pitch < minPitch) {
+            camera.setView({
+              orientation: {
+                heading: camera.heading,
+                pitch: Cesium.Math.clamp(pitch, minPitch, maxPitch),
+                roll: 0,
+              },
+            });
+          }
+        });
+
+        // FIX 3: Auto-rotate pauses during user interaction
+        // Track mouse/touch input to pause the idle spin
+        const canvas = viewer.canvas as HTMLCanvasElement;
+
+        const onInteractionStart = () => {
+          userInteracting = true;
+          clearTimeout(interactionTimeout);
+        };
+        const onInteractionEnd = () => {
+          // Resume auto-rotate 3 seconds after user stops touching
+          clearTimeout(interactionTimeout);
+          interactionTimeout = setTimeout(() => {
+            userInteracting = false;
+          }, 3000);
+        };
+
+        canvas.addEventListener("mousedown", onInteractionStart);
+        canvas.addEventListener("mouseup", onInteractionEnd);
+        canvas.addEventListener("touchstart", onInteractionStart);
+        canvas.addEventListener("touchend", onInteractionEnd);
+        canvas.addEventListener("wheel", onInteractionStart, { passive: true });
+        // Wheel doesn't have a clean "end" — debounce resume
+        canvas.addEventListener("wheel", () => {
+          clearTimeout(interactionTimeout);
+          interactionTimeout = setTimeout(() => {
+            userInteracting = false;
+          }, 2000);
+        }, { passive: true });
+
+        // Marker: St. Kitts & Nevis
+        viewer.entities.add({
+          position: Cesium.Cartesian3.fromDegrees(-62.7248, 17.3026),
+          point: {
+            pixelSize: 12,
+            color: Cesium.Color.fromCssColorString("#14B8A6"),
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 3,
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+            disableDepthTestDistance: 1_000_000,
+            scaleByDistance: new Cesium.NearFarScalar(1e5, 1.4, 5e6, 0.6),
+          },
+          label: {
+            text: "IBT \u2014 St. Kitts & Nevis",
+            fontFamily: "Geist, Albert Sans, sans-serif",
+            fontSize: 14,
+            fontStyle: "600",
+            fillColor: Cesium.Color.WHITE,
+            outlineColor: new Cesium.Color(0.039, 0.086, 0.157, 1),
+            outlineWidth: 4,
+            style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+            pixelOffset: new Cesium.Cartesian2(0, -30),
+            heightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+            disableDepthTestDistance: 1_000_000,
+            scaleByDistance: new Cesium.NearFarScalar(1e5, 1.0, 3e6, 0),
+          },
+        });
+
+        // Fly to Caribbean
+        viewer.camera.flyTo({
+          destination: Cesium.Cartesian3.fromDegrees(
+            -62.7248,
+            17.3026,
+            350_000
+          ),
+          orientation: {
+            heading: 0,
+            pitch: Cesium.Math.toRadians(-35),
+            roll: 0,
+          },
+          duration: 2.5,
+          easingFunction: Cesium.EasingFunction.CUBIC_IN_OUT,
+        });
+
+        // Idle auto-rotate — PAUSED when user is interacting
+        const IDLE_SPIN_RATE = 0.00008;
+        viewer.clock.onTick.addEventListener(() => {
+          if (viewer.scene.mode !== Cesium.SceneMode.SCENE3D) return;
+          if (userInteracting) return; // Don't rotate while user is zooming/dragging
+          viewer.scene.camera.rotate(Cesium.Cartesian3.UNIT_Z, IDLE_SPIN_RATE);
+        });
+
+        clearTimeout(timeoutId);
+      } catch (err) {
+        console.error("Cesium init error:", err);
+        clearTimeout(timeoutId);
+        setError(true);
+      }
+    }
+
+    init();
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+      clearTimeout(interactionTimeout);
+      if (viewerRef.current && !viewerRef.current.isDestroyed()) {
+        viewerRef.current.destroy();
+        viewerRef.current = null;
+      }
+    };
+  }, []);
+
+  if (error) {
+    return (
+      <div
+        className={`w-full flex items-center justify-center ${className}`}
+        style={{
+          minHeight: "400px",
+          background: "var(--color-surface-0, #0A1628)",
+        }}
+      >
+        <div className="text-center">
+          <div
+            className="text-sm"
+            style={{ color: "var(--ink-500, #64748B)" }}
+          >
+            Map unavailable
+          </div>
+          <div
+            className="text-xs mt-1"
+            style={{ color: "var(--ink-700, #334155)" }}
+          >
+            Check your connection
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className={`w-full ${className}`}
+      style={{
+        height: "480px",
+        background: "var(--color-surface-0, #0A1628)",
+      }}
+    />
+  );
+}
