@@ -137,20 +137,22 @@ const CATEGORY_ICONS: Record<string, string> = {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function MapLibreMap({
-  center = [-62.78, 17.36],
-  zoom = 10,
-  style = "satellite",
-  layers = [],
-  markers = [],
-  showControls = true,
-  showSearch = false,
-  showLayerPanel = false,
-  height = "520px",
-  className = "",
-  onMarkerClick,
-  onMoveEnd,
-  children,
-}: MapLibreMapProps) {
+  export default function MapLibreMap({
+    center = [-62.78, 17.36],
+    zoom = 10,
+    style = "satellite",
+    layers = [],
+    markers = [],
+    farmPlots = [],
+    showControls = true,
+    showSearch = false,
+    showLayerPanel = false,
+    height = "520px",
+    className = "",
+    onMarkerClick,
+    onMoveEnd,
+    children,
+  }: MapLibreMapProps) {
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const markersRef = useRef<maplibregl.Marker[]>([]);
