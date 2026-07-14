@@ -143,7 +143,7 @@ export default function GeospatialPage() {
         setDrawerOpen(false);
       }
     }
-    function handleEsc(e: KeyboardEvent) {
+    function handleEsc(this: Document, e: globalThis.KeyboardEvent) {
       if (e.key === "Escape") setDrawerOpen(false);
     }
     document.addEventListener("mousedown", handleClickOutside);
