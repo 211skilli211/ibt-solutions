@@ -137,8 +137,7 @@ const CATEGORY_ICONS: Record<string, string> = {
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function MapLibreMap({
-  export default function MapLibreMap({
-    center = [-62.78, 17.36],
+  center = [-62.78, 17.36],
     zoom = 10,
     style = "satellite",
     layers = [],
