@@ -104,7 +104,7 @@ function Building({
 function HarborWater({ size = 50, depth = 0 }: { size?: number; depth?: number }) {
   const meshRef = useRef<THREE.Mesh>(null);
 
-  useFrame((state: THREE.Clock) => {
+  useFrame((state) => {
     if (meshRef.current && "material" in meshRef.current) {
       const mat = meshRef.current.material as THREE.MeshStandardMaterial & {
         opacity: number;
