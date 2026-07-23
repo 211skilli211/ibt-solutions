@@ -3,13 +3,7 @@ import Link from 'next/link';
 import { HeroClient } from './hero-client';
 import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge } from '@/components/ui';
 import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard, SlideReveal, CountUp, ParallaxSection } from '@/components/animations';
-import dynamic from 'next/dynamic';
-
-// Load GlobeMap client-only — Cesium is CDN-only, never SSR
-const GlobeMap = dynamic(() => import('@/components/GlobeMap'), {
-  ssr: false,
-  loading: () => <div className="w-full h-[480px] bg-surface-0 rounded-2xl flex items-center justify-center"><span className="text-ink-500 text-sm">Loading map…</span></div>,
-});
+import { GlobeMap } from './globe-map';
 
 const services = [
   {
