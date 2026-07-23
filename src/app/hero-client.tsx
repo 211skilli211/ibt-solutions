@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Button, Section, SectionHeader, ServiceCard, Stat, GradientText, Badge } from '@/components/ui';
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useInView, useReducedMotion } from 'framer-motion';
 import { ScrollReveal, StaggerContainer, StaggerItem, TiltCard, SlideReveal, CountUp, ParallaxSection } from '@/components/animations';
 import ParticleField from '@/components/shaders/ParticleField';
 import ShaderBackground from '@/components/shaders/ShaderBackground';
@@ -47,6 +47,7 @@ const stats = [
 ];
 
 export function HeroClient() {
+  const reduced = useReducedMotion();
   const [hero, setHero] = useState<HeroData | null>(null);
   const [email, setEmail] = useState('');
   const [formStatus, setFormStatus] = useState('');
@@ -60,6 +61,15 @@ export function HeroClient() {
     setFormStatus('Thanks for your interest! We\'ll be in touch soon.');
     setEmail('');
   };
+
+  // Use hero data from API, with fallbacks
+  const heroTitle = hero?.title || 'Business Solutions for the Caribbean';
+  const heroGradient = hero?.subtitle?.split(' ')[0] || 'Technology & Consulting';
+  const heroSubtitle = hero?.subtitle || 'Professional services, cooperative infrastructure, and modern technology — purpose-built for Caribbean businesses ready to compete globally.';
+  const heroCta1 = hero?.cta_text || 'Explore Services';
+  const heroCta1Link = hero?.cta_link || '/services';
+  const heroCta2 = hero?.cta2_text || 'Join IBT Co-ops';
+  const heroCta2Link = hero?.cta2_link || '/coops';
 
   // Hero background from admin config — no external fallback images
   const assetType = hero?.asset_type || 'image';
@@ -131,85 +141,89 @@ export function HeroClient() {
     <div className="bg-surface-0">
       {/* Background Glow */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[128px]"
-          style={{ backgroundColor: 'var(--ocean-500)', opacity: 0.08 }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' as const }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[128px]"
-          style={{ backgroundColor: 'var(--turquoise-500)', opacity: 0.08 }}
-          animate={{ scale: [1.2, 1, 1.2], opacity: [0.5, 0.8, 0.5] }}
-          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' as const }}
-        />
+        {!reduced && (
+          <>
+            <motion.div
+              className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[128px]"
+              style={{ backgroundColor: 'var(--ocean-500)', opacity: 0.08 }}
+              animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' as const }}
+            />
+            <motion.div
+              className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-[128px]"
+              style={{ backgroundColor: 'var(--turquoise-500)', opacity: 0.08 }}
+              animate={{ scale: [1.2, 1, 1.2], opacity: [0.5, 0.8, 0.5] }}
+              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' as const }}
+            />
+          </>
+        )}
       </div>
 
       <div className="relative">
         {/* Hero with parallax */}
         <section ref={heroRef} className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-          <motion.div className="absolute inset-0 z-0" style={{ y: heroY }}>
+          <motion.div className="absolute inset-0 z-0" style={{ y: reduced ? 0 : heroY }}>
             {renderHeroBackground()}
           </motion.div>
 
           <motion.div
             className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center z-10"
-            style={{ opacity: heroOpacity }}
+            style={{ opacity: reduced ? 1 : heroOpacity }}
           >
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.6 }}>
               <Badge variant="teal" className="mb-6">
                 <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: 'var(--ocean-400)' }} />
                 Caribbean Business Solutions
               </Badge>
             </motion.div>
 
-            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.15 }}
+            <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.15 }}
               className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
               {hero?.title || 'Business Solutions for the Caribbean'}
               <br />
               <GradientText>{hero?.subtitle?.split(' ')[0] || 'Technology & Consulting'}</GradientText>
             </motion.h1>
 
-            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
+            <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.3 }}
               className="text-xl text-ink-400 max-w-2xl mx-auto mb-10">
               {hero?.subtitle || 'Professional services, cooperative infrastructure, and modern technology — purpose-built for Caribbean businesses ready to compete globally.'}
             </motion.p>
 
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.45 }}
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.45 }}
               className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button href={hero?.cta_link || '/services'} size="lg">{hero?.cta_text || 'Explore Services'}</Button>
               <Button href={hero?.cta2_link || '/coops'} variant="outline" size="lg">{hero?.cta2_text || 'Join IBT Co-ops'}</Button>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.6 }}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: reduced ? 0 : 0.6 }}
               className="flex flex-wrap justify-center gap-3">
-              {trustSignals.map((s, i) => (
-                <motion.span
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7 + i * 0.1 }}
-                  className="px-3 py-1 rounded-full text-xs font-medium"
-                  style={{
-                    backgroundColor: 'var(--bg-primary)',
-                    opacity: 0.05,
-                    borderColor: 'var(--bg-primary)',
-                    borderWidth: '1px',
-                    borderStyle: 'solid',
-                    color: 'var(--text-muted)',
-                  }}
-                >
-                  {s}
-                </motion.span>
-              ))}
+            {trustSignals.map((s, i) => (
+              <motion.span
+                key={i}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: reduced ? 0 : 0.7 + i * 0.1 }}
+                className="px-3 py-1 rounded-full text-xs font-medium"
+                style={{
+                  backgroundColor: 'var(--bg-primary)',
+                  opacity: 0.05,
+                  borderColor: 'var(--bg-primary)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  color: 'var(--text-muted)',
+                }}
+              >
+                {s}
+              </motion.span>
+            ))}
             </motion.div>
           </motion.div>
 
           {/* Scroll indicator */}
           <motion.div
             className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' as const }}
+            animate={reduced ? {} : { y: [0, 8, 0] }}
+            transition={reduced ? {} : { duration: 2, repeat: Infinity, ease: 'easeInOut' as const }}
           >
             <div className="w-6 h-10 border-2 border-white/20 rounded-full flex justify-center pt-2">
               <div className="w-1 h-2 bg-white/40 rounded-full" />
@@ -221,7 +235,7 @@ export function HeroClient() {
         <Section className="py-12 border-y border-white/5">
           <div className="max-w-5xl mx-auto grid grid-cols-3 gap-8">
             {stats.map((s, i) => (
-              <CountUp key={i} value={s.value} label={s.label} className="text-center" />
+              <CountUp key={i} value={s.value} label={s.label} className="text-center" disableAnimation={reduced} />
             ))}
           </div>
         </Section>
