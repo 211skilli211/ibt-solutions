@@ -200,7 +200,7 @@ export function HeroClient() {
                 >
                   {s}
                 </motion.span>
-              )))}
+              ))}
             </motion.div>
           </motion.div>
 
