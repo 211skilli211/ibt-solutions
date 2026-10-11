@@ -186,17 +186,40 @@ export function SlideReveal({ children, direction = 'left', className = '' }: { 
   );
 }
 
-// New: Count-up number animation wrapper
-export function CountUp({ value, label, className = '' }: { value: string; label: string; className?: string }) {
+/**
+ * Count-up number animation wrapper.
+ *
+ * `disableAnimation` is honoured rather than ignored. `hero-client.tsx` passes
+ * `disableAnimation={reduced}` from `useReducedMotion()`, and every other animated
+ * element on that page already short-circuits on the same flag — so a component
+ * that accepted the prop and animated anyway would be the one place that ignored a
+ * stated accessibility preference. It was previously not declared in the props
+ * type at all, which failed the build on `Property 'disableAnimation' does not
+ * exist`.
+ *
+ * When disabled the final state is rendered immediately: the content is identical,
+ * only the entrance is skipped.
+ */
+export function CountUp({
+  value,
+  label,
+  className = '',
+  disableAnimation = false,
+}: {
+  value: string;
+  label: string;
+  className?: string;
+  disableAnimation?: boolean;
+}) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
+      initial={disableAnimation ? false : { opacity: 0, y: 20 }}
+      animate={disableAnimation || isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: disableAnimation ? 0 : 0.5 }}
       className={className}
     >
       <div className="text-3xl font-extrabold text-teal-400">{value}</div>

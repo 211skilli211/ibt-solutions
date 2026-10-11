@@ -231,11 +231,18 @@ export function HeroClient() {
           </motion.div>
         </section>
 
-        {/* Stats with count-up animation */}
+        {/*
+          Stats with count-up animation.
+
+          `disableAnimation={reduced ?? false}`: `useReducedMotion()` returns
+          `boolean | null` — null when no preference has been resolved — while the
+          prop is `boolean`. Treating an unresolved preference as "animate" matches
+          the rest of this page, which tests the flag for truthiness.
+        */}
         <Section className="py-12 border-y border-white/5">
           <div className="max-w-5xl mx-auto grid grid-cols-3 gap-8">
             {stats.map((s, i) => (
-              <CountUp key={i} value={s.value} label={s.label} className="text-center" disableAnimation={reduced} />
+              <CountUp key={i} value={s.value} label={s.label} className="text-center" disableAnimation={reduced ?? false} />
             ))}
           </div>
         </Section>
